@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="title_abbreviations">常用缩写 - 校园新生指南</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<style>
+        .abbr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+        .abbr-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: transform .2s, box-shadow .2s;
+            border-left: 4px solid #667eea;
+        }
+        .abbr-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.15);
+        }
+        .abbr-card .abbr-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+        .abbr-card .abbr-key {
+            font-size: 17px;
+            font-weight: 700;
+            color: #667eea;
+            font-family: 'Segoe UI', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .abbr-card .abbr-full {
+            font-size: 11.5px;
+            color: #999;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+        .abbr-card .abbr-zh {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .abbr-card .abbr-note {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.5;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+        .phrase-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: transform .2s, box-shadow .2s;
+            border-left: 4px solid #764ba2;
+        }
+        .phrase-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(118,75,162,0.15);
+        }
+        .phrase-card .phrase-key {
+            font-size: 16px;
+            font-weight: 700;
+            color: #764ba2;
+            margin-bottom: 3px;
+        }
+        .phrase-card .phrase-zh {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .phrase-card .phrase-note {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.5;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
+        .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; }
+        .search-input {
+            width: 100%; padding: 12px 44px 12px 18px;
+            border: 2px solid #e0e0e0; border-radius: 24px;
+            font-size: 15px; outline: none; transition: border-color .2s;
+            background: #fff;
+        }
+        .search-input:focus { border-color: #667eea; }
+        .search-clear {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; font-size: 18px; color: #aaa;
+            cursor: pointer; display: none; padding: 4px 8px;
+        }
+        .search-clear.show { display: block; }
+        .search-dropdown {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            margin-top: 6px; max-height: 400px; overflow-y: auto; z-index: 100;
+            display: none;
+        }
+        .search-dropdown.show { display: block; }
+        .search-item {
+            padding: 12px 18px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px;
+            border-bottom: 1px solid #f0f0f0; transition: background .15s;
+        }
+        .search-item:last-child { border-bottom: none; }
+        .search-item:hover, .search-item.active { background: #f0f4ff; }
+        .search-item-icon { font-size: 18px; flex-shrink: 0; font-weight: 700; color: #667eea; min-width: 40px; }
+        .search-item-body { flex: 1; min-width: 0; }
+        .search-item-title { font-size: 14px; font-weight: 600; color: #222; }
+        .search-item-desc { font-size: 12px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-highlight { color: #667eea; font-weight: 700; }
+        .search-no-result { padding: 20px; text-align: center; color: #999; font-size: 14px; }
+        .abbr-card.search-match, .phrase-card.search-match { animation: searchPop .3s ease; box-shadow: 0 0 0 3px rgba(102,126,234,.3); }
+        @keyframes searchPop { 0%{transform:scale(.97);opacity:.5} 100%{transform:scale(1);opacity:1} }
+    </style>
+<script src="../js/i18n.js"></script>
+</head>
+<body>
+<div class="page-container">
+<div class="page-header">
+<button class="back-btn" data-i18n="back_home" onclick="goBack()">&larr; 返回首页</button>
+<h2 data-i18n="abbr_title">📚 常用缩写</h2>
+<p data-i18n="abbr_subtitle">校园常用英文缩写、单词和短语速查</p>
+</div>
+<div style="padding: 0 24px 0;">
+<div class="search-wrapper" id="searchWrapper">
+<input autocomplete="off" class="search-input" data-i18n="search_placeholder_abbr" id="searchInput" placeholder="搜索缩写、全称或中文释义..." type="text"/>
+<button class="search-clear" id="searchClear">✕</button>
+<div class="search-dropdown" id="searchDropdown"></div>
+</div>
+</div>
+<div class="page-content">
+<div class="section-title" data-i18n="abbr_section_abbreviations">🔤 英文缩写</div>
+<div class="abbr-grid">
+<div class="abbr-card" data-search-id="1">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_001">AA</span>
+<span class="abbr-full" data-i18n="abbr_001_full">Academic Advisor</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_001_zh">学术导师</div>
+</div>
+<div class="abbr-card" data-search-id="2">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_002">ABE</span>
+<span class="abbr-full" data-i18n="abbr_002_full">Administration Building East</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_002_zh">行政楼东翼</div>
+</div>
+<div class="abbr-card" data-search-id="3">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_003">ABW</span>
+<span class="abbr-full" data-i18n="abbr_003_full">Administration Building West</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_003_zh">行政楼西翼</div>
+</div>
+<div class="abbr-card" data-search-id="4">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_004">ACT</span>
+<span class="abbr-full" data-i18n="abbr_004_full">Accounting</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_004_zh">会计学</div>
+</div>
+<div class="abbr-card" data-search-id="5">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_005">AED</span>
+<span class="abbr-full" data-i18n="abbr_005_full">Automated External Defibrillator</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_005_zh">自动体外除颤仪</div>
+<div class="abbr-note" data-i18n="abbr_005_note">用于抢救心脏骤停病人的便携式急救设备</div>
+</div>
+<div class="abbr-card" data-search-id="6">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_006">AO</span>
+<span class="abbr-full" data-i18n="abbr_006_full">Admission Office</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_006_zh">招生办公室</div>
+</div>
+<div class="abbr-card" data-search-id="7">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_007">APA</span>
+<span class="abbr-full" data-i18n="abbr_007_full">American Psychological Association</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_007_zh">英文学术引用格式</div>
+</div>
+<div class="abbr-card" data-search-id="8">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_008">ASO</span>
+<span class="abbr-full" data-i18n="abbr_008_full">Administrative Services Office</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_008_zh">行政事务处</div>
+</div>
+<div class="abbr-card" data-search-id="9">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_009">AVP</span>
+<span class="abbr-full" data-i18n="abbr_009_full">Associate Vice President</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_009_zh">协理副校长</div>
+</div>
+<div class="abbr-card" data-search-id="10">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_010">AY</span>
+<span class="abbr-full" data-i18n="abbr_010_full">Academic Year</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_010_zh">学年</div>
+</div>
+<div class="abbr-card" data-search-id="11">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_011">BB</span>
+<span class="abbr-full" data-i18n="abbr_011_full">BlackBoard</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_011_zh">线上学习平台</div>
+</div>
+<div class="abbr-card" data-search-id="12">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_012">BIM</span>
+<span class="abbr-full" data-i18n="abbr_012_full">Bioinformatics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_012_zh">生物信息学</div>
+</div>
+<div class="abbr-card" data-search-id="13">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_013">BIO</span>
+<span class="abbr-full" data-i18n="abbr_013_full">Biology</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_013_zh">生物学</div>
+</div>
+<div class="abbr-card" data-search-id="14">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_014">Bldg</span>
+<span class="abbr-full" data-i18n="abbr_014_full">Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_014_zh">楼</div>
+</div>
+<div class="abbr-card" data-search-id="15">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_015">BME</span>
+<span class="abbr-full" data-i18n="abbr_015_full">Biomedical Science and Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_015_zh">生物医学工程</div>
+</div>
+<div class="abbr-card" data-search-id="16">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_016">CBS</span>
+<span class="abbr-full" data-i18n="abbr_016_full">Copenhagen Business School</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_016_zh">哥本哈根商学院</div>
+<div class="abbr-note" data-i18n="abbr_016_note">与我校有合作项目</div>
+</div>
+<div class="abbr-card" data-search-id="17">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_017">CCP</span>
+<span class="abbr-full" data-i18n="abbr_017_full">Coco Park</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_017_zh">校园周边的商场</div>
+</div>
+<div class="abbr-card" data-search-id="18">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_018">CD</span>
+<span class="abbr-full" data-i18n="abbr_018_full">Chengdao Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_018_zh">诚道楼</div>
+</div>
+<div class="abbr-card" data-search-id="19">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_019">CE</span>
+<span class="abbr-full" data-i18n="abbr_019_full">Civic Education</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_019_zh">国情教育</div>
+<div class="abbr-note" data-i18n="abbr_019_note">政治课</div>
+</div>
+<div class="abbr-card" data-search-id="20">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_020">CE</span>
+<span class="abbr-full" data-i18n="abbr_020_full">Computer Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_020_zh">计算机工程专业</div>
+</div>
+<div class="abbr-card" data-search-id="21">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_021">CEC</span>
+<span class="abbr-full" data-i18n="abbr_021_full">Civic Education</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_021_zh">国情教育</div>
+<div class="abbr-note" data-i18n="abbr_021_note">政治课</div>
+</div>
+<div class="abbr-card" data-search-id="22">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_022">CGPA</span>
+<span class="abbr-full" data-i18n="abbr_022_full">Cumulative GPA</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_022_zh">累计平均绩点</div>
+</div>
+<div class="abbr-card" data-search-id="23">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_023">CHEM</span>
+<span class="abbr-full" data-i18n="abbr_023_full">Chemistry</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_023_zh">化学专业</div>
+</div>
+<div class="abbr-card" data-search-id="24">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_024">CHI</span>
+<span class="abbr-full" data-i18n="abbr_024_full">Chinese</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_024_zh">中文课</div>
+</div>
+<div class="abbr-card" data-search-id="25">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_025">CHM</span>
+<span class="abbr-full" data-i18n="abbr_025_full">Chemistry</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_025_zh">化学课</div>
+</div>
+<div class="abbr-card" data-search-id="26">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_026">CIDE</span>
+<span class="abbr-full" data-i18n="abbr_026_full">Center for Innovation Design and Entrepreneurship</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_026_zh">创新创意创业中心</div>
+</div>
+<div class="abbr-card" data-search-id="27">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_027">CLC</span>
+<span class="abbr-full" data-i18n="abbr_027_full">Chinese Language and Culture</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_027_zh">外籍学生中文课程</div>
+</div>
+<div class="abbr-card" data-search-id="28">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_028">CP</span>
+<span class="abbr-full" data-i18n="abbr_028_full">Cheating Paper</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_028_zh">可以带进考场的记录知识点的纸</div>
+</div>
+<div class="abbr-card" data-search-id="29">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_029">CPDO</span>
+<span class="abbr-full" data-i18n="abbr_029_full">Career Planning and Development Office</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_029_zh">职业规划与发展处</div>
+</div>
+<div class="abbr-card" data-search-id="30">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_030">CPRO</span>
+<span class="abbr-full" data-i18n="abbr_030_full">Communications and Public Relations Office</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_030_zh">传讯及公共关系处</div>
+</div>
+<div class="abbr-card" data-search-id="31">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_031">CS</span>
+<span class="abbr-full" data-i18n="abbr_031_full">Computer Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_031_zh">计算机科学与技术专业</div>
+</div>
+<div class="abbr-card" data-search-id="32">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_032">CSC</span>
+<span class="abbr-full" data-i18n="abbr_032_full">Computer Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_032_zh">计算机课程</div>
+</div>
+<div class="abbr-card" data-search-id="33">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_033">CSE</span>
+<span class="abbr-full" data-i18n="abbr_033_full">Computer Science and Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_033_zh">计算机科学与技术专业</div>
+</div>
+<div class="abbr-card" data-search-id="34">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_034">CUHK</span>
+<span class="abbr-full" data-i18n="abbr_034_full">The Chinese University of Hong Kong</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_034_zh">香港中文大学</div>
+</div>
+<div class="abbr-card" data-search-id="35">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_035">CUHKSZ</span>
+<span class="abbr-full" data-i18n="abbr_035_full">The Chinese University of Hong Kong, Shenzhen</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_035_zh">香港中文大学（深圳）</div>
+</div>
+<div class="abbr-card" data-search-id="36">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_036">DDA</span>
+<span class="abbr-full" data-i18n="abbr_036_full">Data and Decision Analytics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_036_zh">数据与决策分析课程</div>
+</div>
+<div class="abbr-card" data-search-id="37">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_037">DDL</span>
+<span class="abbr-full" data-i18n="abbr_037_full">Deadline</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_037_zh">截止日期</div>
+</div>
+<div class="abbr-card" data-search-id="38">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_038">DILIGENTIA</span>
+<span class="abbr-full" data-i18n="abbr_038_full">Diligentia College</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_038_zh">学勤书院</div>
+</div>
+<div class="abbr-card" data-search-id="39">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_039">DMS</span>
+<span class="abbr-full" data-i18n="abbr_039_full">Decision and Management Sciences</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_039_zh">决策与管理科学课程</div>
+</div>
+<div class="abbr-card" data-search-id="40">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_040">DPF</span>
+<span class="abbr-full" data-i18n="abbr_040_full">Distinction/Pass/Failure</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_040_zh">一些只记作及格或不及格的课程的考评方式，不计入GPA D：优秀，及格；P：及格；F：不及格</div>
+</div>
+<div class="abbr-card" data-search-id="41">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_041">Dr.</span>
+<span class="abbr-full" data-i18n="abbr_041_full">Doctor</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_041_zh">博士</div>
+</div>
+<div class="abbr-card" data-search-id="42">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_042">DS</span>
+<span class="abbr-full" data-i18n="abbr_042_full">Data Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_042_zh">数据科学与大数据技术专业</div>
+</div>
+<div class="abbr-card" data-search-id="43">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_043">DSBDT</span>
+<span class="abbr-full" data-i18n="abbr_043_full">Data Science and Big Data Technology</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_043_zh">数据科学与大数据技术专业</div>
+</div>
+<div class="abbr-card" data-search-id="44">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_044">EBP</span>
+<span class="abbr-full" data-i18n="abbr_044_full">English Bridge Program</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_044_zh">基础英语</div>
+<div class="abbr-note" data-i18n="abbr_044_note">大一上学期英语课</div>
+</div>
+<div class="abbr-card" data-search-id="45">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_045">ECE</span>
+<span class="abbr-full" data-i18n="abbr_045_full">Electrical and Computer Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_045_zh">电子与计算机工程专业</div>
+</div>
+<div class="abbr-card" data-search-id="46">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_046">ECO</span>
+<span class="abbr-full" data-i18n="abbr_046_full">Economics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_046_zh">经济学课程</div>
+</div>
+<div class="abbr-card" data-search-id="47">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_047">ECO</span>
+<span class="abbr-full" data-i18n="abbr_047_full">Economics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_047_zh">经济学专业</div>
+</div>
+<div class="abbr-card" data-search-id="48">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_048">EE</span>
+<span class="abbr-full" data-i18n="abbr_048_full">Electronic Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_048_zh">电子工程专业</div>
+</div>
+<div class="abbr-card" data-search-id="49">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_049">EIE</span>
+<span class="abbr-full" data-i18n="abbr_049_full">Electronic Information Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_049_zh">电子信息工程课程</div>
+</div>
+<div class="abbr-card" data-search-id="50">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_050">EIE</span>
+<span class="abbr-full" data-i18n="abbr_050_full">Electronic Information Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_050_zh">电子信息工程专业</div>
+</div>
+<div class="abbr-card" data-search-id="51">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_051">ENG</span>
+<span class="abbr-full" data-i18n="abbr_051_full">English</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_051_zh">英语课</div>
+</div>
+<div class="abbr-card" data-search-id="52">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_052">ENL</span>
+<span class="abbr-full" data-i18n="abbr_052_full">English for Language Students</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_052_zh">英语专业的英语课</div>
+</div>
+<div class="abbr-card" data-search-id="53">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_053">EPC</span>
+<span class="abbr-full" data-i18n="abbr_053_full">English Pre-sessional Course</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_053_zh">暑期英文先修班</div>
+</div>
+<div class="abbr-card" data-search-id="54">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_054">ERG</span>
+<span class="abbr-full" data-i18n="abbr_054_full">General Engineering courses</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_054_zh">理工学院的介绍类课程</div>
+</div>
+<div class="abbr-card" data-search-id="55">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_055">FE</span>
+<span class="abbr-full" data-i18n="abbr_055_full">Financial Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_055_zh">金融工程专业</div>
+</div>
+<div class="abbr-card" data-search-id="56">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_056">FIN</span>
+<span class="abbr-full" data-i18n="abbr_056_full">Finance</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_056_zh">金融学课程</div>
+</div>
+<div class="abbr-card" data-search-id="57">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_057">FIN</span>
+<span class="abbr-full" data-i18n="abbr_057_full">Finance</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_057_zh">金融学专业</div>
+</div>
+<div class="abbr-card" data-search-id="58">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_058">FMA</span>
+<span class="abbr-full" data-i18n="abbr_058_full">Financial Mathematics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_058_zh">金融数学课程</div>
+</div>
+<div class="abbr-card" data-search-id="59">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_059">Free</span>
+<span class="abbr-full" data-i18n="abbr_059_full">Free Elective</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_059_zh">自由选修</div>
+<div class="abbr-note" data-i18n="abbr_059_note">大学课程120学分的组成部分</div>
+</div>
+<div class="abbr-card" data-search-id="60">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_060">FRN</span>
+<span class="abbr-full" data-i18n="abbr_060_full">France</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_060_zh">法语课</div>
+</div>
+<div class="abbr-card" data-search-id="61">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_061">FTE</span>
+<span class="abbr-full" data-i18n="abbr_061_full">Fintech</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_061_zh">金融科技</div>
+<div class="abbr-note" data-i18n="abbr_061_note">金融工程专业的专修方向之一</div>
+</div>
+<div class="abbr-card" data-search-id="62">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_062">FTE</span>
+<span class="abbr-full" data-i18n="abbr_062_full">Fintech</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_062_zh">金融科技课程</div>
+</div>
+<div class="abbr-card" data-search-id="63">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_063">GBE</span>
+<span class="abbr-full" data-i18n="abbr_063_full">Global Business Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_063_zh">国际商务经济学</div>
+<div class="abbr-note" data-i18n="abbr_063_note">合作项目</div>
+</div>
+<div class="abbr-card" data-search-id="64">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_064">GE</span>
+<span class="abbr-full" data-i18n="abbr_064_full">General Education</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_064_zh">通识课</div>
+</div>
+<div class="abbr-card" data-search-id="65">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_065">GEA</span>
+<span class="abbr-full" data-i18n="abbr_065_full">GE Areas: Area A</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_065_zh">通识选修范围A：中华文化传承</div>
+</div>
+<div class="abbr-card" data-search-id="66">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_066">GEB</span>
+<span class="abbr-full" data-i18n="abbr_066_full">GE Areas: Area B</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_066_zh">通识选修范围B：自然、科学与科技</div>
+</div>
+<div class="abbr-card" data-search-id="67">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_067">GEC</span>
+<span class="abbr-full" data-i18n="abbr_067_full">GE Areas: Area C</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_067_zh">通识选修范围C：社会与文化</div>
+</div>
+<div class="abbr-card" data-search-id="68">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_068">GED</span>
+<span class="abbr-full" data-i18n="abbr_068_full">GE Areas: Area D</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_068_zh">通识选修范围D：自我与人文</div>
+</div>
+<div class="abbr-card" data-search-id="69">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_069">GER</span>
+<span class="abbr-full" data-i18n="abbr_069_full">German</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_069_zh">德语课</div>
+</div>
+<div class="abbr-card" data-search-id="70">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_070">GFH</span>
+<span class="abbr-full" data-i18n="abbr_070_full">GE Foundation: Humanity</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_070_zh">与人文对话</div>
+<div class="abbr-note" data-i18n="abbr_070_note">通识基础课</div>
+</div>
+<div class="abbr-card" data-search-id="71">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_071">GFN</span>
+<span class="abbr-full" data-i18n="abbr_071_full">GE Foundation: Nature</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_071_zh">与自然对话</div>
+<div class="abbr-note" data-i18n="abbr_071_note">通识基础课</div>
+</div>
+<div class="abbr-card" data-search-id="72">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_072">GMAT</span>
+<span class="abbr-full" data-i18n="abbr_072_full">Graduate Management Admission Test</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_072_zh">经企管理研究生入学考试</div>
+<div class="abbr-note" data-i18n="abbr_072_note">商业、经济、管理方向的升学标化考试</div>
+</div>
+<div class="abbr-card" data-search-id="73">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_073">GPA</span>
+<span class="abbr-full" data-i18n="abbr_073_full">Grade Point Average</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_073_zh">平均绩点</div>
+</div>
+<div class="abbr-card" data-search-id="74">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_074">GRE</span>
+<span class="abbr-full" data-i18n="abbr_074_full">Graduate Record Examination</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_074_zh">留学研究生入学考试</div>
+<div class="abbr-note" data-i18n="abbr_074_note">升学标化考试之一，有效期5年</div>
+</div>
+<div class="abbr-card" data-search-id="75">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_075">GSCLM</span>
+<span class="abbr-full" data-i18n="abbr_075_full">Global Supply Chain and Logistics Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_075_zh">环球供应链与物流管理专业</div>
+<div class="abbr-note" data-i18n="abbr_075_note">合作项目</div>
+</div>
+<div class="abbr-card" data-search-id="76">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_076">HARMONIA</span>
+<span class="abbr-full" data-i18n="abbr_076_full">Harmonia College</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_076_zh">祥波书院</div>
+</div>
+<div class="abbr-card" data-search-id="77">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_077">HSS</span>
+<span class="abbr-full" data-i18n="abbr_077_full">School of Humanity and Social Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_077_zh">人文社科学院</div>
+</div>
+<div class="abbr-card" data-search-id="78">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_078">ITSO</span>
+<span class="abbr-full" data-i18n="abbr_078_full">Information Technology Services Office</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_078_zh">资讯科技服务处</div>
+</div>
+<div class="abbr-card" data-search-id="79">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_079">LEC</span>
+<span class="abbr-full" data-i18n="abbr_079_full">Lecture</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_079_zh">正课</div>
+</div>
+<div class="abbr-card" data-search-id="80">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_080">LGU</span>
+<span class="abbr-full" data-i18n="abbr_080_full">Longgang University</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_080_zh">龙岗大学</div>
+<div class="abbr-note" data-i18n="abbr_080_note">学生之间的别称</div>
+</div>
+<div class="abbr-card" data-search-id="81">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_081">LHS</span>
+<span class="abbr-full" data-i18n="abbr_081_full">School of Life and Health Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_081_zh">生命健康科学学院</div>
+</div>
+<div class="abbr-card" data-search-id="82">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_082">LING</span>
+<span class="abbr-full" data-i18n="abbr_082_full">Ling College</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_082_zh">道扬书院</div>
+</div>
+<div class="abbr-card" data-search-id="83">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_083">LT</span>
+<span class="abbr-full" data-i18n="abbr_083_full">Letian Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_083_zh">乐天楼</div>
+</div>
+<div class="abbr-card" data-search-id="84">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_084">MAT</span>
+<span class="abbr-full" data-i18n="abbr_084_full">Mathematics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_084_zh">数学</div>
+</div>
+<div class="abbr-card" data-search-id="85">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_085">MED</span>
+<span class="abbr-full" data-i18n="abbr_085_full">School of Medicine</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_085_zh">医学院</div>
+</div>
+<div class="abbr-card" data-search-id="86">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_086">MGPA</span>
+<span class="abbr-full" data-i18n="abbr_086_full">Major GPA</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_086_zh">主修课程平均绩点</div>
+</div>
+<div class="abbr-card" data-search-id="87">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_087">MGT</span>
+<span class="abbr-full" data-i18n="abbr_087_full">Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_087_zh">管理学</div>
+</div>
+<div class="abbr-card" data-search-id="88">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_088">Mid</span>
+<span class="abbr-full" data-i18n="abbr_088_full">Midterm Exam</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_088_zh">期中考试</div>
+</div>
+<div class="abbr-card" data-search-id="89">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_089">MINERVA</span>
+<span class="abbr-full" data-i18n="abbr_089_full">Minerva College</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_089_zh">厚含书院</div>
+</div>
+<div class="abbr-card" data-search-id="90">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_090">MKT</span>
+<span class="abbr-full" data-i18n="abbr_090_full">Marketing</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_090_zh">市场营销课程</div>
+</div>
+<div class="abbr-card" data-search-id="91">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_091">MKT</span>
+<span class="abbr-full" data-i18n="abbr_091_full">Marketing</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_091_zh">市场营销专业</div>
+</div>
+<div class="abbr-card" data-search-id="92">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_092">MS</span>
+<span class="abbr-full" data-i18n="abbr_092_full">Microsoft</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_092_zh">办公软件</div>
+</div>
+<div class="abbr-card" data-search-id="93">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_093">MU</span>
+<span class="abbr-full" data-i18n="abbr_093_full">Music Union</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_093_zh">聚乐部</div>
+<div class="abbr-note" data-i18n="abbr_093_note">社团</div>
+</div>
+<div class="abbr-card" data-search-id="94">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_094">MUS</span>
+<span class="abbr-full" data-i18n="abbr_094_full">Music</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_094_zh">音乐课</div>
+</div>
+<div class="abbr-card" data-search-id="95">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_095">MUS</span>
+<span class="abbr-full" data-i18n="abbr_095_full">School of Music</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_095_zh">音乐学院</div>
+</div>
+<div class="abbr-card" data-search-id="96">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_096">MUSE</span>
+<span class="abbr-full" data-i18n="abbr_096_full">Muse College</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_096_zh">思廷书院</div>
+</div>
+<div class="abbr-card" data-search-id="97">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_097">OAL</span>
+<span class="abbr-full" data-i18n="abbr_097_full">Office of Academic Links</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_097_zh">学术交流处</div>
+</div>
+<div class="abbr-card" data-search-id="98">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_098">OCTE</span>
+<span class="abbr-full" data-i18n="abbr_098_full">The Online Course and Teaching Evaluation</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_098_zh">课程评教</div>
+</div>
+<div class="abbr-card" data-search-id="99">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_099">OSA</span>
+<span class="abbr-full" data-i18n="abbr_099_full">Office of Student Affairs</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_099_zh">学生事务处</div>
+</div>
+<div class="abbr-card" data-search-id="100">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_100">P/U</span>
+<span class="abbr-full" data-i18n="abbr_100_full">Pass/Failure</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_100_zh">一些只记作及格或不及格的课程的考评方式，不计入GPA P：及格；F：不及格</div>
+</div>
+<div class="abbr-card" data-search-id="101">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_101">PED</span>
+<span class="abbr-full" data-i18n="abbr_101_full">Physical Education</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_101_zh">体育课</div>
+</div>
+<div class="abbr-card" data-search-id="102">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_102">PEU</span>
+<span class="abbr-full" data-i18n="abbr_102_full">Physical Education Unit</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_102_zh">体育部</div>
+</div>
+<div class="abbr-card" data-search-id="103">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_103">PF</span>
+<span class="abbr-full" data-i18n="abbr_103_full">Pass/Failure</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_103_zh">一些只记作及格或不及格的课程的考评方式，不计入GPA P：及格；F：不及格</div>
+</div>
+<div class="abbr-card" data-search-id="104">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_104">PhD</span>
+<span class="abbr-full" data-i18n="abbr_104_full">Philosophy Doctor</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_104_zh">博士</div>
+</div>
+<div class="abbr-card" data-search-id="105">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_105">PHI</span>
+<span class="abbr-full" data-i18n="abbr_105_full">Philosophy</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_105_zh">哲学课程</div>
+</div>
+<div class="abbr-card" data-search-id="106">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_106">PHY</span>
+<span class="abbr-full" data-i18n="abbr_106_full">Physics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_106_zh">物理课程</div>
+</div>
+<div class="abbr-card" data-search-id="107">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_107">PO</span>
+<span class="abbr-full" data-i18n="abbr_107_full">President's Office</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_107_zh">校长办公室</div>
+</div>
+<div class="abbr-card" data-search-id="108">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_108">Pre</span>
+<span class="abbr-full" data-i18n="abbr_108_full">Presentation</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_108_zh">公开演讲</div>
+<div class="abbr-note" data-i18n="abbr_108_note">文科课程的考核形式</div>
+</div>
+<div class="abbr-card" data-search-id="109">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_109">Prof.</span>
+<span class="abbr-full" data-i18n="abbr_109_full">Professor</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_109_zh">教授</div>
+</div>
+<div class="abbr-card" data-search-id="110">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_110">PSY</span>
+<span class="abbr-full" data-i18n="abbr_110_full">Psycology</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_110_zh">心理学专业</div>
+</div>
+<div class="abbr-card" data-search-id="111">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_111">RA</span>
+<span class="abbr-full" data-i18n="abbr_111_full">Research A Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_111_zh">实验楼A</div>
+</div>
+<div class="abbr-card" data-search-id="112">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_112">RA</span>
+<span class="abbr-full" data-i18n="abbr_112_full">Researching Assistant</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_112_zh">研究助理</div>
+</div>
+<div class="abbr-card" data-search-id="113">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_113">RB</span>
+<span class="abbr-full" data-i18n="abbr_113_full">Research B Building (H. L. Tu Building)</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_113_zh">实验楼B（涂辉龙楼）</div>
+</div>
+<div class="abbr-card" data-search-id="114">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_114">RJ</span>
+<span class="abbr-full" data-i18n="abbr_114_full">Reflective Journal</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_114_zh">反思日志</div>
+<div class="abbr-note" data-i18n="abbr_114_note">通识课的小论文作业</div>
+</div>
+<div class="abbr-card" data-search-id="115">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_115">RMS</span>
+<span class="abbr-full" data-i18n="abbr_115_full">Risk Management Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_115_zh">风险管理科学课程</div>
+</div>
+<div class="abbr-card" data-search-id="116">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_116">SALL</span>
+<span class="abbr-full" data-i18n="abbr_116_full">Self-Access Language Learning</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_116_zh">语言自学中心</div>
+</div>
+<div class="abbr-card" data-search-id="117">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_117">SCRSA</span>
+<span class="abbr-full" data-i18n="abbr_117_full">Shaw College Resident Student Association</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_117_zh">逸夫宿生会</div>
+</div>
+<div class="abbr-card" data-search-id="118">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_118">SDF</span>
+<span class="abbr-full" data-i18n="abbr_118_full">Self-Development Facilitator</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_118_zh">自我发展促进者</div>
+</div>
+<div class="abbr-card" data-search-id="119">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_119">SDS</span>
+<span class="abbr-full" data-i18n="abbr_119_full">School of Data Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_119_zh">数据科学学院</div>
+</div>
+<div class="abbr-card" data-search-id="120">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_120">SHAW</span>
+<span class="abbr-full" data-i18n="abbr_120_full">Shaw College</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_120_zh">逸夫书院</div>
+</div>
+<div class="abbr-card" data-search-id="121">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_121">SHCC</span>
+<span class="abbr-full" data-i18n="abbr_121_full">Student Health and Counselling Centre</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_121_zh">学生健康辅导中心</div>
+</div>
+<div class="abbr-card" data-search-id="122">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_122">SIS</span>
+<span class="abbr-full" data-i18n="abbr_122_full">Student Information System</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_122_zh">学生信息系统</div>
+</div>
+<div class="abbr-card" data-search-id="123">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_123">SMBU</span>
+<span class="abbr-full" data-i18n="abbr_123_full">Shenzhen MSU-BIT University</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_123_zh">深圳北理莫斯科大学</div>
+<div class="abbr-note" data-i18n="abbr_123_note">位于我校对面</div>
+</div>
+<div class="abbr-card" data-search-id="124">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_124">SME</span>
+<span class="abbr-full" data-i18n="abbr_124_full">School of Management and Economics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_124_zh">经管学院</div>
+</div>
+<div class="abbr-card" data-search-id="125">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_125">SR</span>
+<span class="abbr-full" data-i18n="abbr_125_full">Staff Residence</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_125_zh">教职工宿舍</div>
+</div>
+<div class="abbr-card" data-search-id="126">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_126">SS</span>
+<span class="abbr-full" data-i18n="abbr_126_full">Summer Session</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_126_zh">暑课</div>
+</div>
+<div class="abbr-card" data-search-id="127">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_127">SSE</span>
+<span class="abbr-full" data-i18n="abbr_127_full">School of Science and Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_127_zh">理工学院</div>
+</div>
+<div class="abbr-card" data-search-id="128">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_128">STA</span>
+<span class="abbr-full" data-i18n="abbr_128_full">Statistics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_128_zh">统计学课程</div>
+</div>
+<div class="abbr-card" data-search-id="129">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_129">STAT</span>
+<span class="abbr-full" data-i18n="abbr_129_full">Statistics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_129_zh">统计学专业</div>
+</div>
+<div class="abbr-card" data-search-id="130">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_130">SU</span>
+<span class="abbr-full" data-i18n="abbr_130_full">Student Union</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_130_zh">学生会</div>
+</div>
+<div class="abbr-card" data-search-id="131">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_131">TA</span>
+<span class="abbr-full" data-i18n="abbr_131_full">Teaching A Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_131_zh">教学楼A</div>
+</div>
+<div class="abbr-card" data-search-id="132">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_132">TA</span>
+<span class="abbr-full" data-i18n="abbr_132_full">Teaching Assistant</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_132_zh">助教</div>
+</div>
+<div class="abbr-card" data-search-id="133">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_133">TB</span>
+<span class="abbr-full" data-i18n="abbr_133_full">Teaching B Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_133_zh">教学楼B</div>
+</div>
+<div class="abbr-card" data-search-id="134">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_134">TC</span>
+<span class="abbr-full" data-i18n="abbr_134_full">Teaching C Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_134_zh">教学楼C</div>
+</div>
+<div class="abbr-card" data-search-id="135">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_135">TD</span>
+<span class="abbr-full" data-i18n="abbr_135_full">Teaching D Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_135_zh">教学楼D</div>
+</div>
+<div class="abbr-card" data-search-id="136">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_136">TP</span>
+<span class="abbr-full" data-i18n="abbr_136_full">Term Paper</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_136_zh">学期论文</div>
+<div class="abbr-note" data-i18n="abbr_136_note">通识课的大论文作业</div>
+</div>
+<div class="abbr-card" data-search-id="137">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_137">TRA</span>
+<span class="abbr-full" data-i18n="abbr_137_full">Traslation</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_137_zh">翻译课</div>
+</div>
+<div class="abbr-card" data-search-id="138">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_138">tut</span>
+<span class="abbr-full" data-i18n="abbr_138_full">Tutorial</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_138_zh">导修课</div>
+<div class="abbr-note" data-i18n="abbr_138_note">Pre、讨论</div>
+</div>
+<div class="abbr-card" data-search-id="139">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_139">tut</span>
+<span class="abbr-full" data-i18n="abbr_139_full">Tutorial</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_139_zh">习题课</div>
+<div class="abbr-note" data-i18n="abbr_139_note">讲题、做题</div>
+</div>
+<div class="abbr-card" data-search-id="140">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_140">UAC</span>
+<span class="abbr-full" data-i18n="abbr_140_full">University Art Center</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_140_zh">大学艺术中心</div>
+</div>
+<div class="abbr-card" data-search-id="141">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_141">UL</span>
+<span class="abbr-full" data-i18n="abbr_141_full">University Library</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_141_zh">大学图书馆</div>
+</div>
+<div class="abbr-card" data-search-id="142">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_142">USTF</span>
+<span class="abbr-full" data-i18n="abbr_142_full">Undergraduate Students Teaching Fellow</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_142_zh">本科生助教</div>
+</div>
+<div class="abbr-card" data-search-id="143">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_143">wl</span>
+<span class="abbr-full" data-i18n="abbr_143_full">Workload</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_143_zh">课业负担</div>
+</div>
+<div class="abbr-card" data-search-id="144">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_144">ZR</span>
+<span class="abbr-full" data-i18n="abbr_144_full">Zhiren Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_144_zh">志仁楼</div>
+</div>
+<div class="abbr-card" data-search-id="145">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_145">ZX</span>
+<span class="abbr-full" data-i18n="abbr_145_full">Zhixin Building</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_145_zh">知新楼</div>
+</div>
+</div>
+<div class="section-title" data-i18n="abbr_section_phrases">💬 常用单词和短语</div>
+<div class="abbr-grid">
+<div class="phrase-card" data-search-id="146">
+<div class="phrase-key" data-i18n="phrase_001">Add</div>
+<div class="phrase-zh" data-i18n="phrase_001_zh">加课</div>
+</div>
+<div class="phrase-card" data-search-id="147">
+<div class="phrase-key" data-i18n="phrase_002">Argue</div>
+<div class="phrase-zh" data-i18n="phrase_002_zh">申诉</div>
+<div class="phrase-note" data-i18n="phrase_002_note">向教务处、教授、助教申诉成绩</div>
+</div>
+<div class="phrase-card" data-search-id="148">
+<div class="phrase-key" data-i18n="phrase_003">Assignment</div>
+<div class="phrase-zh" data-i18n="phrase_003_zh">作业</div>
+</div>
+<div class="phrase-card" data-search-id="149">
+<div class="phrase-key" data-i18n="phrase_004">Barick</div>
+<div class="phrase-zh" data-i18n="phrase_004_zh">钟子毅教授</div>
+<div class="phrase-note" data-i18n="phrase_004_note">授课风格独特的经济学教授</div>
+</div>
+<div class="phrase-card" data-search-id="150">
+<div class="phrase-key" data-i18n="phrase_005">Coding</div>
+<div class="phrase-zh" data-i18n="phrase_005_zh">敲代码</div>
+</div>
+<div class="phrase-card" data-search-id="151">
+<div class="phrase-key" data-i18n="phrase_006">College</div>
+<div class="phrase-zh" data-i18n="phrase_006_zh">书院</div>
+</div>
+<div class="phrase-card" data-search-id="152">
+<div class="phrase-key" data-i18n="phrase_007">Dean's List</div>
+<div class="phrase-zh" data-i18n="phrase_007_zh">一种按照CGPA评选的荣誉</div>
+</div>
+<div class="phrase-card" data-search-id="153">
+<div class="phrase-key" data-i18n="phrase_008">Declare</div>
+<div class="phrase-zh" data-i18n="phrase_008_zh">申报</div>
+</div>
+<div class="phrase-card" data-search-id="154">
+<div class="phrase-key" data-i18n="phrase_009">Drop</div>
+<div class="phrase-zh" data-i18n="phrase_009_zh">退课</div>
+</div>
+<div class="phrase-card" data-search-id="155">
+<div class="phrase-key" data-i18n="phrase_010">Elective</div>
+<div class="phrase-zh" data-i18n="phrase_010_zh">选修课</div>
+</div>
+<div class="phrase-card" data-search-id="156">
+<div class="phrase-key" data-i18n="phrase_011">Enroll</div>
+<div class="phrase-zh" data-i18n="phrase_011_zh">选课</div>
+</div>
+<div class="phrase-card" data-search-id="157">
+<div class="phrase-key" data-i18n="phrase_012">Essay</div>
+<div class="phrase-zh" data-i18n="phrase_012_zh">论文</div>
+</div>
+<div class="phrase-card" data-search-id="158">
+<div class="phrase-key" data-i18n="phrase_013">Exclusion</div>
+<div class="phrase-zh" data-i18n="phrase_013_zh">排除课</div>
+<div class="phrase-note" data-i18n="phrase_013_note">同类型课程相互排斥，不能都修读</div>
+</div>
+<div class="phrase-card" data-search-id="159">
+<div class="phrase-key" data-i18n="phrase_014">Fail</div>
+<div class="phrase-zh" data-i18n="phrase_014_zh">不及格，挂科</div>
+</div>
+<div class="phrase-card" data-search-id="160">
+<div class="phrase-key" data-i18n="phrase_015">Final</div>
+<div class="phrase-zh" data-i18n="phrase_015_zh">期末考试</div>
+</div>
+<div class="phrase-card" data-search-id="161">
+<div class="phrase-key" data-i18n="phrase_016">Gap Year</div>
+<div class="phrase-zh" data-i18n="phrase_016_zh">休学一年</div>
+</div>
+<div class="phrase-card" data-search-id="162">
+<div class="phrase-key" data-i18n="phrase_017">Instructor</div>
+<div class="phrase-zh" data-i18n="phrase_017_zh">教授</div>
+</div>
+<div class="phrase-card" data-search-id="163">
+<div class="phrase-key" data-i18n="phrase_018">Killer</div>
+<div class="phrase-zh" data-i18n="phrase_018_zh">给分严格的教授</div>
+</div>
+<div class="phrase-card" data-search-id="164">
+<div class="phrase-key" data-i18n="phrase_019">Kimo</div>
+<div class="phrase-zh" data-i18n="phrase_019_zh">一位认真负责的大一英语课教授</div>
+</div>
+<div class="phrase-card" data-search-id="165">
+<div class="phrase-key" data-i18n="phrase_020">Late Drop</div>
+<div class="phrase-zh" data-i18n="phrase_020_zh">逾期退课</div>
+</div>
+<div class="phrase-card" data-search-id="166">
+<div class="phrase-key" data-i18n="phrase_021">LGU3</div>
+<div class="phrase-zh" data-i18n="phrase_021_zh">非官方校园公众号</div>
+</div>
+<div class="phrase-card" data-search-id="167">
+<div class="phrase-key" data-i18n="phrase_022">Lgulife</div>
+<div class="phrase-zh" data-i18n="phrase_022_zh">非官方校园论坛</div>
+</div>
+<div class="phrase-card" data-search-id="168">
+<div class="phrase-key" data-i18n="phrase_023">Major</div>
+<div class="phrase-zh" data-i18n="phrase_023_zh">主修课程</div>
+</div>
+<div class="phrase-card" data-search-id="169">
+<div class="phrase-key" data-i18n="phrase_024">Major Elective</div>
+<div class="phrase-zh" data-i18n="phrase_024_zh">主修选修课程</div>
+<div class="phrase-note" data-i18n="phrase_024_note">专业课程的第三部分</div>
+</div>
+<div class="phrase-card" data-search-id="170">
+<div class="phrase-key" data-i18n="phrase_025">Major Required</div>
+<div class="phrase-zh" data-i18n="phrase_025_zh">主修必修课程</div>
+<div class="phrase-note" data-i18n="phrase_025_note">专业课程的第二部分</div>
+</div>
+<div class="phrase-card" data-search-id="171">
+<div class="phrase-key" data-i18n="phrase_026">Minor</div>
+<div class="phrase-zh" data-i18n="phrase_026_zh">辅修课程</div>
+</div>
+<div class="phrase-card" data-search-id="172">
+<div class="phrase-key" data-i18n="phrase_027">Office Hour</div>
+<div class="phrase-zh" data-i18n="phrase_027_zh">教授在课外答疑的时间段</div>
+</div>
+<div class="phrase-card" data-search-id="173">
+<div class="phrase-key" data-i18n="phrase_028">Peer Evaluation</div>
+<div class="phrase-zh" data-i18n="phrase_028_zh">小组内部互相打分</div>
+</div>
+<div class="phrase-card" data-search-id="174">
+<div class="phrase-key" data-i18n="phrase_029">Peer Pressure</div>
+<div class="phrase-zh" data-i18n="phrase_029_zh">同年级竞争压力</div>
+</div>
+<div class="phrase-card" data-search-id="175">
+<div class="phrase-key" data-i18n="phrase_030">Prerequisite</div>
+<div class="phrase-zh" data-i18n="phrase_030_zh">先修课</div>
+<div class="phrase-note" data-i18n="phrase_030_note">一些高阶课程对低阶课程的要求</div>
+</div>
+<div class="phrase-card" data-search-id="176">
+<div class="phrase-key" data-i18n="phrase_031">Project</div>
+<div class="phrase-zh" data-i18n="phrase_031_zh">项目作业</div>
+</div>
+<div class="phrase-card" data-search-id="177">
+<div class="phrase-key" data-i18n="phrase_032">Registry</div>
+<div class="phrase-zh" data-i18n="phrase_032_zh">教务处</div>
+</div>
+<div class="phrase-card" data-search-id="178">
+<div class="phrase-key" data-i18n="phrase_033">Report</div>
+<div class="phrase-zh" data-i18n="phrase_033_zh">研究报告</div>
+<div class="phrase-note" data-i18n="phrase_033_note">作业类型之一</div>
+</div>
+<div class="phrase-card" data-search-id="179">
+<div class="phrase-key" data-i18n="phrase_034">School</div>
+<div class="phrase-zh" data-i18n="phrase_034_zh">学院</div>
+</div>
+<div class="phrase-card" data-search-id="180">
+<div class="phrase-key" data-i18n="phrase_035">School Package</div>
+<div class="phrase-zh" data-i18n="phrase_035_zh">学院课程</div>
+<div class="phrase-note" data-i18n="phrase_035_note">专业课程的第一部分</div>
+</div>
+<div class="phrase-card" data-search-id="181">
+<div class="phrase-key" data-i18n="phrase_036">Section</div>
+<div class="phrase-zh" data-i18n="phrase_036_zh">课程的节次</div>
+</div>
+<div class="phrase-card" data-search-id="182">
+<div class="phrase-key" data-i18n="phrase_037">Study Scheme</div>
+<div class="phrase-zh" data-i18n="phrase_037_zh">修读计划</div>
+</div>
+<div class="phrase-card" data-search-id="183">
+<div class="phrase-key" data-i18n="phrase_038">Swap</div>
+<div class="phrase-zh" data-i18n="phrase_038_zh">换课</div>
+</div>
+<div class="phrase-card" data-search-id="184">
+<div class="phrase-key" data-i18n="phrase_039">Syllabus</div>
+<div class="phrase-zh" data-i18n="phrase_039_zh">课程大纲</div>
+</div>
+<div class="phrase-card" data-search-id="185">
+<div class="phrase-key" data-i18n="phrase_040">Target Students</div>
+<div class="phrase-zh" data-i18n="phrase_040_zh">目标学生</div>
+<div class="phrase-note" data-i18n="phrase_040_note">一些课程仅供特定年级、专业的学生选择</div>
+</div>
+<div class="phrase-card" data-search-id="186">
+<div class="phrase-key" data-i18n="phrase_041">Transcript</div>
+<div class="phrase-zh" data-i18n="phrase_041_zh">成绩单</div>
+</div>
+<div class="phrase-card" data-search-id="187">
+<div class="phrase-key" data-i18n="phrase_042">Transfer</div>
+<div class="phrase-zh" data-i18n="phrase_042_zh">转学</div>
+<div class="phrase-note" data-i18n="phrase_042_note">特指转学到美本</div>
+</div>
+<div class="phrase-card" data-search-id="188">
+<div class="phrase-key" data-i18n="phrase_043">U-Core</div>
+<div class="phrase-zh" data-i18n="phrase_043_zh">大学核心课程</div>
+</div>
+<div class="phrase-card" data-search-id="189">
+<div class="phrase-key" data-i18n="phrase_044">Unit</div>
+<div class="phrase-zh" data-i18n="phrase_044_zh">学分</div>
+</div>
+<div class="phrase-card" data-search-id="190">
+<div class="phrase-key" data-i18n="phrase_045">University</div>
+<div class="phrase-zh" data-i18n="phrase_045_zh">大学</div>
+</div>
+<div class="phrase-card" data-search-id="191">
+<div class="phrase-key" data-i18n="phrase_046">Zoom</div>
+<div class="phrase-zh" data-i18n="phrase_046_zh">用来上网课、开会的平台</div>
+<div class="phrase-note" data-i18n="phrase_046_note">类似腾讯会议</div>
+</div>
+</div>
+</div>
+</div>
+<button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+<script>
+        function goBack() { window.location.href = 'main.html'; }
+</script>
+<script>
+        (function(){
+            var input = document.getElementById('searchInput');
+            var clear = document.getElementById('searchClear');
+            var dropdown = document.getElementById('searchDropdown');
+            var wrapper = document.getElementById('searchWrapper');
+            var allCards = document.querySelectorAll('.abbr-card, .phrase-card');
+            var index = [];
+
+            function buildIndex() {
+                index = [];
+                allCards.forEach(function(card, i){
+                    var keyEl = card.querySelector('.abbr-key, .phrase-key');
+                    var fullEl = card.querySelector('.abbr-full');
+                    var zhEl = card.querySelector('.abbr-zh, .phrase-zh');
+                    var noteEl = card.querySelector('.abbr-note, .phrase-note');
+                    var key = keyEl ? keyEl.textContent.trim() : '';
+                    var full = fullEl ? fullEl.textContent.trim() : '';
+                    var zh = zhEl ? zhEl.textContent.trim() : '';
+                    var note = noteEl ? noteEl.textContent.trim() : '';
+                    var text = key + ' ' + full + ' ' + zh + ' ' + note;
+                    index.push({ key: key, full: full, zh: zh, text: text, idx: i, card: card });
+                });
+            }
+            buildIndex();
+
+            function escapeReg(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+            function highlight(text, q) {
+                if (!q) return text;
+                try { return text.replace(new RegExp('(' + escapeReg(q) + ')', 'gi'), '<span class="search-highlight">$1</span>'); }
+                catch(e) { return text; }
+            }
+            function getLang() {
+                return (window.i18n && window.i18n.getLang) ? window.i18n.getLang() : 'zh';
+            }
+            function search(q) {
+                clear.classList.toggle('show', !!q);
+                dropdown.classList.remove('show');
+                allCards.forEach(function(c){ c.classList.remove('search-match'); });
+                if (!q) return;
+                var ql = q.toLowerCase();
+                var results = [];
+                index.forEach(function(item){
+                    if (item.text.toLowerCase().indexOf(ql) !== -1) results.push(item);
+                });
+                if (results.length === 0) {
+                    var msg = getLang() === 'en' ? 'No results found' : '未找到相关结果';
+                    dropdown.innerHTML = '<div class="search-no-result">' + msg + '</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+                var html = '';
+                results.slice(0, 20).forEach(function(r){
+                    var title = highlight(r.key, q);
+                    var desc = r.full ? highlight(r.full, q) : highlight(r.zh, q);
+                    html += '<div class="search-item" data-idx="' + r.idx + '">'
+                         + '<span class="search-item-icon">' + title + '</span>'
+                         + '<div class="search-item-body">'
+                         + '<div class="search-item-title">' + (r.full || r.zh) + '</div>'
+                         + '<div class="search-item-desc">' + desc + '</div>'
+                         + '</div></div>';
+                });
+                dropdown.innerHTML = html;
+                dropdown.classList.add('show');
+                dropdown.querySelectorAll('.search-item').forEach(function(item){
+                    item.addEventListener('click', function(){
+                        var idx = parseInt(this.getAttribute('data-idx'));
+                        var card = allCards[idx];
+                        if (card) {
+                            card.classList.add('search-match');
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            dropdown.classList.remove('show');
+                            input.value = ''; clear.classList.remove('show');
+                        }
+                    });
+                });
+                results.forEach(function(r){ r.card.classList.add('search-match'); });
+            }
+            input.addEventListener('input', function(){ search(this.value); });
+            input.addEventListener('focus', function(){ if(this.value) search(this.value); });
+            clear.addEventListener('click', function(){
+                input.value = ''; clear.classList.remove('show');
+                dropdown.classList.remove('show');
+                allCards.forEach(function(c){ c.classList.remove('search-match'); });
+            });
+            document.addEventListener('click', function(e){
+                if (!wrapper.contains(e.target)) dropdown.classList.remove('show');
+            });
+            document.addEventListener('i18n:applied', function(){ buildIndex(); });
+        })();
+</script>
+</body>
+</html>

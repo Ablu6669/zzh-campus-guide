@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="title_faq">常见问题 - 校园新生指南</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<style>
+        /* ===== 搜索栏 ===== */
+        .search-wrapper {
+            max-width: 520px;
+            margin: 0 auto 22px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 44px 12px 44px;
+            border: 2px solid #e0e0e0;
+            border-radius: 28px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            background: #f8f9fa url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%23999" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16 6.5 6.5 0 0014.23 15.5l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1114 9.5 4.5 4.5 0 019.5 14z"/></svg>') 14px center no-repeat;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102,126,234,.12);
+            background-color: #fff;
+        }
+        .search-input::placeholder { color: #aaa; }
+        .search-clear {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            width: 22px; height: 22px; border-radius: 50%; border: none;
+            background: #ccc; color: #fff; font-size: 14px; cursor: pointer;
+            display: none; align-items: center; justify-content: center;
+        }
+        .search-clear.show { display: flex; }
+        .search-dropdown {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.12);
+            max-height: 320px; overflow-y: auto; z-index: 1000;
+            display: none; margin-top: 6px;
+        }
+        .search-dropdown.show { display: block; }
+        .search-item {
+            padding: 12px 18px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px;
+            border-bottom: 1px solid #f0f0f0; transition: background .15s;
+        }
+        .search-item:last-child { border-bottom: none; }
+        .search-item:hover, .search-item.active { background: #f0f4ff; }
+        .search-item-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+        .search-item-body { flex: 1; min-width: 0; }
+        .search-item-title { font-size: 14px; font-weight: 600; color: #222; }
+        .search-item-desc { font-size: 12px; color: #888; margin-top: 2px; }
+        .search-highlight { color: #667eea; font-weight: 700; }
+        .search-no-result { padding: 20px; text-align: center; color: #999; font-size: 14px; }
+        .faq-match { animation: searchPop .3s ease; background: #fffde7 !important; }
+        @keyframes searchPop { 0%{transform:scale(.97);opacity:.5} 100%{transform:scale(1);opacity:1} }
+    </style>
+<script src="../js/i18n.js"></script>
+</head>
+<body>
+<div class="page-container">
+<div class="page-header">
+<button class="back-btn" data-i18n="back_home" onclick="goBack()">← 返回首页</button>
+<h2 data-i18n="faq_title">❓ 常见问题</h2>
+<p data-i18n="faq_subtitle">新生入学常见问题解答</p>
+</div>
+<!-- 搜索栏 -->
+<div style="padding: 0 24px 0;">
+<div class="search-wrapper" id="searchWrapper">
+<input autocomplete="off" class="search-input" data-i18n="search_placeholder_faq" id="searchInput" placeholder="搜索问题或关键词..." type="text"/>
+<button class="search-clear" id="searchClear">✕</button>
+<div class="search-dropdown" id="searchDropdown"></div>
+</div>
+</div>
+<div class="page-content">
+<!-- 问题分类 -->
+<div style="margin-bottom: 30px;">
+<h3 data-i18n="faq_sec_study" style="color: #333; margin-bottom: 15px;">学习相关</h3>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_01_q" style="font-weight: bold; color: #333; cursor: pointer;">如何选课？</summary>
+<p data-i18n="faq_01_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_02_q" style="font-weight: bold; color: #333; cursor: pointer;">图书馆如何借书？</summary>
+<p data-i18n="faq_02_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_03_q" style="font-weight: bold; color: #333; cursor: pointer;">成绩如何查询？</summary>
+<p data-i18n="faq_03_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+</div>
+</div>
+<div style="margin-bottom: 30px;">
+<h3 data-i18n="faq_sec_life" style="color: #333; margin-bottom: 15px;">生活相关</h3>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_04_q" style="font-weight: bold; color: #333; cursor: pointer;">宿舍如何报修？</summary>
+<p data-i18n="faq_04_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_05_q" style="font-weight: bold; color: #333; cursor: pointer;">校园卡丢失怎么办？</summary>
+<p data-i18n="faq_05_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_06_q" style="font-weight: bold; color: #333; cursor: pointer;">食堂有哪些支付方式？</summary>
+<p data-i18n="faq_06_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+</div>
+</div>
+<div style="margin-bottom: 30px;">
+<h3 data-i18n="faq_sec_admin" style="color: #333; margin-bottom: 15px;">行政相关</h3>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_07_q" style="font-weight: bold; color: #333; cursor: pointer;">如何申请奖助学金？</summary>
+<p data-i18n="faq_07_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+<details style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer;">
+<summary data-i18n="faq_08_q" style="font-weight: bold; color: #333; cursor: pointer;">请假流程是什么？</summary>
+<p data-i18n="faq_08_a" style="color: #666; margin-top: 10px; line-height: 1.6;">待补充详细回答...</p>
+</details>
+</div>
+</div>
+<!-- 提示信息 -->
+<div style="margin-top: 30px; padding: 20px; background: #fff9e6; border-radius: 10px; border: 2px dashed #ffc107;">
+<p data-i18n="faq_hint" style="color: #666; text-align: center;">📝 此处等待添加更多常见问题和详细解答...</p>
+</div>
+</div>
+</div>
+<script>
+        (function(){
+            var searchInput  = document.getElementById('searchInput');
+            var searchClear  = document.getElementById('searchClear');
+            var dropdown    = document.getElementById('searchDropdown');
+            var wrapper      = document.getElementById('searchWrapper');
+            var items       = document.querySelectorAll('.page-content details');
+            var activeIdx   = -1;
+
+            /* 构建索引 */
+            var index = [];
+            function buildIndex() {
+                index = [];
+                items.forEach(function(dt, i){
+                    var sum = dt.querySelector('summary');
+                    var title = sum ? sum.textContent.trim() : '';
+                    var ans = dt.querySelector('p');
+                    var answer = ans ? ans.textContent.trim() : '';
+                    index.push({ title: title, answer: answer, text: title + ' ' + answer, idx: i, el: dt });
+                });
+            }
+            buildIndex();
+
+            function highlightText(text, kw) {
+                if (!kw) return text;
+                var reg = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                return text.replace(reg, '<span class="search-highlight">$&</span>');
+            }
+
+            function renderDropdown(kw) {
+                dropdown.innerHTML = '';
+                if (!kw) { dropdown.classList.remove('show'); return; }
+                var matched = index.filter(function(r){
+                    return r.text.toLowerCase().indexOf(kw.toLowerCase()) !== -1;
+                });
+                if (matched.length === 0) {
+                    var lang = (window.i18n && window.i18n.getLang) ? window.i18n.getLang() : 'zh';
+                    dropdown.innerHTML = '<div class="search-no-result">' + (lang === 'en' ? '😢 No matching questions found' : '😢 未找到匹配的问题') + '</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+                matched.forEach(function(r, i){
+                    var item = document.createElement('div');
+                    item.className = 'search-item';
+                    item.innerHTML = '<div class="search-item-icon">❓</div>'
+                        + '<div class="search-item-body">'
+                        + '<div class="search-item-title">' + highlightText(r.title, kw) + '</div>'
+                        + '<div class="search-item-desc">' + highlightText(r.answer.substring(0,50), kw) + '</div>'
+                        + '</div>';
+                    item.addEventListener('click', function(){ selectResult(r.idx); });
+                    dropdown.appendChild(item);
+                });
+                dropdown.classList.add('show');
+            }
+
+            function selectResult(idx) {
+                dropdown.classList.remove('show');
+                searchInput.value = '';
+                searchClear.classList.remove('show');
+                var dt = items[idx];
+                if (!dt) return;
+                dt.open = true;
+                setTimeout(function(){
+                    dt.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    dt.classList.add('faq-match');
+                    setTimeout(function(){ dt.classList.remove('faq-match'); }, 1200);
+                }, 100);
+            }
+
+            searchInput.addEventListener('input', function(){
+                var val = this.value.trim();
+                if (val) searchClear.classList.add('show');
+                else searchClear.classList.remove('show');
+                renderDropdown(val);
+            });
+
+            searchClear.addEventListener('click', function(){
+                searchInput.value = '';
+                searchClear.classList.remove('show');
+                dropdown.classList.remove('show');
+                searchInput.focus();
+            });
+
+            searchInput.addEventListener('keydown', function(e){
+                var it = dropdown.querySelectorAll('.search-item');
+                if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx+1, it.length-1); updateActive(it); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx-1, 0); updateActive(it); }
+                else if (e.key === 'Enter' && activeIdx >= 0 && it[activeIdx]) { e.preventDefault(); it[activeIdx].click(); }
+                else if (e.key === 'Escape') { dropdown.classList.remove('show'); searchInput.blur(); }
+            });
+
+            function updateActive(it) {
+                it.forEach(function(el, i){ el.classList.toggle('active', i === activeIdx); });
+                if (it[activeIdx]) it[activeIdx].scrollIntoView({ block: 'nearest' });
+            }
+
+            document.addEventListener('click', function(e){
+                if (!wrapper.contains(e.target)) dropdown.classList.remove('show');
+            });
+
+            /* 语言切换后重建搜索索引 */
+            document.addEventListener('i18n:applied', function(){ buildIndex(); });
+        })();
+    </script>
+<button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+</body>
+</html>

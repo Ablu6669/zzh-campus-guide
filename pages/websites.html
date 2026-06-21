@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="title_websites">常用网站 - 校园新生指南</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<style>
+        .websites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .site-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 22px 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform .2s, box-shadow .2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .site-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(102,126,234,0.18);
+        }
+        .site-card-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .site-card h4 {
+            font-size: 16px;
+            color: #222;
+            margin-bottom: 6px;
+        }
+        .site-card .site-url {
+            font-size: 12px;
+            color: #667eea;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+        .site-card p {
+            font-size: 13.5px;
+            color: #555;
+            line-height: 1.7;
+            flex: 1;
+            margin-bottom: 14px;
+        }
+        .site-card .site-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .site-card .site-tag {
+            font-size: 11.5px;
+            background: #f0f2ff;
+            color: #667eea;
+            padding: 2px 9px;
+            border-radius: 10px;
+        }
+        .site-card .btn-visit {
+            display: inline-block;
+            padding: 7px 18px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            transition: opacity .2s;
+        }
+        .site-card .btn-visit:hover { opacity: .82; }
+
+        /* 邮箱详细说明卡片 */
+        .email-detail {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e4e8ff;
+        }
+        .email-detail h4 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .email-detail .email-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 13.5px;
+            color: #444;
+            line-height: 1.7;
+        }
+        .email-detail .email-label {
+            color: #667eea;
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: 90px;
+        }
+        .email-detail ul {
+            margin: 6px 0 6px 18px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.8;
+        }
+        .email-detail .warn-box {
+            background: #fff8e1;
+            border-left: 3px solid #ffc107;
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #6d4c00;
+        }
+
+        .section-title {
+            font-size: 17px;
+            color: #333;
+            margin: 28px 0 16px;
+            padding-left: 12px;
+            border-left: 4px solid #667eea;
+        }
+        .miniapp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        .miniapp-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 20px 20px 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform .2s, box-shadow .2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .miniapp-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(102,126,234,0.18);
+        }
+        .miniapp-card .ma-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        .miniapp-card h4 {
+            font-size: 15px;
+            color: #222;
+            margin-bottom: 4px;
+        }
+        .miniapp-card .ma-link {
+            font-size: 11.5px;
+            color: #999;
+            word-break: break-all;
+            margin-bottom: 8px;
+        }
+        .miniapp-card p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+        .miniapp-card .ma-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .miniapp-card .ma-tag {
+            font-size: 11px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 9px;
+            border-radius: 10px;
+        }
+        .miniapp-card .btn-miniapp {
+            display: inline-block;
+            padding: 7px 16px;
+            background: linear-gradient(135deg, #07c160, #06ad56);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            transition: opacity .2s;
+        }
+        .miniapp-card .btn-miniapp:hover { opacity: .82; }
+        .miniapp-note {
+            background: #e8f4ff;
+            border-left: 3px solid #1976d2;
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #1565c0;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .vpn-note {
+            background: #fff3e0;
+            border-left: 3px solid #ff9800;
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13.5px;
+            color: #6d4c00;
+            margin-bottom: 20px;
+        }
+        /* ===== 搜索栏 ===== */
+        .search-wrapper {
+            max-width: 520px;
+            margin: 0 auto 22px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 44px 12px 44px;
+            border: 2px solid #e0e0e0;
+            border-radius: 28px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            background: #f8f9fa url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%23999" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16 6.5 6.5 0 0014.23 15.5l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1114 9.5 4.5 4.5 0 019.5 14z"/></svg>') 14px center no-repeat;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102,126,234,.12);
+            background-color: #fff;
+        }
+        .search-input::placeholder { color: #aaa; }
+        .search-clear {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            width: 22px; height: 22px; border-radius: 50%; border: none;
+            background: #ccc; color: #fff; font-size: 14px; cursor: pointer;
+            display: none; align-items: center; justify-content: center;
+        }
+        .search-clear.show { display: flex; }
+        .search-dropdown {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.12);
+            max-height: 320px; overflow-y: auto; z-index: 1000;
+            display: none; margin-top: 6px;
+        }
+        .search-dropdown.show { display: block; }
+        .search-item {
+            padding: 12px 18px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px;
+            border-bottom: 1px solid #f0f0f0; transition: background .15s;
+        }
+        .search-item:last-child { border-bottom: none; }
+        .search-item:hover, .search-item.active { background: #f0f4ff; }
+        .search-item-icon { font-size: 22px; flex-shrink: 0; }
+        .search-item-body { flex: 1; min-width: 0; }
+        .search-item-title { font-size: 14px; font-weight: 600; color: #222; }
+        .search-item-desc { font-size: 12px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-highlight { color: #667eea; font-weight: 700; }
+        .search-no-result { padding: 20px; text-align: center; color: #999; font-size: 14px; }
+        .site-card.search-match { animation: searchPop .3s ease; box-shadow: 0 0 0 3px rgba(102,126,234,.3); }
+        @keyframes searchPop { 0%{transform:scale(.97);opacity:.5} 100%{transform:scale(1);opacity:1} }
+    </style>
+<script src="../js/i18n.js"></script>
+</head>
+<body>
+<div class="page-container">
+<div class="page-header">
+<button class="back-btn" data-i18n="back_home" onclick="goBack()">← 返回首页</button>
+<h2 data-i18n="websites_title">🌐 常用网站</h2>
+<p data-i18n="websites_subtitle">学校各类在线平台和信息系统</p>
+</div>
+<!-- 搜索栏 -->
+<div style="padding: 0 24px 0;">
+<div class="search-wrapper" id="searchWrapper">
+<input autocomplete="off" class="search-input" data-i18n="search_placeholder_websites" id="searchInput" placeholder="搜索网站名称、网址或用途..." type="text"/>
+<button class="search-clear" id="searchClear">✕</button>
+<div class="search-dropdown" id="searchDropdown"></div>
+</div>
+</div>
+<div class="page-content">
+<!-- 温馨提示：内网需 VPN -->
+<div class="vpn-note" data-i18n="websites_vpn_note">
+                ⚠️ 以下标有「内网」的网站需接入<strong>校园网络</strong>或<strong>VPN</strong>才能访问。
+                VPN 地址：<a href="https://vpn.cuhk.edu.cn" target="_blank">https://vpn.cuhk.edu.cn</a>
+</div>
+<div class="section-title" data-i18n="websites_section_core">🌐 核心官网</div>
+<div class="websites-grid">
+<!-- 学校官网 -->
+<div class="site-card">
+<div class="site-card-icon">🏫</div>
+<h4 data-i18n="web_01_title">香港中文大学（深圳）官网</h4>
+<div class="site-url">http://cuhk.edu.cn</div>
+<p data-i18n="web_01_desc">学校官方网站。在校生可查看各自专业的<strong>修读计划</strong>，提前做好规划。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_study_plan">修读计划</span>
+<span class="site-tag" data-i18n="tag_university_info">学校资讯</span>
+</div>
+<a class="btn-visit" data-i18n="web_01_btn" href="http://cuhk.edu.cn" target="_blank">访问官网</a>
+</div>
+<!-- 教务处官网 -->
+<div class="site-card">
+<div class="site-card-icon">📋</div>
+<h4 data-i18n="web_02_title">教务处官网</h4>
+<div class="site-url">https://registry.cuhk.edu.cn</div>
+<p data-i18n="web_02_desc">用于选课，主修/选修课的建议以及参考。内网访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_course_guide">选课参考</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_02_btn" href="https://registry.cuhk.edu.cn" target="_blank">访问教务处</a>
+</div>
+</div>
+<div class="section-title" data-i18n="websites_section_intranet">💻 学生常用内网平台</div>
+<div class="websites-grid">
+<!-- 学校内网 i.cuhk -->
+<div class="site-card">
+<div class="site-card-icon">🏠</div>
+<h4 data-i18n="web_03_title">学校内网（i.cuhk）</h4>
+<div class="site-url">http://i.cuhk.edu.cn</div>
+<p data-i18n="web_03_desc">学生最常用的网站，提供<strong>线上打印、教务系统、图书馆系统、Blackboard、迎新注册系统</strong>等一站式服务。需内网或 VPN 访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_all_in_one">一站式</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_03_btn" href="http://i.cuhk.edu.cn" target="_blank">访问内网</a>
+</div>
+<!-- SIS 教务系统 -->
+<div class="site-card">
+<div class="site-card-icon">📊</div>
+<h4 data-i18n="web_04_title">SIS 教务系统</h4>
+<div class="site-url">http://sis.cuhk.edu.cn</div>
+<p data-i18n="web_04_desc">选课、抢课、退课、加课、查看成绩单、管理课程全部在这里进行。需内网或 VPN 访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_course_select">选课</span>
+<span class="site-tag" data-i18n="tag_transcript">成绩单</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_04_btn" href="http://sis.cuhk.edu.cn" target="_blank">进入 SIS</a>
+</div>
+<!-- 图书馆 -->
+<div class="site-card">
+<div class="site-card-icon">📚</div>
+<h4 data-i18n="web_05_title">图书馆网站</h4>
+<div class="site-url">http://library.cuhk.edu.cn</div>
+<p data-i18n="web_05_desc">图书检索、电子资源访问、预约座位、续借图书等。需内网或 VPN 访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_e_resources">电子资源</span>
+<span class="site-tag" data-i18n="tag_seat_reservation">预约座位</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_05_btn" href="http://library.cuhk.edu.cn" target="_blank">访问图书馆</a>
+</div>
+<!-- Blackboard -->
+<div class="site-card">
+<div class="site-card-icon">💻</div>
+<h4 data-i18n="web_06_title">Blackboard 在线学习平台</h4>
+<div class="site-url">http://bb.cuhk.edu.cn</div>
+<p data-i18n="web_06_desc">课程资料下载、作业提交、成绩查看、教师通知等。需内网或 VPN 访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_course_materials">课程资料</span>
+<span class="site-tag" data-i18n="tag_assignment">作业提交</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_06_btn" href="http://bb.cuhk.edu.cn" target="_blank">进入 Blackboard</a>
+</div>
+<!-- 自助打印 -->
+<div class="site-card">
+<div class="site-card-icon">🖨️</div>
+<h4 data-i18n="web_07_title">自助打印服务</h4>
+<div class="site-url">https://cloudprint.cuhk.edu.cn</div>
+<p data-i18n="web_07_desc">线上提交打印任务，在校内打印机刷卡取件。需内网或 VPN 访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_printing">打印</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_07_btn" href="https://cloudprint.cuhk.edu.cn" target="_blank">进入打印服务</a>
+</div>
+<!-- 迎新注册 -->
+<div class="site-card">
+<div class="site-card-icon">🎓</div>
+<h4 data-i18n="web_08_title">迎新注册系统</h4>
+<div class="site-url">https://orientation.cuhk.edu.cn</div>
+<p data-i18n="web_08_desc">新生入学注册、信息填写、入学流程办理。需内网或 VPN 访问。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_new_student_reg">新生注册</span>
+<span class="site-tag" data-i18n="tag_intranet">内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_08_btn" href="https://orientation.cuhk.edu.cn" target="_blank">进入迎新系统</a>
+</div>
+<!-- VPN -->
+<div class="site-card">
+<div class="site-card-icon">🔒</div>
+<h4 data-i18n="web_09_title">校外访问 VPN</h4>
+<div class="site-url">https://vpn.cuhk.edu.cn</div>
+<p data-i18n="web_09_desc">校外访问内网平台的必备工具，登录后可直接访问所有标注「内网」的网站。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_vpn">VPN</span>
+<span class="site-tag" data-i18n="tag_off_campus">校外访问</span>
+</div>
+<a class="btn-visit" data-i18n="web_09_btn" href="https://vpn.cuhk.edu.cn" target="_blank">连接 VPN</a>
+</div>
+</div>
+<!-- 小程序提示 -->
+<div class="miniapp-note" data-i18n="websites_miniapp_note">
+                📱 以下小程序链接在<strong>手机微信内置浏览器</strong>中可直接点击跳转使用；电脑端请在微信中搜索对应小程序名称。
+            </div>
+<div class="section-title" data-i18n="websites_section_miniapp">📱 常用小程序</div>
+<div class="miniapp-grid">
+<!-- 智行港中深 -->
+<div class="miniapp-card">
+<div class="ma-icon">🚌</div>
+<h4 data-i18n="miniapp_01_title">智行港中深</h4>
+<div class="ma-link">#小程序://智行港中深</div>
+<p data-i18n="miniapp_01_desc">查询<strong>校巴线路</strong>与校巴<strong>实时位置</strong>，方便规划出行。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_shuttle">校巴</span>
+<span class="ma-tag" data-i18n="matag_realtime">实时位置</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_01_btn" href="#小程序://智行港中深">打开小程序</a>
+</div>
+<!-- 社康通 -->
+<div class="miniapp-card">
+<div class="ma-icon">🏥</div>
+<h4 data-i18n="miniapp_02_title">社康通</h4>
+<div class="ma-link">#小程序://社康通/zJUfHb1GWdX6ERw</div>
+<p data-i18n="miniapp_02_desc"><strong>社康服务预约</strong>，可预约就诊、查询服务时间等。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_health">社康</span>
+<span class="ma-tag" data-i18n="matag_appointment">预约</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_02_btn" href="#小程序://社康通/zJUfHb1GWdX6ERw">打开小程序</a>
+</div>
+<!-- 国情教育智慧平台 -->
+<div class="miniapp-card">
+<div class="ma-icon">📖</div>
+<h4 data-i18n="miniapp_03_title">国情教育智慧平台</h4>
+<div class="ma-link">#小程序://国情教育智慧平台/WNeqWb8JnoE06FD</div>
+<p data-i18n="miniapp_03_desc"><strong>CEC 系列课程签到</strong>与 <strong>CEC1010/1020 学时查询</strong>。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_national_edu">国情教育</span>
+<span class="ma-tag" data-i18n="matag_cec">CEC</span>
+<span class="ma-tag" data-i18n="matag_checkin">签到</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_03_btn" href="#小程序://国情教育智慧平台/WNeqWb8JnoE06FD">打开小程序</a>
+</div>
+<!-- 物业服务平台 -->
+<div class="miniapp-card">
+<div class="ma-icon">🔧</div>
+<h4 data-i18n="miniapp_04_title">香港中文大学深圳物业服务平台</h4>
+<div class="ma-link">#小程序://港中深物业/j6oviWuRsBuiiVu</div>
+<p data-i18n="miniapp_04_desc">向物业<strong>报修、表扬、建议</strong>，线上提交工单方便快捷。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_repair">报修</span>
+<span class="ma-tag" data-i18n="matag_property">物业</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_04_btn" href="#小程序://港中深物业/j6oviWuRsBuiiVu">打开小程序</a>
+</div>
+<!-- 港中深活动报名 -->
+<div class="miniapp-card">
+<div class="ma-icon">📅</div>
+<h4 data-i18n="miniapp_05_title">港中深活动报名</h4>
+<div class="ma-link">#小程序://活动报名/uPHKTZzx9J2HcNn</div>
+<p data-i18n="miniapp_05_desc"><strong>活动查看、报名与签到签退</strong>，参与校园活动必备。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_activity">活动</span>
+<span class="ma-tag" data-i18n="matag_checkin">签到</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_05_btn" href="#小程序://活动报名/uPHKTZzx9J2HcNn">打开小程序</a>
+</div>
+<!-- 参观港中深 -->
+<div class="miniapp-card">
+<div class="ma-icon">🏫</div>
+<h4 data-i18n="miniapp_06_title">参观港中深</h4>
+<div class="ma-link">#小程序://参观港中深/7KHEBjr2OiCzhWv</div>
+<p data-i18n="miniapp_06_desc"><strong>外校人员预约参观学校</strong>，提前预约方可入校参观。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_tour">参观</span>
+<span class="ma-tag" data-i18n="matag_appointment">预约</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_06_btn" href="#小程序://参观港中深/7KHEBjr2OiCzhWv">打开小程序</a>
+</div>
+<!-- 企业咕咚 -->
+<div class="miniapp-card">
+<div class="ma-icon">🏃</div>
+<h4 data-i18n="miniapp_07_title">企业咕咚</h4>
+<div class="ma-link">#小程序://企业咕咚/02tlpDI6XO5HYkc</div>
+<p data-i18n="miniapp_07_desc"><strong>校园跑平台</strong>，记录跑步里程，完成体育打卡要求。</p>
+<div class="ma-tags">
+<span class="ma-tag" data-i18n="matag_running">校园跑</span>
+<span class="ma-tag" data-i18n="matag_pe_checkin">体育打卡</span>
+</div>
+<a class="btn-miniapp" data-i18n="miniapp_07_btn" href="#小程序://企业咕咚/02tlpDI6XO5HYkc">打开小程序</a>
+</div>
+</div>
+<!-- 邮箱详细说明 -->
+<div class="section-title" data-i18n="websites_section_email">📧 学校邮箱使用指南</div>
+<div class="email-detail">
+<h4 data-i18n="email_title">📧 学校邮箱（Office 365）</h4>
+<div class="email-row">
+<span class="email-label" data-i18n="email_label_address">邮箱地址</span>
+<span data-i18n="email_addr_content">学号邮箱：<code>学号@link.cuhk.edu.cn</code><br/>
+                    邮箱别称：<code>"拼音名+拼音姓"@link.cuhk.edu.cn</code><br/>
+<span style="color:#888;font-size:12px;">（如遇重名，系统会在别称后加数字区分）</span></span>
+</div>
+<div class="email-row">
+<span class="email-label" data-i18n="email_label_login">登录方式</span>
+<span data-i18n="email_login_content">通过学校信息门户登录邮箱，输入<strong>学号</strong>和<strong>密码</strong>。<br/>
+                    初始密码需通过<a href="http://password.cuhk.edu.cn" target="_blank">密码自助服务平台</a>修改并绑定密保手机或邮箱以激活账号，激活后可使用邮箱及相关 IT 资源。</span>
+</div>
+<div class="email-row">
+<span class="email-label" data-i18n="email_label_settings">邮箱设置</span>
+<span data-i18n="email_settings_content">在设备上设置邮箱可选择 <strong>"Microsoft Exchange"</strong> 类型，输入学校邮箱和密码，服务器地址为 <code>outlook.office365.com</code>。</span>
+</div>
+<div class="email-row">
+<span class="email-label" data-i18n="email_label_validity">邮箱有效期</span>
+<span data-i18n="email_validity_content">学生帐户到期后，邮箱可继续使用 <strong>30 日</strong>，除非申请校友终身电邮服务。</span>
+</div>
+<div class="email-row">
+<span class="email-label" data-i18n="email_label_limit">邮件发送限制</span>
+<span data-i18n="email_limit_content">发送邮件（含附件）的大小限制为 <strong>25MB</strong>。</span>
+</div>
+<div class="warn-box" data-i18n="email_warn">
+                    💡 <strong>提示：</strong>激活 IT 账号后才能正常使用邮箱和 SIS 等系统，请务必在入学后第一时间完成密码修改和密保绑定。
+                </div>
+</div>
+</div>
+</div>
+<script src="../js/main.js"></script>
+<script>
+        (function(){
+            var searchInput  = document.getElementById('searchInput');
+            var searchClear  = document.getElementById('searchClear');
+            var dropdown    = document.getElementById('searchDropdown');
+            var wrapper      = document.getElementById('searchWrapper');
+            var cards       = document.querySelectorAll('.site-card');
+            var activeIdx   = -1;
+
+            var index = [];
+            function buildIndex() {
+                index = [];
+                cards.forEach(function(card, i){
+                    var h4 = card.querySelector('h4');
+                    var title = h4 ? h4.textContent.trim() : '';
+                    var url = card.querySelector('.site-url');
+                    var urlText = url ? url.textContent.trim() : '';
+                    var p = card.querySelector('p');
+                    var desc = p ? p.textContent.trim() : '';
+                    var tags = card.querySelectorAll('.site-tags span');
+                    var tagText = '';
+                    tags.forEach(function(t){ tagText += t.textContent + ' '; });
+                    var text = title + ' ' + urlText + ' ' + desc + ' ' + tagText;
+                    index.push({ title: title, desc: desc, text: text, idx: i, card: card });
+                });
+            }
+            buildIndex();
+
+            function highlightText(text, kw) {
+                if (!kw) return text;
+                var reg = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                return text.replace(reg, '<span class="search-highlight">$&</span>');
+            }
+
+            function renderDropdown(kw) {
+                dropdown.innerHTML = '';
+                if (!kw) { dropdown.classList.remove('show'); return; }
+                var matched = index.filter(function(r){
+                    return r.text.toLowerCase().indexOf(kw.toLowerCase()) !== -1;
+                });
+                if (matched.length === 0) {
+                    var lang = (window.i18n && window.i18n.getLang) ? window.i18n.getLang() : 'zh';
+                    dropdown.innerHTML = '<div class="search-no-result">' + (lang === 'en' ? '😢 No matching websites found' : '😢 未找到匹配的网站') + '</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+                matched.forEach(function(r, i){
+                    var item = document.createElement('div');
+                    item.className = 'search-item';
+                    var icon = '🌐';
+                    if (r.title.indexOf('邮箱') !== -1 || r.title.toLowerCase().indexOf('email') !== -1) icon = '📧';
+                    else if (r.title.indexOf('小程序') !== -1 || r.title.toLowerCase().indexOf('mini') !== -1) icon = '📱';
+                    item.innerHTML = '<div class="search-item-icon">' + icon + '</div>'
+                        + '<div class="search-item-body">'
+                        + '<div class="search-item-title">' + highlightText(r.title, kw) + '</div>'
+                        + '<div class="search-item-desc">' + highlightText(r.desc.substring(0,50), kw) + '</div>'
+                        + '</div>';
+                    item.addEventListener('click', function(){ selectResult(r.idx); });
+                    dropdown.appendChild(item);
+                });
+                dropdown.classList.add('show');
+            }
+
+            function selectResult(idx) {
+                dropdown.classList.remove('show');
+                searchInput.value = '';
+                searchClear.classList.remove('show');
+                var card = cards[idx];
+                if (!card) return;
+                cards.forEach(function(c){ c.classList.remove('search-match'); });
+                setTimeout(function(){
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.add('search-match');
+                    setTimeout(function(){ card.classList.remove('search-match'); }, 1200);
+                }, 100);
+            }
+
+            searchInput.addEventListener('input', function(){
+                var val = this.value.trim();
+                if (val) searchClear.classList.add('show');
+                else searchClear.classList.remove('show');
+                renderDropdown(val);
+            });
+
+            searchClear.addEventListener('click', function(){
+                searchInput.value = '';
+                searchClear.classList.remove('show');
+                dropdown.classList.remove('show');
+                searchInput.focus();
+            });
+
+            searchInput.addEventListener('keydown', function(e){
+                var items = dropdown.querySelectorAll('.search-item');
+                if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx+1, items.length-1); updateActive(items); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx-1, 0); updateActive(items); }
+                else if (e.key === 'Enter' && activeIdx >= 0 && items[activeIdx]) { e.preventDefault(); items[activeIdx].click(); }
+                else if (e.key === 'Escape') { dropdown.classList.remove('show'); searchInput.blur(); }
+            });
+
+            function updateActive(items) {
+                items.forEach(function(el, i){ el.classList.toggle('active', i === activeIdx); });
+                if (items[activeIdx]) items[activeIdx].scrollIntoView({ block: 'nearest' });
+            }
+
+            document.addEventListener('click', function(e){
+                if (!wrapper.contains(e.target)) dropdown.classList.remove('show');
+            });
+
+            /* 语言切换后重建搜索索引 */
+            document.addEventListener('i18n:applied', function(){ buildIndex(); });
+        })();
+    </script>
+<button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+</body>
+</html>

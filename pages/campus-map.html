@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="title_campus_map">校园地图 - 校园新生指南</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<style>
+        .map-wrapper { width: 100%; overflow: hidden; border-radius: 12px; background: #f0f0f0; }
+        .map-viewport {
+            width: 100%;
+            height: 68vh;
+            min-height: 400px;
+            cursor: grab;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #e8e8e8;
+            user-select: none;
+            touch-action: none;
+            position: relative;
+        }
+        .map-viewport:active { cursor: grabbing; }
+        .zoom-group {
+            position: absolute;
+            transform-origin: 0 0;
+            will-change: transform;
+        }
+        .zoom-group img {
+            display: block;
+            width: auto;
+            height: auto;
+            pointer-events: none;
+        }
+        .markers-layer {
+            position: absolute;
+            top: 0; left: 0;
+            pointer-events: none;
+        }
+        .map-marker {
+            position: absolute;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            pointer-events: auto;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            transform: translate(-50%, -50%) scale(var(--inv, 1));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 0 rgba(255,215,0,0);
+            z-index: 10;
+            border: 2.5px solid rgba(255,255,255,0.9);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse-ring 2.2s infinite ease-out;
+        }
+        .map-marker:hover { z-index: 20 !important; box-shadow: 0 4px 18px rgba(0,0,0,0.5), 0 0 0 0 rgba(255,215,0,0) !important; }
+        .map-marker.active {
+            z-index: 25 !important;
+            border-color: #FFD700 !important;
+            box-shadow: 0 0 0 5px rgba(255,215,0,0.45), 0 4px 20px rgba(0,0,0,0.45), 0 0 0 0 rgba(255,215,0,0) !important;
+            animation: pulse-active-ring 1s infinite !important;
+        }
+        .marker-tooltip {
+            position: absolute; bottom: 120%; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(33,33,33,0.94); color: #fff;
+            padding: 5px 12px; border-radius: 8px;
+            font-size: 12px; white-space: nowrap;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.2s; z-index: 30;
+        }
+        .marker-tooltip::after {
+            content:''; position: absolute; top:100%; left:50%;
+            margin-left:-5px; border:5px solid transparent;
+            border-top-color: rgba(33,33,33,0.94);
+        }
+        .map-marker:hover .marker-tooltip,
+        .map-marker.active .marker-tooltip { opacity: 1; }
+        @keyframes pulse-ring {
+            0%   { box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 0 rgba(255,215,0,0); }
+            50%  { box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 18px rgba(255,215,0,0.15); }
+            100% { box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 28px rgba(255,215,0,0); }
+        }
+        @keyframes pulse-active-ring {
+            0%   { box-shadow: 0 0 0 5px rgba(255,215,0,0.45), 0 4px 20px rgba(0,0,0,0.45), 0 0 0 0 rgba(255,215,0,0.4); }
+            50%  { box-shadow: 0 0 0 5px rgba(255,215,0,0.45), 0 4px 20px rgba(0,0,0,0.45), 0 0 0 20px rgba(255,215,0,0.2); }
+            100% { box-shadow: 0 0 0 5px rgba(255,215,0,0.45), 0 4px 20px rgba(0,0,0,0.45), 0 0 0 32px rgba(255,215,0,0); }
+        }
+        .marker-gate      { background:#8D6E63; }
+        .marker-teaching  { background:#5D4037; }
+        .marker-hall      { background:#1E88E5; }
+        .marker-library   { background:#1565C0; }
+        .marker-facility  { background:#FB8C00; }
+        .marker-sports    { background:#2E7D32; }
+        .marker-life      { background:#E65100; }
+        .marker-canteen   { background:#AD1457; }
+        .marker-restaurant{ background:#6A1B9A; }
+        .marker-other     { background:#546E7A; }
+        .tag-gate      { background:#8D6E63; }
+        .tag-teaching  { background:#5D4037; }
+        .tag-hall      { background:#1E88E5; }
+        .tag-library   { background:#1565C0; }
+        .tag-facility  { background:#FB8C00; }
+        .tag-sports    { background:#2E7D32; }
+        .tag-life      { background:#E65100; }
+        .tag-canteen   { background:#AD1457; }
+        .tag-restaurant{ background:#6A1B9A; }
+        .tag-other     { background:#546E7A; }
+        .map-toolbar {
+            display:flex; justify-content:space-between; align-items:center;
+            margin-bottom:14px; flex-wrap:wrap; gap:10px;
+        }
+        .toolbar-left { display:flex; gap:8px; flex-wrap:wrap; }
+        .toolbar-right { display:flex; gap:10px; align-items:center; }
+        .zoom-btn {
+            width:38px; height:38px; border:none;
+            background:#667eea; color:white; font-size:20px;
+            border-radius:8px; cursor:pointer; transition:all .2s;
+        }
+        .zoom-btn:hover { background:#5a6fd6; }
+        .zoom-level { font-size:14px; color:#666; min-width:46px; text-align:center; }
+        .filter-btn {
+            padding:8px 16px; border:2px solid #e0e0e0;
+            background:white; color:#333; border-radius:20px;
+            cursor:pointer; font-size:13px; transition:all .2s;
+        }
+        .filter-btn:hover { border-color:#667eea; color:#667eea; }
+        .filter-btn.active { background:#667eea; color:white; border-color:#667eea; }
+        .location-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(270px, 1fr));
+            gap:14px; margin-top:22px;
+        }
+        .loc-card {
+            background:#f8f9fa; padding:15px 17px; border-radius:12px;
+            border-left:4px solid #ccc; transition:all .3s;
+            cursor:pointer;
+        }
+        .loc-card:hover {
+            background:#eef0ff; transform:translateX(3px);
+            box-shadow:0 4px 15px rgba(102,126,234,0.15);
+        }
+        .loc-card.locating {
+            background:#fff8e1 !important;
+            border-left-color:#FFC107 !important;
+            animation:card-glow .7s ease;
+        }
+        .loc-card.gate      { border-left-color:#8D6E63; }
+        .loc-card.teaching  { border-left-color:#5D4037; }
+        .loc-card.hall      { border-left-color:#1E88E5; }
+        .loc-card.library   { border-left-color:#1565C0; }
+        .loc-card.facility  { border-left-color:#FB8C00; }
+        .loc-card.sports    { border-left-color:#2E7D32; }
+        .loc-card.life      { border-left-color:#E65100; }
+        .loc-card.canteen   { border-left-color:#AD1457; }
+        .loc-card.restaurant{ border-left-color:#6A1B9A; }
+        .loc-card.other     { border-left-color:#546E7A; }
+        .loc-card h5 { color:#333; font-size:15px; margin-bottom:4px; }
+        .loc-card p { color:#888; font-size:12.5px; line-height:1.5; margin-bottom:6px; }
+        .loc-tag {
+            display:inline-block; padding:2px 10px; border-radius:12px;
+            font-size:11px; color:white;
+        }
+        .loc-jump-hint {
+            display:inline-block; padding:2px 9px; border-radius:12px;
+            font-size:10px;
+            background:linear-gradient(135deg,#667eea,#764ba2); color:white;
+            margin-left:6px;
+        }
+        .section-title {
+            color:#333; font-size:19px; margin-top:28px; margin-bottom:14px;
+            padding-bottom:8px; border-bottom:3px solid #667eea;
+        }
+        .map-tip { text-align:center; color:#999; font-size:13px; margin-top:12px; }
+        .jump-indicator {
+            position:fixed; top:18px; left:50%;
+            transform:translateX(-50%) translateY(-10px);
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            color:white; padding:10px 26px; border-radius:25px;
+            font-size:14px; font-weight:500; z-index:9999;
+            opacity:0; transition:opacity .3s,transform .3s;
+            pointer-events:none; box-shadow:0 4px 15px rgba(102,126,234,.4);
+        }
+        .jump-indicator.show { opacity:1; transform:translateX(-50%) translateY(0); }
+        @keyframes card-glow {
+            0%,100%{box-shadow:0 0 0 0 rgba(102,126,234,0);}
+            50%   {box-shadow:0 0 18px 5px rgba(102,126,234,0.3);}
+        }
+        .toggle-markers-btn {
+            padding:8px 16px; border:2px solid #667eea;
+            background:transparent; color:#667eea; border-radius:20px;
+            cursor:pointer; font-size:13px; transition:all .2s;
+        }
+        .toggle-markers-btn:hover { background:#667eea; color:white; }
+        .toggle-markers-btn.hidden-state { border-color:#999; color:#999; }
+        .toggle-markers-btn.hidden-state:hover { background:#999; color:white; }
+        /* 搜索栏 */
+        .search-wrapper {
+            position: relative;
+            max-width: 520px;
+            margin: 0 auto 18px auto;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 18px 12px 42px;
+            border: 2px solid #d0d5dd;
+            border-radius: 28px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+            background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%23999' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E") 14px center no-repeat;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.18);
+        }
+        .search-input::placeholder { color: #b0b8c9; }
+        .search-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0; right: 0;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.13);
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+        }
+        .search-dropdown.show { display: block; }
+        .search-item {
+            padding: 11px 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background .15s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-item:last-child { border-bottom: none; }
+        .search-item:hover, .search-item.active {
+            background: #f0f4ff;
+        }
+        .search-item-icon {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+        .search-item-text { flex: 1; }
+        .search-item-text .name { font-weight: 600; font-size: 14px; color: #222; }
+        .search-item-text .desc { font-size: 12px; color: #888; margin-top: 2px; }
+        .search-item-type {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #f0f0f0;
+            color: #666;
+            flex-shrink: 0;
+        }
+        .search-empty {
+            padding: 20px 18px;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+        .search-highlight { color: #667eea; font-weight: 700; }
+
+        @media(max-width:768px){
+            .location-grid{ grid-template-columns:1fr; }
+            .toolbar-left{ justify-content:center; }
+            .map-viewport{ height:52vh; min-height:300px; }
+        }
+
+    </style>
+
+<button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+<script src="../js/i18n.js"></script>
+</head>
+<body>
+<div class="page-container">
+<div class="page-header">
+<button class="back-btn" data-i18n="map_back_btn" onclick="goBack()">← 返回首页</button>
+<h2 data-i18n="map_title">🗺️ 校园地图</h2>
+<p data-i18n="map_subtitle">香港中文大学（深圳）校园导览图 · 2026年5月版 · 点击卡片定位到地图</p>
+</div>
+<div class="jump-indicator" id="jumpIndicator" data-i18n="map_jump_indicator">📍 正在定位...</div>
+<div class="page-content">
+<!-- 搜索栏 -->
+<div class="search-wrapper">
+<input autocomplete="off" class="search-input" data-i18n="map_search_placeholder" id="searchInput" placeholder="搜索地点名称或关键词，如：麦当劳、图书馆..." type="text"/>
+<div class="search-dropdown" id="searchDropdown"></div>
+</div>
+<!-- 工具栏 -->
+<div class="map-toolbar">
+<div class="toolbar-left">
+<button class="filter-btn active" data-i18n="map_filter_all" onclick="setFilter('all',this)">全部</button>
+<button class="filter-btn" data-i18n="map_filter_gate" onclick="setFilter('gate',this)">🚪 校门</button>
+<button class="filter-btn" data-i18n="map_filter_teaching" onclick="setFilter('teaching',this)">🏫 教学楼</button>
+<button class="filter-btn" data-i18n="map_filter_college" onclick="setFilter('hall',this)">🏠 书院</button>
+<button class="filter-btn" data-i18n="map_filter_library" onclick="setFilter('library',this)">📖 图书馆</button>
+<button class="filter-btn" data-i18n="map_filter_facility" onclick="setFilter('facility',this)">🏢 设施</button>
+<button class="filter-btn" data-i18n="map_filter_sports" onclick="setFilter('sports',this)">⚽ 体育</button>
+<button class="filter-btn" data-i18n="map_filter_life" onclick="setFilter('life',this)">🛒 生活</button>
+<button class="filter-btn" data-i18n="map_filter_canteen" onclick="setFilter('canteen',this)">🍚 食堂</button>
+<button class="filter-btn" data-i18n="map_filter_restaurant" onclick="setFilter('restaurant',this)">🍽️ 餐厅</button>
+<button class="filter-btn" data-i18n="map_filter_other" onclick="setFilter('other',this)">📍 其他</button>
+</div>
+<div class="toolbar-right">
+<button class="toggle-markers-btn" data-i18n="map_toggle_markers" id="toggleMarkers" onclick="toggleMarkers()">📍 隐藏标记</button>
+<button class="zoom-btn" data-i18n="map_zoomout" id="zoomOut" title="缩小">−</button>
+<span class="zoom-level" id="zoomLevel">100%</span>
+<button class="zoom-btn" data-i18n="map_zoomin" id="zoomIn" title="放大">+</button>
+</div>
+</div>
+<!-- 地图视口 -->
+<div class="map-wrapper">
+<div class="map-viewport" id="mapViewport">
+<div class="zoom-group" id="zoomGroup">
+<img alt="香港中文大学（深圳）校园导览图" data-i18n="map_image_alt" draggable="false" id="mapImage" src="../images/campus-map-official.jpg"/>
+<div class="markers-layer" id="markersLayer"></div>
+</div>
+</div>
+<p class="map-tip" data-i18n="map_tip">🖱️ 滚轮缩放 · 拖拽平移 · 点击下方卡片自动定位 📌 圆点可点击查看名称</p>
+</div>
+<!-- 地点列表 -->
+<h3 class="section-title" data-i18n="map_sec_gate">🚪 校门</h3>
+<div class="location-grid">
+<div class="loc-card gate" data-id="east-gate" data-type="gate" data-x="97.8" data-y="89.0">
+<h5 data-i18n="loc_east-gate_title">东门</h5>
+<p data-i18n="loc_east-gate_desc">校园东侧主入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_east-gate_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card gate" data-id="south-new" data-type="gate" data-x="73.3" data-y="94.4">
+<h5 data-i18n="loc_south-new_title">新南门</h5>
+<p data-i18n="loc_south-new_desc">校园南侧新入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_south-new_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card gate" data-id="south-old" data-type="gate" data-x="27.3" data-y="76.7">
+<h5 data-i18n="loc_south-old_title">老南门</h5>
+<p data-i18n="loc_south-old_desc">校园南侧老入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_south-old_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card gate" data-id="west-gate" data-type="gate" data-x="21.2" data-y="56.6">
+<h5 data-i18n="loc_west-gate_title">西门</h5>
+<p data-i18n="loc_west-gate_desc">校园西侧入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_west-gate_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card gate" data-id="music-gate" data-type="gate" data-x="20.8" data-y="45.3">
+<h5 data-i18n="loc_music-gate_title">音乐学院门</h5>
+<p data-i18n="loc_music-gate_desc">音乐学院专用入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_music-gate_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card gate" data-id="xiangbo-gate" data-type="gate" data-x="38.3" data-y="30.9">
+<h5 data-i18n="loc_xiangbo-gate_title">祥波门</h5>
+<p data-i18n="loc_xiangbo-gate_desc">祥波书院附近入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_xiangbo-gate_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card gate" data-id="north-gate" data-type="gate" data-x="52.6" data-y="22.4">
+<h5 data-i18n="loc_north-gate_title">北门</h5>
+<p data-i18n="loc_north-gate_desc">校园北侧入口</p>
+<span class="loc-tag tag-gate" data-i18n="loc_north-gate_tag">校门</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_teaching">🏫 教学楼</h3>
+<div class="location-grid">
+<div class="loc-card teaching" data-id="txa" data-type="teaching" data-x="92.8" data-y="95.3">
+<h5 data-i18n="loc_txa_title">综合教学楼A（TXA）</h5>
+<p data-i18n="loc_txa_desc">下园综合教学楼A座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_txa_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="txb" data-type="teaching" data-x="87.6" data-y="92.7">
+<h5 data-i18n="loc_txb_title">综合教学楼B（TXB）</h5>
+<p data-i18n="loc_txb_desc">下园综合教学楼B座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_txb_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="txc" data-type="teaching" data-x="87.0" data-y="86.2">
+<h5 data-i18n="loc_txc_title">综合教学楼C（TXC）</h5>
+<p data-i18n="loc_txc_desc">下园综合教学楼C座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_txc_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="txd" data-type="teaching" data-x="93.4" data-y="89.2">
+<h5 data-i18n="loc_txd_title">综合教学楼D（TXD）</h5>
+<p data-i18n="loc_txd_desc">下园综合教学楼D座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_txd_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="ta" data-type="teaching" data-x="77.3" data-y="84.4">
+<h5 data-i18n="loc_ta_title">教学楼A（TA）</h5>
+<p data-i18n="loc_ta_desc">下园教学楼A座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_ta_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="tb" data-type="teaching" data-x="71.9" data-y="82.4">
+<h5 data-i18n="loc_tb_title">教学楼B（TB）</h5>
+<p data-i18n="loc_tb_desc">下园教学楼B座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_tb_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="tc" data-type="teaching" data-x="66.1" data-y="78.8">
+<h5 data-i18n="loc_tc_title">教学楼C（TC）</h5>
+<p data-i18n="loc_tc_desc">下园教学楼C座</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_tc_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="td" data-type="teaching" data-x="60.0" data-y="76.6">
+<h5 data-i18n="loc_td_title">张灵赋楼（TD）</h5>
+<p data-i18n="loc_td_desc">下园张灵赋楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_td_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="lixianyi" data-type="teaching" data-x="50.1" data-y="76.8">
+<h5 data-i18n="loc_lixianyi_title">李贤义楼</h5>
+<p data-i18n="loc_lixianyi_desc">下园李贤义楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_lixianyi_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="tuhui" data-type="teaching" data-x="46.5" data-y="74.0">
+<h5 data-i18n="loc_tuhui_title">涂辉龙楼</h5>
+<p data-i18n="loc_tuhui_desc">下园涂辉龙楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_tuhui_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="daoyuan" data-type="teaching" data-x="31.4" data-y="75.5">
+<h5 data-i18n="loc_daoyuan_title">道远楼</h5>
+<p data-i18n="loc_daoyuan_desc">下园道远楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_daoyuan_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="zhixin" data-type="teaching" data-x="31.1" data-y="69.2">
+<h5 data-i18n="loc_zhixin_title">知新楼</h5>
+<p data-i18n="loc_zhixin_desc">下园知新楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_zhixin_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="chengdao" data-type="teaching" data-x="38.9" data-y="60.8">
+<h5 data-i18n="loc_chengdao_title">诚道楼</h5>
+<p data-i18n="loc_chengdao_desc">下园诚道楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_chengdao_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="zhiren" data-type="teaching" data-x="36.6" data-y="59.4">
+<h5 data-i18n="loc_zhiren_title">志仁楼</h5>
+<p data-i18n="loc_zhiren_desc">下园志仁楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_zhiren_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="letian" data-type="teaching" data-x="38.9" data-y="57.5">
+<h5 data-i18n="loc_letian_title">乐天楼</h5>
+<p data-i18n="loc_letian_desc">下园乐天楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_letian_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="keyanlou" data-type="teaching" data-x="26.7" data-y="52.5">
+<h5 data-i18n="loc_keyanlou_title">科研楼</h5>
+<p data-i18n="loc_keyanlou_desc">下园科研楼</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_keyanlou_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="music-bldg" data-type="teaching" data-x="16.2" data-y="36.5">
+<h5 data-i18n="loc_music-bldg_title">中园音乐学院</h5>
+<p data-i18n="loc_music-bldg_desc">中园音乐学院</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_music-bldg_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="music-hall" data-type="teaching" data-x="11.3" data-y="43.3">
+<h5 data-i18n="loc_music-hall_title">音乐厅</h5>
+<p data-i18n="loc_music-hall_desc">中园音乐厅</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_music-hall_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card teaching" data-id="yixue" data-type="teaching" data-x="11.6" data-y="34.9">
+<h5 data-i18n="loc_yixue_title">医学院（在建）</h5>
+<p data-i18n="loc_yixue_desc">医学院启动区</p>
+<span class="loc-tag tag-teaching" data-i18n="loc_yixue_tag">教学楼</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_college">🏠 书院</h3>
+<div class="location-grid">
+<div class="loc-card hall" data-id="shaw" data-type="hall" data-x="45.9" data-y="63.1">
+<h5 data-i18n="loc_shaw_title">逸夫书院</h5>
+<p data-i18n="loc_shaw_desc">逸夫书院，下园西部</p>
+<span class="loc-tag tag-hall" data-i18n="loc_shaw_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="eighth" data-type="hall" data-x="20.5" data-y="38.3">
+<h5 data-i18n="loc_eighth_title">第八书院</h5>
+<p data-i18n="loc_eighth_desc">第八书院</p>
+<span class="loc-tag tag-hall" data-i18n="loc_eighth_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="harmonia" data-type="hall" data-x="35.9" data-y="37.7">
+<h5 data-i18n="loc_harmonia_title">祥波书院</h5>
+<p data-i18n="loc_harmonia_desc">祥波书院，思廷书院东侧</p>
+<span class="loc-tag tag-hall" data-i18n="loc_harmonia_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="ling" data-type="hall" data-x="35.6" data-y="23.0">
+<h5 data-i18n="loc_ling_title">道扬书院</h5>
+<p data-i18n="loc_ling_desc">道扬书院，上园西南部</p>
+<span class="loc-tag tag-hall" data-i18n="loc_ling_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="diligentia" data-type="hall" data-x="46.2" data-y="24.8">
+<h5 data-i18n="loc_diligentia_title">学勤书院</h5>
+<p data-i18n="loc_diligentia_desc">学勤书院，上园中东部</p>
+<span class="loc-tag tag-hall" data-i18n="loc_diligentia_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="muse" data-type="hall" data-x="40.7" data-y="21.6">
+<h5 data-i18n="loc_muse_title">思廷书院</h5>
+<p data-i18n="loc_muse_desc">思廷书院，上园中部</p>
+<span class="loc-tag tag-hall" data-i18n="loc_muse_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="minerva" data-type="hall" data-x="54.7" data-y="14.5">
+<h5 data-i18n="loc_minerva_title">厚含书院</h5>
+<p data-i18n="loc_minerva_desc">厚含书院，上园北部</p>
+<span class="loc-tag tag-hall" data-i18n="loc_minerva_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card hall" data-id="duan" data-type="hall" data-x="49.7" data-y="9.5">
+<h5 data-i18n="loc_duan_title">永平书院</h5>
+<p data-i18n="loc_duan_desc">永平书院，厚含书院东南侧</p>
+<span class="loc-tag tag-hall" data-i18n="loc_duan_tag">书院</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_library">📖 图书馆</h3>
+<div class="location-grid">
+<div class="loc-card library" data-id="library-new" data-type="library" data-x="63.2" data-y="68.5">
+<h5 data-i18n="loc_library-new_title">大学图书馆（新图）</h5>
+<p data-i18n="loc_library-new_desc">大学图书馆，下园东部</p>
+<span class="loc-tag tag-library" data-i18n="loc_library-new_tag">图书馆</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card library" data-id="library-old" data-type="library" data-x="35.2" data-y="71.3">
+<h5 data-i18n="loc_library-old_title">黄宜弘梁凤仪伉俪图书馆（旧图）</h5>
+<p data-i18n="loc_library-old_desc">旧图书馆，下园中部</p>
+<span class="loc-tag tag-library" data-i18n="loc_library-old_tag">图书馆</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card library" data-id="music-lib" data-type="library" data-x="16.0" data-y="40.1">
+<h5 data-i18n="loc_music-lib_title">音乐学院图书馆</h5>
+<p data-i18n="loc_music-lib_desc">中园图书馆</p>
+<span class="loc-tag tag-library" data-i18n="loc_music-lib_tag">图书馆</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_facility">🏢 行政部门及常用设施</h3>
+<div class="location-grid">
+<div class="loc-card facility" data-id="conference1" data-type="facility" data-x="93.1" data-y="77.6">
+<h5 data-i18n="loc_conference1_title">会议楼Ⅰ（二楼是礼文堂）</h5>
+<p data-i18n="loc_conference1_desc">会议楼Ⅰ，下园东部</p>
+<span class="loc-tag tag-facility" data-i18n="loc_conference1_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card facility" data-id="conference2" data-type="facility" data-x="88.0" data-y="70.5">
+<h5 data-i18n="loc_conference2_title">会议楼Ⅱ</h5>
+<p data-i18n="loc_conference2_desc">会议楼Ⅱ，会议楼Ⅰ附近</p>
+<span class="loc-tag tag-facility" data-i18n="loc_conference2_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card facility" data-id="jccic" data-type="facility" data-x="87.0" data-y="76.2">
+<h5 data-i18n="loc_jccic_title">逸夫国际会议中心</h5>
+<p data-i18n="loc_jccic_desc">逸夫国际会议中心，会议楼Ⅰ西侧</p>
+<span class="loc-tag tag-facility" data-i18n="loc_jccic_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card facility" data-id="admin" data-type="facility" data-x="76.2" data-y="74.0">
+<h5 data-i18n="loc_admin_title">行政楼</h5>
+<p data-i18n="loc_admin_desc">行政楼，下园中部偏右</p>
+<span class="loc-tag tag-facility" data-i18n="loc_admin_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card facility" data-id="student-cent" data-type="facility" data-x="54.9" data-y="66.3">
+<h5 data-i18n="loc_student-cent_title">学生中心（学活）</h5>
+<p data-i18n="loc_student-cent_desc">学生活动中心</p>
+<span class="loc-tag tag-facility" data-i18n="loc_student-cent_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card facility" data-id="monitor" data-type="facility" data-x="31.4" data-y="67.0">
+<h5 data-i18n="loc_monitor_title">校园监控中心</h5>
+<p data-i18n="loc_monitor_desc">校园监控中心</p>
+<span class="loc-tag tag-facility" data-i18n="loc_monitor_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card facility" data-id="parking" data-type="facility" data-x="35.4" data-y="77.2">
+<h5 data-i18n="loc_parking_title">停车场</h5>
+<p data-i18n="loc_parking_desc">道远楼东侧停车场</p>
+<span class="loc-tag tag-facility" data-i18n="loc_parking_tag">设施</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_sports">⚽ 体育设施</h3>
+<div class="location-grid">
+<div class="loc-card sports" data-id="gym" data-type="sports" data-x="25.4" data-y="66.7">
+<h5 data-i18n="loc_gym_title">大学体育馆</h5>
+<p data-i18n="loc_gym_desc">大学体育馆，下园西北部</p>
+<span class="loc-tag tag-sports" data-i18n="loc_gym_tag">体育</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card sports" data-id="comprehensive" data-type="sports" data-x="21.1" data-y="64.2">
+<h5 data-i18n="loc_comprehensive_title">综合体育馆</h5>
+<p data-i18n="loc_comprehensive_desc">综合体育馆，靠近大学体育馆</p>
+<span class="loc-tag tag-sports" data-i18n="loc_comprehensive_tag">体育</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card sports" data-id="track" data-type="sports" data-x="18.0" data-y="63.7">
+<h5 data-i18n="loc_track_title">田径场</h5>
+<p data-i18n="loc_track_desc">田径场，下园西北部</p>
+<span class="loc-tag tag-sports" data-i18n="loc_track_tag">体育</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card sports" data-id="basketball" data-type="sports" data-x="39.1" data-y="74.5">
+<h5 data-i18n="loc_basketball_title">室外篮球场</h5>
+<p data-i18n="loc_basketball_desc">室外篮球场，旧图东侧</p>
+<span class="loc-tag tag-sports" data-i18n="loc_basketball_tag">体育</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card sports" data-id="tennis" data-type="sports" data-x="27.2" data-y="31.3">
+<h5 data-i18n="loc_tennis_title">室外网球场</h5>
+<p data-i18n="loc_tennis_desc">室外网球场，祥波书院西侧</p>
+<span class="loc-tag tag-sports" data-i18n="loc_tennis_tag">体育</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_life">🛒 生活设施</h3>
+<div class="location-grid">
+<div class="loc-card life" data-id="hair-salon" data-type="life" data-x="54.5" data-y="74.2">
+<h5 data-i18n="loc_hair-salon_title">三把椅子理发店</h5>
+<p data-i18n="loc_hair-salon_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_hair-salon_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="neishan" data-type="life" data-x="55.1" data-y="72.9">
+<h5 data-i18n="loc_neishan_title">内山书店</h5>
+<p data-i18n="loc_neishan_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_neishan_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="citic-bank" data-type="life" data-x="54.3" data-y="72.2">
+<h5 data-i18n="loc_citic-bank_title">中信银行</h5>
+<p data-i18n="loc_citic-bank_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_citic-bank_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="staff-center" data-type="life" data-x="54.2" data-y="75.2">
+<h5 data-i18n="loc_staff-center_title">乐园教职工活动中心</h5>
+<p data-i18n="loc_staff-center_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_staff-center_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="familymart" data-type="life" data-x="54.8" data-y="78.3">
+<h5 data-i18n="loc_familymart_title">全家便利店</h5>
+<p data-i18n="loc_familymart_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_familymart_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="sf-express" data-type="life" data-x="56.5" data-y="78.5">
+<h5 data-i18n="loc_sf-express_title">顺丰快递中心</h5>
+<p data-i18n="loc_sf-express_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_sf-express_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="clinic-lower" data-type="life" data-x="57.2" data-y="84.7">
+<h5 data-i18n="loc_clinic-lower_title">下园医务室（社康）</h5>
+<p data-i18n="loc_clinic-lower_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_clinic-lower_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="typo" data-type="life" data-x="58.3" data-y="82.3">
+<h5 data-i18n="loc_typo_title">通条文印</h5>
+<p data-i18n="loc_typo_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_typo_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="eyeglass" data-type="life" data-x="58.9" data-y="80.5">
+<h5 data-i18n="loc_eyeglass_title">中兴眼镜店</h5>
+<p data-i18n="loc_eyeglass_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_eyeglass_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="property" data-type="life" data-x="55.3" data-y="75.2">
+<h5 data-i18n="loc_property_title">物业服务中心</h5>
+<p data-i18n="loc_property_desc">TD西侧</p>
+<span class="loc-tag tag-life" data-i18n="loc_property_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="tea-shop" data-type="life" data-x="56.5" data-y="75.6">
+<h5 data-i18n="loc_tea-shop_title">一瓯茶奶茶店</h5>
+<p data-i18n="loc_tea-shop_desc">TD附近</p>
+<span class="loc-tag tag-life" data-i18n="loc_tea-shop_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="starbucks" data-type="life" data-x="51.9" data-y="77.0">
+<h5 data-i18n="loc_starbucks_title">星巴克</h5>
+<p data-i18n="loc_starbucks_desc">TD西侧</p>
+<span class="loc-tag tag-life" data-i18n="loc_starbucks_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="lawson" data-type="life" data-x="40.4" data-y="15.4">
+<h5 data-i18n="loc_lawson_title">罗森便利店</h5>
+<p data-i18n="loc_lawson_desc">上园海月廷食堂北侧</p>
+<span class="loc-tag tag-life" data-i18n="loc_lawson_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="laundry" data-type="life" data-x="51.6" data-y="10.0">
+<h5 data-i18n="loc_laundry_title">美家洁干洗店</h5>
+<p data-i18n="loc_laundry_desc">在厚含书院中庭广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_laundry_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="tianmao" data-type="life" data-x="51.2" data-y="9.5">
+<h5 data-i18n="loc_tianmao_title">天猫国际超市</h5>
+<p data-i18n="loc_tianmao_desc">在厚含书院中庭广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_tianmao_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="q-hair" data-type="life" data-x="52.0" data-y="10.0">
+<h5 data-i18n="loc_q-hair_title">Q发屋</h5>
+<p data-i18n="loc_q-hair_desc">在厚含书院中庭广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_q-hair_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="stone-souvenir" data-type="life" data-x="53.5" data-y="71.9">
+<h5 data-i18n="loc_stone-souvenir_title">"阳光下的石头"纪念品商店</h5>
+<p data-i18n="loc_stone-souvenir_desc">在下沉广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_stone-souvenir_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card life" data-id="clinic-upper" data-type="life" data-x="52.7" data-y="18.8">
+<h5 data-i18n="loc_clinic-upper_title">上园医务室</h5>
+<p data-i18n="loc_clinic-upper_desc">在厚含负二层时代广场</p>
+<span class="loc-tag tag-life" data-i18n="loc_clinic-upper_tag">生活</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_canteen">🍚 食堂</h3>
+<div class="location-grid">
+<div class="loc-card canteen" data-id="youranju" data-type="canteen" data-x="54.4" data-y="68.7">
+<h5 data-i18n="loc_youranju_title">悠然居食堂（学生中心一楼）</h5>
+<p data-i18n="loc_youranju_desc">学生中心一楼食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_youranju_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="shanghe" data-type="canteen" data-x="54.5" data-y="67.5">
+<h5 data-i18n="loc_shanghe_title">尚荷轩食堂（学生中心二楼）</h5>
+<p data-i18n="loc_shanghe_desc">学生中心二楼食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_shanghe_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="yifan" data-type="canteen" data-x="48.1" data-y="65.5">
+<h5 data-i18n="loc_yifan_title">逸帆风顺食堂（逸夫书院）</h5>
+<p data-i18n="loc_yifan_desc">逸夫书院食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_yifan_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="wanghu2" data-type="canteen" data-x="92.4" data-y="82.9">
+<h5 data-i18n="loc_wanghu2_title">望湖楼食堂（会议楼Ⅰ一楼）</h5>
+<p data-i18n="loc_wanghu2_desc">会议楼Ⅰ一楼食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_wanghu2_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="haiyueting" data-type="canteen" data-x="39.7" data-y="20.0">
+<h5 data-i18n="loc_haiyueting_title">海月廷食堂（思廷书院）</h5>
+<p data-i18n="loc_haiyueting_desc">思廷书院食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_haiyueting_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="xiangbo-cant" data-type="canteen" data-x="35.4" data-y="39.2">
+<h5 data-i18n="loc_xiangbo-cant_title">香波食堂（祥波书院）</h5>
+<p data-i18n="loc_xiangbo-cant_desc">祥波书院食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_xiangbo-cant_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="sennw" data-type="canteen" data-x="48.7" data-y="12.6">
+<h5 data-i18n="loc_sennw_title">东南西北风食堂（永平书院）</h5>
+<p data-i18n="loc_sennw_desc">永平书院食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_sennw_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card canteen" data-id="music-canteen" data-type="canteen" data-x="12.5" data-y="51.0">
+<h5 data-i18n="loc_music-canteen_title">音乐学院食堂</h5>
+<p data-i18n="loc_music-canteen_desc">音乐学院食堂</p>
+<span class="loc-tag tag-canteen" data-i18n="loc_music-canteen_tag">食堂</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_restaurant">🍽️ 餐厅</h3>
+<div class="location-grid">
+<div class="loc-card restaurant" data-id="xixiang" data-type="restaurant" data-x="75.7" data-y="90.1">
+<h5 data-i18n="loc_xixiang_title">星想·地中海餐厅</h5>
+<p data-i18n="loc_xixiang_desc">下园餐厅</p>
+<span class="loc-tag tag-restaurant" data-i18n="loc_xixiang_tag">餐厅</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card restaurant" data-id="canteen2" data-type="restaurant" data-x="94.0" data-y="82.9">
+<h5 data-i18n="loc_canteen2_title">骊轩茶餐厅</h5>
+<p data-i18n="loc_canteen2_desc">下园餐厅</p>
+<span class="loc-tag tag-restaurant" data-i18n="loc_canteen2_tag">餐厅</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card restaurant" data-id="mcdonald" data-type="restaurant" data-x="49.0" data-y="27.6">
+<h5 data-i18n="loc_mcdonald_title">麦当劳</h5>
+<p data-i18n="loc_mcdonald_desc">学勤书院内</p>
+<span class="loc-tag tag-restaurant" data-i18n="loc_mcdonald_tag">餐厅</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card restaurant" data-id="pizza" data-type="restaurant" data-x="48.1" data-y="28.6">
+<h5 data-i18n="loc_pizza_title">乐凯撒</h5>
+<p data-i18n="loc_pizza_desc">学勤书院内</p>
+<span class="loc-tag tag-restaurant" data-i18n="loc_pizza_tag">餐厅</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card restaurant" data-id="tea-res" data-type="restaurant" data-x="47.9" data-y="24.4">
+<h5 data-i18n="loc_tea-res_title">太清凉茶</h5>
+<p data-i18n="loc_tea-res_desc">学勤书院内</p>
+<span class="loc-tag tag-restaurant" data-i18n="loc_tea-res_tag">餐厅</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+<h3 class="section-title" data-i18n="map_sec_other">📍 其他</h3>
+<div class="location-grid">
+<div class="loc-card other" data-id="fairy-lake" data-type="other" data-x="15.2" data-y="24.3">
+<h5 data-i18n="loc_fairy-lake_title">神仙湖</h5>
+<p data-i18n="loc_fairy-lake_desc">中园湖泊</p>
+<span class="loc-tag tag-other" data-i18n="loc_fairy-lake_tag">其他</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card other" data-id="clocktower" data-type="other" data-x="29.2" data-y="63.0">
+<h5 data-i18n="loc_clocktower_title">钟楼（薯塔）</h5>
+<p data-i18n="loc_clocktower_desc">校园标志性建筑</p>
+<span class="loc-tag tag-other" data-i18n="loc_clocktower_tag">其他</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+<div class="loc-card other" data-id="staff-dorm" data-type="other" data-x="40.1" data-y="5.4">
+<h5 data-i18n="loc_staff-dorm_title">教职员宿舍</h5>
+<p data-i18n="loc_staff-dorm_desc">教职员宿舍区</p>
+<span class="loc-tag tag-other" data-i18n="loc_staff-dorm_tag">其他</span><span class="loc-jump-hint" data-i18n="loc_jump_hint">👆 点击定位</span>
+</div>
+</div>
+</div>
+<script src="../js/main.js"></script>
+<script>
+(function(){
+    var viewport  = document.getElementById('mapViewport');
+    var zoomGroup = document.getElementById('zoomGroup');
+    var img       = document.getElementById('mapImage');
+    var markersL  = document.getElementById('markersLayer');
+    var elZoom    = document.getElementById('zoomLevel');
+
+    var scale  = 1;
+    var panX   = 0, panY = 0;
+    var MIN_S  = 0.1, MAX_S = 5;
+    var isDrag = false;
+
+    var activeMarkerId  = null;
+    var markersVisible  = true;
+    var allMarkers     = [];
+    var singleMode     = false;   // 单标注模式
+    var singleMId      = '';      // 当前单显的卡片id
+    var currentFilter  = 'all';   // 当前筛选类型
+    var imgW, imgH;
+
+    /* ========== 搜索功能 ========== */
+    var searchInput    = document.getElementById('searchInput');
+    var searchDropdown = document.getElementById('searchDropdown');
+    var searchTimer    = null;
+    var activeSearchIdx = -1;
+    var currentResults  = [];
+
+    /* 类型 → 颜色/标签 映射 */
+    var typeMeta = {
+        gate:      { color: '#e74c3c', label_zh: '校门', label_en: 'Gate' },
+        teaching:   { color: '#3498db', label_zh: '教学楼', label_en: 'Teaching' },
+        hall:       { color: '#9b59b6', label_zh: '书院', label_en: 'College' },
+        library:    { color: '#2ecc71', label_zh: '图书馆', label_en: 'Library' },
+        facility:   { color: '#f39c12', label_zh: '设施', label_en: 'Facility' },
+        sports:     { color: '#e67e22', label_zh: '体育', label_en: 'Sports' },
+        life:       { color: '#1abc9c', label_zh: '生活', label_en: 'Daily Life' },
+        canteen:    { color: '#e84393', label_zh: '食堂', label_en: 'Canteen' },
+        restaurant: { color: '#d35400', label_zh: '餐厅', label_en: 'Restaurant' },
+        other:      { color: '#636e72', label_zh: '其他', label_en: 'Other' }
+    };
+
+    /* 收集所有地点数据 */
+    function buildSearchIndex() {
+        var cards = document.querySelectorAll('.loc-card[data-id]');
+        currentResults = [];
+        var lang = (window.i18n && window.i18n.getLang) ? window.i18n.getLang() : 'zh';
+        cards.forEach(function(c) {
+            var id   = c.dataset.id;
+            var type = c.dataset.type;
+            var name = (c.querySelector('h5') || {}).textContent || '';
+            var desc = (c.querySelector('p')  || {}).textContent || '';
+            var meta = typeMeta[type] || { color: '#888', label_zh: type, label_en: type };
+            var label = lang === 'en' ? meta.label_en : meta.label_zh;
+            currentResults.push({ id: id, type: type, name: name, desc: desc, color: meta.color, label: label });
+        });
+    }
+    buildSearchIndex();
+
+    /* 渲染下拉列表 */
+    function renderDropdown(results, keyword) {
+        if (!keyword) { searchDropdown.classList.remove('show'); return; }
+        if (results.length === 0) {
+            var lang = (window.i18n && window.i18n.getLang) ? window.i18n.getLang() : 'zh';
+            searchDropdown.innerHTML = '<div class="search-empty">' + (lang === 'en' ? '😕 No matching locations found' : '😕 未找到匹配的地点') + '</div>';
+            searchDropdown.classList.add('show');
+            return;
+        }
+        var html = '';
+        results.forEach(function(r, i) {
+            var highlightedName = r.name.replace(
+                new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'),
+                function(match) { return '<span class="search-highlight">' + match + '</span>'; }
+            );
+            html += '<div class="search-item" data-idx="' + i + '" data-id="' + r.id + '">' +
+                        '<div class="search-item-icon" style="background:' + r.color + ';">' +
+                            (document.getElementById('marker-' + r.id) ?
+                             document.getElementById('marker-' + r.id).textContent.trim().charAt(0) : r.name.charAt(0)) +
+                        '</div>' +
+                        '<div class="search-item-text">' +
+                            '<div class="name">' + highlightedName + '</div>' +
+                            '<div class="desc">' + r.desc + '</div>' +
+                        '</div>' +
+                        '<span class="search-item-type">' + r.label + '</span>' +
+                    '</div>';
+        });
+        searchDropdown.innerHTML = html;
+        searchDropdown.classList.add('show');
+        activeSearchIdx = -1;
+
+        /* 绑定 hover -> active */
+        searchDropdown.querySelectorAll('.search-item').forEach(function(item) {
+            item.addEventListener('mouseenter', function() {
+                searchDropdown.querySelectorAll('.search-item').forEach(function(s) { s.classList.remove('active'); });
+                item.classList.add('active');
+                activeSearchIdx = parseInt(item.dataset.idx);
+            });
+            item.addEventListener('click', function() {
+                selectSearchResult(item.dataset.id);
+            });
+        });
+    }
+
+    /* 选择搜索结果 */
+    function selectSearchResult(id) {
+        searchDropdown.classList.remove('show');
+        searchInput.value = '';
+        activeSearchIdx = -1;
+
+        var card = document.querySelector('.loc-card[data-id="' + id + '"]');
+        if (!card) return;
+
+        /* 确保该分类可见：找到对应筛选按钮并点击 */
+        var type = card.dataset.type;
+        var btn  = document.querySelector('.filter-btn[onclick*="' + type + '"]');
+        if (btn && currentFilter !== type) {
+            window.setFilter(type, btn);
+        } else if (currentFilter !== 'all' && !btn) {
+            /*  fallback：切到全部 */
+            var allBtn = document.querySelector('.filter-btn[onclick*="all"]');
+            if (allBtn) window.setFilter('all', allBtn);
+        }
+
+        /* 滚动到卡片并高亮 */
+        setTimeout(function() {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.classList.add('locating');
+            setTimeout(function() { card.classList.remove('locating'); }, 1200);
+        }, 100);
+
+        /* 自动触发卡片点击 → 跳转地图 */
+        setTimeout(function() {
+            if (typeof jumpToLocation === 'function') {
+                jumpToLocation(card);
+            } else {
+                card.click();
+            }
+        }, 500);
+    }
+
+    /* 输入事件 */
+    searchInput.addEventListener('input', function() {
+        var kw = this.value.trim();
+        clearTimeout(searchTimer);
+        if (!kw) { searchDropdown.classList.remove('show'); return; }
+        searchTimer = setTimeout(function() {
+            var results = currentResults.filter(function(r) {
+                return r.name.indexOf(kw) !== -1 || r.desc.indexOf(kw) !== -1;
+            });
+            renderDropdown(results, kw);
+        }, 150);
+    });
+
+    /* 键盘导航 */
+    searchInput.addEventListener('keydown', function(e) {
+        var items = searchDropdown.querySelectorAll('.search-item');
+        if (!searchDropdown.classList.contains('show') || items.length === 0) return;
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            activeSearchIdx = Math.min(activeSearchIdx + 1, items.length - 1);
+            updateActiveSearchItem(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            activeSearchIdx = Math.max(activeSearchIdx - 1, 0);
+            updateActiveSearchItem(items);
+        } else if (e.key === 'Enter' && activeSearchIdx >= 0) {
+            e.preventDefault();
+            selectSearchResult(items[activeSearchIdx].dataset.id);
+        } else if (e.key === 'Escape') {
+            searchDropdown.classList.remove('show');
+            searchInput.blur();
+        }
+    });
+
+    function updateActiveSearchItem(items) {
+        items.forEach(function(item, i) {
+            item.classList.toggle('active', i === activeSearchIdx);
+        });
+        if (items[activeSearchIdx]) {
+            items[activeSearchIdx].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    /* 点击页面其他地方关闭下拉 */
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+            searchDropdown.classList.remove('show');
+        }
+    });
+
+    /* ========== 搜索功能结束 ========== */
+
+    function applyTransform() {
+        zoomGroup.style.transform =
+            'translate(' + (panX * scale) + 'px,' + (panY * scale) + 'px) ' +
+            'scale(' + scale + ')';
+        elZoom.textContent = Math.round(scale * 100) + '%';
+        var inv = 1 / scale;
+        allMarkers.forEach(function(m) { m.style.setProperty('--inv', inv); });
+    }
+
+    function fitToView() {
+        if (!imgW) return;
+        var vW = viewport.clientWidth;
+        var vH = viewport.clientHeight;
+        var s  = Math.min(vW / imgW, vH / imgH);
+        scale  = Math.max(MIN_S, Math.min(MAX_S, s));
+        panX   = (vW - imgW * scale) / (2 * scale);
+        panY   = (vH - imgH * scale) / (2 * scale);
+        applyTransform();
+    }
+
+    function zoomAtCenter(newS) {
+        newS = Math.max(MIN_S, Math.min(MAX_S, newS));
+        var vW = viewport.clientWidth;
+        var vH = viewport.clientHeight;
+        var mapCX = (vW / 2 - panX * scale) / scale;
+        var mapCY = (vH / 2 - panY * scale) / scale;
+        var newPanX = (vW / 2 - mapCX * newS) / newS;
+        var newPanY = (vH / 2 - mapCY * newS) / newS;
+        animateTo(newPanX, newPanY, newS);
+    }
+
+    function animateTo(tpX, tpY, tS) {
+        var s0 = scale, p0x = panX, p0y = panY;
+        var t0 = null, dur = 500;
+        function step(ts) {
+            if (!t0) t0 = ts;
+            var p = Math.min((ts - t0) / dur, 1);
+            var e = 1 - Math.pow(1 - p, 3);
+            scale = s0 + (tS - s0) * e;
+            panX  = p0x + (tpX - p0x) * e;
+            panY  = p0y + (tpY - p0y) * e;
+            applyTransform();
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    var iconMap = {
+    'east-gate':'东',
+    'south-new':'新',
+    'south-old':'老',
+    'west-gate':'西',
+    'music-gate':'音',
+    'xiangbo-gate':'祥',
+    'north-gate':'北',
+    'txa':'A',
+    'txb':'B',
+    'txc':'C',
+    'txd':'D',
+    'ta':'A',
+    'tb':'B',
+    'tc':'C',
+    'td':'D',
+    'lixianyi':'李',
+    'tuhui':'涂',
+    'daoyuan':'道',
+    'zhixin':'知',
+    'chengdao':'诚',
+    'zhiren':'志',
+    'letian':'乐',
+    'keyanlou':'科',
+    'music-bldg':'音',
+    'yixue':'医',
+    'sme':'经',
+    'sse':'理',
+    'hss':'人',
+    'sds':'数',
+    'sai':'智',
+    'spp':'政',
+    'shaw':'逸',
+    'eighth':'八',
+    'harmonia':'祥',
+    'ling':'道',
+    'diligentia':'学',
+    'muse':'思',
+    'minerva':'厚',
+    'duan':'永',
+    'library-new':'新',
+    'library-old':'旧',
+    'conference1':'Ⅰ',
+    'conference2':'Ⅱ',
+    'jccic':'会',
+    'admin':'行',
+    'student-cent':'学',
+    'monitor':'监',
+    'parking':'停',
+    'gym':'体',
+    'comprehensive':'综',
+    'track':'田',
+    'basketball':'篮',
+    'tennis':'网',
+    'hair-salon':'剪',
+    'neishan':'书',
+    'citic-bank':'银',
+    'staff-center':'乐',
+    'familymart':'全',
+    'sf-express':'丰',
+    'clinic-lower':'医',
+    'clinic-upper':'医',
+    'typo':'印',
+    'eyeglass':'眼',
+    'property':'物',
+    'tea-shop':'茶',
+    'starbucks':'星',
+    'lawson':'罗',
+    'laundry':'洗',
+    'tianmao':'猫',
+    'q-hair':'Q',
+    'stone-souvenir':'礼',
+    'youranju':'悠',
+    'shanghe':'尚',
+    'yifan':'逸',
+    'wanghu1':'湖',
+    'wanghu2':'湖',
+    'haiyueting':'海',
+    'xiangbo-cant':'香',
+    'sennw':'风',
+    'music-canteen':'音',
+    'xixiang':'星',
+    'canteen2':'骊',
+    'mcdonald':'麦',
+    'pizza':'乐',
+    'tea-res':'太',
+    'fairy-lake':'湖',
+    'clocktower':'钟',
+    'staff-dorm':'宿',
+    'music-hall':'厅',
+    'music-lib':'音',
+    };
+
+    function createMarkers() {
+        document.querySelectorAll('.loc-card[data-x]').forEach(function(card) {
+            var id   = card.dataset.id;
+            var xPct = parseFloat(card.dataset.x);
+            var yPct = parseFloat(card.dataset.y);
+            var type = card.dataset.type;
+            var title = card.querySelector('h5').textContent.trim();
+
+            var m = document.createElement('div');
+            m.className = 'map-marker marker-' + type;
+            m.id = 'marker-' + id;
+            m.style.left = xPct + '%';
+            m.style.top  = yPct + '%';
+            m.innerHTML =
+                '<span style="pointer-events:none">' + (iconMap[id]||'●') + '</span>' +
+                '<div class="marker-tooltip">' + title + '</div>';
+            m.dataset.mid = id;
+
+            m.addEventListener('click', function(e) {
+                e.stopPropagation();
+                /* 点击地图标注也进入单标注模式 */
+                singleMode = true;
+                singleMId  = id;
+                updateMarkersVisibility();
+
+                var card = document.querySelector('.loc-card[data-id="' + id + '"]');
+                if (card) {
+                    var xPct = parseFloat(card.dataset.x) / 100;
+                    var yPct = parseFloat(card.dataset.y) / 100;
+                    var tx = xPct * imgW, ty = yPct * imgH;
+                    var vW = viewport.clientWidth, vH = viewport.clientHeight;
+                    var newScale = 1.0;
+                    animateTo(vW/(2*newScale)-tx, vH/(2*newScale)-ty, newScale);
+                }
+                activateMarker(id);
+                scrollToCard(id);
+            });
+
+            markersL.appendChild(m);
+            allMarkers.push(m);
+        });
+    }
+
+    function jumpToLocation(cardEl) {
+        var id    = cardEl.dataset.id;
+        var xPct  = parseFloat(cardEl.dataset.x) / 100;
+        var yPct  = parseFloat(cardEl.dataset.y) / 100;
+        var title = cardEl.querySelector('h5').textContent.trim();
+
+        /* 滚动到地图区域 */
+        var mapSection = document.getElementById('mapViewport');
+        if (mapSection) {
+            mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* 进入单标注模式 */
+        singleMode = true;
+        singleMId  = id;
+        updateMarkersVisibility();
+
+        showJumpIndicator(title);
+
+        var tx = xPct * imgW;
+        var ty = yPct * imgH;
+        var vW = viewport.clientWidth;
+        var vH = viewport.clientHeight;
+        var newScale = 1.0;  
+
+        var targetPanX = vW / (2 * newScale) - tx;
+        var targetPanY = vH / (2 * newScale) - ty;
+
+        animateTo(targetPanX, targetPanY, newScale);
+        activateMarker(id);
+
+        cardEl.classList.add('locating');
+        setTimeout(function(){ cardEl.classList.remove('locating'); }, 800);
+    }
+
+    function activateMarker(id) {
+        if (activeMarkerId && activeMarkerId !== id) {
+            var prev = document.getElementById('marker-' + activeMarkerId);
+            if (prev) prev.classList.remove('active');
+        }
+        activeMarkerId = id;
+        var m = document.getElementById('marker-' + id);
+        if (m) m.classList.add('active');
+    }
+    function deactivateAllMarkers() {
+        document.querySelectorAll('.map-marker.active').forEach(function(m){ m.classList.remove('active'); });
+        activeMarkerId = null;
+    }
+
+    /* 根据当前模式更新所有标注的显示/隐藏 */
+    function updateMarkersVisibility() {
+        allMarkers.forEach(function(m) {
+            var mid = m.dataset.mid;
+            if (singleMode) {
+                m.style.display = (mid === singleMId) ? '' : 'none';
+            } else {
+                var card = document.querySelector('.loc-card[data-id="' + mid + '"]');
+                var show = currentFilter === 'all' || (card && card.dataset.type === currentFilter);
+                m.style.display = show ? '' : 'none';
+            }
+        });
+    }
+    function scrollToCard(id) {
+        var c = document.querySelector('.loc-card[data-id="' + id + '"]');
+        if (c) c.scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+    function showJumpIndicator(name) {
+        var el = document.getElementById('jumpIndicator');
+        el.textContent = '📍 ' + name;
+        el.classList.add('show');
+        clearTimeout(el._t);
+        el._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+    }
+
+    document.querySelectorAll('.loc-card[data-x]').forEach(function(c) {
+        c.addEventListener('click', function(){ jumpToLocation(this); });
+    });
+
+    document.getElementById('zoomIn').onclick  =
+        function(){ zoomAtCenter(scale + 0.1); deactivateAllMarkers(); };
+    document.getElementById('zoomOut').onclick =
+        function(){ zoomAtCenter(scale - 0.1); deactivateAllMarkers(); };
+
+    viewport.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        var step = e.deltaY > 0 ? -0.1 : 0.1;
+        zoomAtCenter(scale + step);
+    }, { passive:false });
+
+    var dragStartX, dragStartY, dragStartPanX, dragStartPanY;
+    viewport.addEventListener('mousedown', function(e) {
+        if (e.target.closest('.map-marker')) return;
+        isDrag = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragStartPanX = panX;
+        dragStartPanY = panY;
+        viewport.style.cursor = 'grabbing';
+    });
+    document.addEventListener('mousemove', function(e) {
+        if (!isDrag) return;
+        var dx = e.clientX - dragStartX;
+        var dy = e.clientY - dragStartY;
+        panX = dragStartPanX + dx / scale;
+        panY = dragStartPanY + dy / scale;
+        applyTransform();
+    });
+    document.addEventListener('mouseup', function(){
+        isDrag = false;
+        viewport.style.cursor = 'grab';
+    });
+
+    viewport.addEventListener('touchstart', function(e) {
+        if (e.target.closest('.map-marker')) return;
+        if (e.touches.length === 1) {
+            isDrag = true;
+            dragStartX = e.touches[0].clientX;
+            dragStartY = e.touches[0].clientY;
+            dragStartPanX = panX;
+            dragStartPanY = panY;
+        }
+    }, { passive:true });
+    viewport.addEventListener('touchmove', function(e) {
+        if (!isDrag || e.touches.length !== 1) return;
+        e.preventDefault();
+        var dx = e.touches[0].clientX - dragStartX;
+        var dy = e.touches[0].clientY - dragStartY;
+        panX = dragStartPanX + dx / scale;
+        panY = dragStartPanY + dy / scale;
+        applyTransform();
+    }, { passive:false });
+    viewport.addEventListener('touchend', function(){ isDrag = false; });
+
+    window.setFilter = function(type, btn) {
+        /* 退出单标注模式 */
+        singleMode = false;
+        currentFilter = type;
+
+        document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelectorAll('.loc-card').forEach(function(c) {
+            c.style.display = (type === 'all' || c.dataset.type === type) ? '' : 'none';
+        });
+        updateMarkersVisibility();
+    };
+
+    window.toggleMarkers = function() {
+        markersVisible = !markersVisible;
+        var btn = document.getElementById('toggleMarkers');
+        if (markersVisible) {
+            btn.classList.remove('hidden-state');
+            markersL.style.opacity = '1'; markersL.style.pointerEvents = 'auto';
+        } else {
+            btn.classList.add('hidden-state');
+            markersL.style.opacity = '0'; markersL.style.pointerEvents = 'none';
+        }
+        /* 同步 i18n 文字 */
+        if (typeof window.i18n === 'object' && window.i18n.syncToggleMarkersBtn)
+            window.i18n.syncToggleMarkersBtn();
+    };
+
+    img.onload = function() {
+        imgW = img.naturalWidth;
+        imgH = img.naturalHeight;
+        zoomGroup.style.width  = imgW + 'px';
+        zoomGroup.style.height = imgH + 'px';
+        markersL.style.width  = imgW + 'px';
+        markersL.style.height = imgH + 'px';
+        createMarkers();
+        buildSearchIndex();   /* 标记构建完毕后刷新索引，确保下拉图标正确 */
+        fitToView();
+    };
+    if (img.complete) {
+        img.dispatchEvent(new Event('load'));
+    }
+
+    window.addEventListener('resize', fitToView);
+
+    /* 更新所有地图标注的工具提示（语言切换时调用） */
+    function updateMarkerTooltips() {
+        allMarkers.forEach(function(m) {
+            var id = m.dataset.mid;
+            if (!id) return;
+            var card = document.querySelector('.loc-card[data-id="' + id + '"]');
+            if (!card) return;
+            var title = card.querySelector('h5');
+            if (!title) return;
+            var tip = m.querySelector('.marker-tooltip');
+            if (tip) tip.textContent = title.textContent.trim();
+        });
+    }
+
+    /* 监听 i18n 语言切换事件，重建搜索索引 + 更新标注提示 */
+    document.addEventListener('i18n:applied', function() {
+        buildSearchIndex();
+        updateMarkerTooltips();
+    });
+
+})();
+</script>
+</div></body>
+</html>
