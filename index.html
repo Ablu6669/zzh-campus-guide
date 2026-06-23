@@ -946,10 +946,11 @@ html:lang(en) .en-name { display: none; }
             color: white;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             transform: translate(-50%, -50%) scale(var(--inv, 1));
-            box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 0 rgba(255,215,0,0);
             z-index: 10;
             border: 2.5px solid rgba(255,255,255,0.9);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 0 rgba(255,215,0,0);
+            transition: box-shadow 0.3s ease;  /* 不对transform做过渡，避免缩放时闪烁 */
             animation: pulse-ring 2.2s infinite ease-out;
         }
         .map-marker:hover { z-index: 20 !important; box-shadow: 0 4px 18px rgba(0,0,0,0.5), 0 0 0 0 rgba(255,215,0,0) !important; }
