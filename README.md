@@ -1,116 +1,96 @@
-# 🎓 校园新生指南 | Campus New Student Guide
+# 校园新生指南系统 (New Student Guide)
 
-> 香港中文大学（深圳）校园新生指南 —— 一个帮助学生快速了解校园的一站式信息平台
->
-> A one-stop information platform for new students at The Chinese University of Hong Kong, Shenzhen
+为香港中文大学（深圳）新生打造的一站式校园信息平台，涵盖校园地图、常用网站、设施服务、通讯录、常见问题及缩写查询等功能。支持中英文双语切换，移动端优先设计。
 
-🌐 **在线访问 | Live Site**: https://ablu6669.github.io/zzh-campus-guide/
+线上访问：<https://ablu6669.github.io/zzh-campus-guide/>
 
----
+## 功能模块
 
-## ✨ 功能特性 | Features
+| 模块 | 说明 |
+|------|------|
+| 校园地图 | 校园建筑/设施位置导航，按分类筛选 |
+| 常用网站 | 内网门户、教务系统、图书馆、打印平台等常用网址聚合 |
+| 常用设施及服务 | 食堂、餐厅、咖啡茶饮、便利店、物业、理发、干洗、社康中心等 17 项设施信息 |
+| 通讯录 | 学校各部门及书院联系方式 |
+| 常见问题 | 学校、学习、生活、娱乐四大类新生常见 Q&A |
+| 缩写查询 | 校园常用缩写/简称对照表 |
 
-| 板块 | 中文描述 | English |
-|------|---------|---------|
-| 🗺️ 校园地图 | 交互式校园地图，快速定位教学楼、图书馆、宿舍等地点 | Interactive campus map to locate buildings, libraries, dorms, etc. |
-| 📞 常用联系方式 | 8大学院 + 8大书院 + 18个行政部门，共34个联系人目录 | 34 contacts across 8 colleges, 8 residential colleges & 18 admin departments |
-| 🌐 常用网站 | 核心官网、学生内网平台、常用小程序及学校邮箱使用指南 | Official websites, intranet platforms, mini-programs & email guides |
-| 🏢 常用设施及服务 | 8家食堂、4家餐厅、咖啡茶饮、便利店、书店文印、社康中心等16类服务 | 16 service categories: canteens, restaurants, cafés, stores, clinic & more |
-| 📚 常用缩写 | 145条校园英文缩写 + 46条常用短语，支持中英双语搜索 | 145 abbreviations + 46 phrases with bilingual search |
-| ❓ 常见问题 | 学习、生活、行政三大类共8个常见问题解答 | 8 FAQs across 3 categories: study, daily life & administration |
+## 技术架构
 
----
+- **纯前端**：HTML + CSS + JavaScript，无后端依赖
+- **单文件构建**：`build_single_html.py` 将所有页面、样式、脚本、图片合并为单个 `index.html`，方便部署到 GitHub Pages
+- **国际化**：`i18n.js` 统一管理中英文翻译，通过 `data-i18n` 属性绑定，支持动态切换
+- **移动优先**：响应式布局，适配手机/平板/桌面
 
-## 🌍 国际化 | Internationalization
-
-- 完整中英双语支持 | Full Chinese-English bilingual support
-- 1300+ 翻译词条 | 1,300+ translation entries
-- 一键语言切换 | One-click language toggle
-
----
-
-## 🛠️ 技术栈 | Tech Stack
-
-- **HTML5** — 单文件 SPA 架构 | Single-file SPA architecture
-- **CSS3** — 响应式设计 | Responsive design
-- **Vanilla JavaScript** — 无框架依赖 | No framework dependency
-- **data-i18n** — 自定义国际化方案 | Custom i18n solution
-
----
-
-## 📁 项目结构 | Project Structure
+## 项目结构
 
 ```
-zzh-campus-guide/
-├── index.html          # 单文件应用（含所有页面、样式、脚本）
-├── README.md           # 项目说明文档
-└── (源码结构)
-    ├── website/
-    │   ├── index.html          # 登录页
-    │   ├── css/style.css       # 样式表
-    │   ├── js/
-    │   │   ├── i18n.js         # 翻译引擎 + 词条
-    │   │   ├── login.js        # 登录逻辑
-    │   │   └── main.js         # 导航逻辑
-    │   ├── images/             # 图片资源
-    │   └── pages/
-    │       ├── main.html           # 首页
-    │       ├── campus-map.html     # 校园地图
-    │       ├── contacts.html       # 常用联系方式
-    │       ├── websites.html       # 常用网站
-    │       ├── facilities.html     # 常用设施及服务
-    │       ├── faq.html            # 常见问题
-    │       └── abbreviations.html  # 常用缩写
-    └── build_single_html.py   # 单文件打包脚本
+.
+├── website/                  # 源码目录
+│   ├── index.html            # 登录页
+│   ├── pages/                # 子页面
+│   │   ├── main.html         # 首页（功能卡片导航）
+│   │   ├── campus-map.html   # 校园地图
+│   │   ├── websites.html     # 常用网站
+│   │   ├── facilities.html   # 常用设施及服务
+│   │   ├── contacts.html     # 通讯录
+│   │   ├── faq.html          # 常见问题
+│   │   └── abbreviations.html# 缩写查询
+│   ├── css/
+│   │   └── style.css         # 全局样式
+│   ├── js/
+│   │   ├── i18n.js           # 国际化翻译词典（中/英）
+│   │   ├── login.js          # 登录页逻辑
+│   │   └── main.js           # 主页导航逻辑
+│   └── images/               # 图片资源（学校 logo 等）
+├── build_single_html.py      # 构建脚本 → 合并为 index.html
+├── index.html                # 构建产物（单文件，可直接部署）
+├── campus-guide-qr.png       # 网站二维码
+└── README.md
 ```
 
----
+## 开发与构建
 
-## 🚀 部署 | Deployment
+### 修改内容
 
-### GitHub Pages（当前方式）
+1. 编辑 `website/` 下的源文件（HTML / CSS / JS）
+2. 若新增翻译条目，在 `website/js/i18n.js` 的 `dict` 对象中添加对应键值
 
-1. 将 `index.html` 推送到 GitHub 仓库 main 分支
-2. 仓库 Settings → Pages → Source 选择 `main` 分支
-3. 访问 `https://<username>.github.io/<repo-name>/`
-
-### 本地运行 | Local Development
+### 构建单文件
 
 ```bash
-# 使用源码开发
-cd website
-python -m http.server 8080
-# 访问 http://localhost:8080
-
-# 打包单文件
 python build_single_html.py
-# 生成 index.html
 ```
 
----
+构建后生成 `index.html`，所有 CSS/JS/图片内联，可直接部署。
 
-## 🔄 更新内容 | How to Update
-
-1. 修改 `website/` 目录下的源码
-2. 运行 `python build_single_html.py` 重新打包
-3. 将生成的 `index.html` 推送到 GitHub
+### 本地预览
 
 ```bash
-git add .
-git commit -m "update: 描述你的改动"
-git push
+# 任选一种方式启动静态服务器
+python -m http.server 8099
+# 或
+npx serve -p 8099
 ```
 
----
+浏览器打开 `http://localhost:8099/` 即可预览。
 
-## 📄 许可证 | License
+### 部署到 GitHub Pages
 
-Apache License 2.0
+将 `index.html` 上传至 GitHub 仓库，启用 Pages 服务即可。
 
----
+## i18n 使用说明
 
-## 👤 作者 | Author
+- HTML 元素通过 `data-i18n="key"` 属性标记需要翻译的文本
+- 翻译条目定义在 `i18n.js` 的 `dict` 对象中，格式：`'key': { zh: '中文', en: 'English' }`
+- 若条目包含 HTML 标签（如 `<strong>`），需添加 `html: true` 属性
+- **注意**：字典每条目末尾必须有逗号，否则 JS 语法错误会导致整个页面空白
+- 可用 `node --check website/js/i18n.js` 验证语法
 
-**Ablu6669**
+## 二维码
 
-GitHub: [@Ablu6669](https://github.com/Ablu6669)
+`campus-guide-qr.png` 为网站二维码，使用 Python `qrcode` + `Pillow` 生成，带有自定义 Logo 和品牌样式。
+
+## License
+
+MIT
