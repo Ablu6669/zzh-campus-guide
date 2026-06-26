@@ -3770,6 +3770,29 @@ body {
             content: "💡 ";
             font-size: 14px;
         }
+        .guide-disclaimer {
+            background: linear-gradient(135deg, var(--color-primary-light), #fff8e1);
+            border: 2px solid var(--color-gold);
+            border-radius: var(--radius-lg);
+            padding: 22px 28px;
+            margin-bottom: 28px;
+            line-height: 1.9;
+            font-size: 14px;
+            color: var(--color-body);
+        }
+        .guide-disclaimer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+        .guide-disclaimer p {
+            margin: 0 0 6px;
+        }
+        .guide-disclaimer .highlight {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
     
 
 </style>
@@ -7070,6 +7093,14 @@ body {
             </p>
         </div>
 
+        <!-- 免责声明 -->
+        <div class="guide-disclaimer">
+            <div class="guide-disclaimer-title" data-i18n="guide_disclaimer_title">⚠️ 免责声明</div>
+            <p data-i18n="guide_disclaimer_p1">本系统纯为开发者个人为方便新生入学和快速适应校园而开发，<span class="highlight">不涉及任何商业目的和盈利需求</span>。</p>
+            <p data-i18n="guide_disclaimer_p2">所有内容均为开发者手动收集、整理、回忆和标注，力求准确但不保证完全无误。<span class="highlight">如有任何出入、遗漏或改进建议，欢迎联系开发者进行更正</span>。</p>
+            <p data-i18n="guide_disclaimer_p3">联系方式：abluzz@outlook.com｜微信公众号：鱼啵啵的塘</p>
+        </div>
+
         <!-- 校园地图 -->
         <div class="guide-section">
             <div class="guide-section-header">
@@ -7117,6 +7148,7 @@ body {
                 <ul>
                     <li data-i18n="guide_contacts_how1">使用顶部搜索栏按名称或关键词筛选</li>
                     <li data-i18n="guide_contacts_how2">点击分类标签（全部/学院/书院/行政部门/服务部门）快速过滤</li>
+                    <li data-i18n="guide_contacts_how3">📋 邮箱和电话右侧有 <strong>复制按钮</strong>，点击可一键复制，方便直接粘贴使用</li>
                 </ul>
             </div>
         </div>
@@ -8691,6 +8723,7 @@ body {
            'guide_contacts_how': { zh: '使用方法：', en: 'How to Use:' },
            'guide_contacts_how1': { zh: '使用顶部搜索栏按名称或关键词筛选', en: 'Use the top search bar to filter by name or keyword' },
            'guide_contacts_how2': { zh: '点击分类标签（全部/学院/书院/行政部门/服务部门）快速过滤', en: 'Click category tags (All/Schools/Colleges/Admin/Services) to quickly filter' },
+           'guide_contacts_how3': { zh: '📋 邮箱和电话右侧有复制按钮，点击可一键复制，方便直接粘贴使用', en: '📋 Copy buttons next to emails and phones — click to copy with one tap' },
            'guide_websites_subtitle': { zh: '官网 · 内网平台 · 小程序 · 邮箱指南', en: 'Official Sites · Intranet · Mini Programs · Email Guide' },
            'guide_websites_p1': { zh: '整理了新生最常用的各类网站和平台链接，一键直达，无需记忆网址。', en: 'A curated list of the most commonly used websites and platform links for new students, with one-click access.' },
            'guide_websites_categories': { zh: '分类说明：', en: 'Category Description:' },
@@ -8742,6 +8775,10 @@ body {
            'guide_other_contact': { zh: '💬 联系我们：', en: '💬 Contact Us:' },
            'guide_other_contact1': { zh: '点击顶部导航栏的"联系我们"按钮，可查看本系统的开发说明', en: 'Click the "Contact Us" button in the top navigation bar to view the development notes of this system' },
            'guide_other_contact2': { zh: '如有内容错误、遗漏或改进建议，欢迎发邮件至 abluzz@outlook.com', en: 'If you find any errors, omissions, or have suggestions for improvement, please email abluzz@outlook.com' },
+           'guide_disclaimer_title': { zh: '⚠️ 免责声明', en: '⚠️ Disclaimer' },
+           'guide_disclaimer_p1': { zh: '本系统纯为开发者个人为方便新生入学和快速适应校园而开发，不涉及任何商业目的和盈利需求。', en: 'This system was developed purely by the developer as a personal project to help new students settle into campus life, with no commercial purpose or profit motive.' },
+           'guide_disclaimer_p2': { zh: '所有内容均为开发者手动收集、整理、回忆和标注，力求准确但不保证完全无误。如有任何出入、遗漏或改进建议，欢迎联系开发者进行更正。', en: 'All content is manually collected, organized, recalled, and annotated by the developer. We strive for accuracy but cannot guarantee completeness. If you find any discrepancies, omissions, or have suggestions, please contact the developer for corrections.' },
+           'guide_disclaimer_p3': { zh: '联系方式：abluzz@outlook.com', en: 'Contact: abluzz@outlook.com' },
            'btn_guide': { zh: '使用说明', en: 'User Guide' },
     };
 
