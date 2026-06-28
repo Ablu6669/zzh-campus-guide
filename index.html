@@ -2024,10 +2024,12 @@ body {
 
         .abbr-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
             margin-bottom: 30px;
         }
+        @media (max-width: 900px) { .abbr-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 580px) { .abbr-grid { grid-template-columns: 1fr; } }
         .abbr-card {
             background: var(--color-bg);
             border-radius: var(--radius-md);
@@ -3522,7 +3524,7 @@ body {
 
         .abbr-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
             margin-bottom: 30px;
         }
@@ -3606,6 +3608,8 @@ body {
             border-radius: var(--radius-sm);
             margin-top: 6px;
         }
+        @media (max-width: 900px) { .abbr-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 580px) { .abbr-grid { grid-template-columns: 1fr; } }
 
         .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; z-index: 50; isolation: isolate; }
         .search-input {
@@ -5876,6 +5880,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_003_zh">行政楼西翼</div>
 </div>
+<div class="abbr-card" data-search-id="146">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_146">ACM</span>
+<span class="abbr-full" data-i18n="abbr_146_full">Academic and Career Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_146_zh">学术与职业规划</div>
+</div>
 <div class="abbr-card" data-search-id="4">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_004">ACT</span>
@@ -5891,6 +5902,34 @@ body {
 <div class="abbr-zh" data-i18n="abbr_005_zh">自动体外除颤仪</div>
 <div class="abbr-note" data-i18n="abbr_005_note">用于抢救心脏骤停病人的便携式急救设备</div>
 </div>
+<div class="abbr-card" data-search-id="147">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_147">AIE</span>
+<span class="abbr-full" data-i18n="abbr_147_full">Artificial Intelligence</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_147_zh">人工智能</div>
+</div>
+<div class="abbr-card" data-search-id="148">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_148">AIR</span>
+<span class="abbr-full" data-i18n="abbr_148_full">Artificial Intelligence and Robot</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_148_zh">人工智能与机器人</div>
+</div>
+<div class="abbr-card" data-search-id="149">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_149">AIS</span>
+<span class="abbr-full" data-i18n="abbr_149_full">Artificial Intelligence for Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_149_zh">人工智能科学应用</div>
+</div>
+<div class="abbr-card" data-search-id="150">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_150">AIT</span>
+<span class="abbr-full" data-i18n="abbr_150_full">Information Technology and AI</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_150_zh">信息技术与人工智能</div>
+</div>
 <div class="abbr-card" data-search-id="6">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_006">AO</span>
@@ -5904,6 +5943,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_007_full">American Psychological Association</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_007_zh">英文学术引用格式</div>
+</div>
+<div class="abbr-card" data-search-id="151">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_151">ART</span>
+<span class="abbr-full" data-i18n="abbr_151_full">Art</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_151_zh">艺术</div>
 </div>
 <div class="abbr-card" data-search-id="8">
 <div class="abbr-header">
@@ -5933,6 +5979,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_011_zh">线上学习平台</div>
 </div>
+<div class="abbr-card" data-search-id="152">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_152">BGE</span>
+<span class="abbr-full" data-i18n="abbr_152_full">Business General Education</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_152_zh">商科通识教育</div>
+</div>
 <div class="abbr-card" data-search-id="12">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_012">BIM</span>
@@ -5954,12 +6007,33 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_014_zh">楼</div>
 </div>
+<div class="abbr-card" data-search-id="153">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_153">BMA</span>
+<span class="abbr-full" data-i18n="abbr_153_full">Big Data Management and Application</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_153_zh">大数据管理与应用</div>
+</div>
 <div class="abbr-card" data-search-id="15">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_015">BME</span>
 <span class="abbr-full" data-i18n="abbr_015_full">Biomedical Science and Engineering</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_015_zh">生物医学工程</div>
+</div>
+<div class="abbr-card" data-search-id="154">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_154">BSC</span>
+<span class="abbr-full" data-i18n="abbr_154_full">Biological Sciences</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_154_zh">生物科学</div>
+</div>
+<div class="abbr-card" data-search-id="155">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_155">CBH</span>
+<span class="abbr-full" data-i18n="abbr_155_full">Computational Biology and Health</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_155_zh">计算生物学与健康</div>
 </div>
 <div class="abbr-card" data-search-id="16">
 <div class="abbr-header">
@@ -6041,12 +6115,26 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_026_zh">创新创意创业中心</div>
 </div>
+<div class="abbr-card" data-search-id="156">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_156">CIE</span>
+<span class="abbr-full" data-i18n="abbr_156_full">Computer and Information Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_156_zh">计算机与信息工程</div>
+</div>
 <div class="abbr-card" data-search-id="27">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_027">CLC</span>
 <span class="abbr-full" data-i18n="abbr_027_full">Chinese Language and Culture</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_027_zh">外籍学生中文课程</div>
+</div>
+<div class="abbr-card" data-search-id="157">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_157">CLCC</span>
+<span class="abbr-full" data-i18n="abbr_157_full">CLCC</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_157_zh">中国语言文化专项课程</div>
 </div>
 <div class="abbr-card" data-search-id="28">
 <div class="abbr-header">
@@ -6090,6 +6178,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_033_zh">计算机工程与技术专业</div>
 </div>
+<div class="abbr-card" data-search-id="158">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_158">CSS</span>
+<span class="abbr-full" data-i18n="abbr_158_full">Computational Social Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_158_zh">计算社会科学</div>
+</div>
 <div class="abbr-card" data-search-id="34">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_034">CUHK</span>
@@ -6103,6 +6198,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_035_full">The Chinese University of Hong Kong, Shenzhen</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_035_zh">香港中文大学（深圳）</div>
+</div>
+<div class="abbr-card" data-search-id="159">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_159">DAI</span>
+<span class="abbr-full" data-i18n="abbr_159_full">Digital and AI Literacy</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_159_zh">数字与人工智能素养</div>
 </div>
 <div class="abbr-card" data-search-id="36">
 <div class="abbr-header">
@@ -6124,6 +6226,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_038_full">Diligentia College</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_038_zh">学勤书院</div>
+</div>
+<div class="abbr-card" data-search-id="160">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_160">DME</span>
+<span class="abbr-full" data-i18n="abbr_160_full">Design and Manufacturing</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_160_zh">设计与制造</div>
 </div>
 <div class="abbr-card" data-search-id="39">
 <div class="abbr-header">
@@ -6159,6 +6268,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_043_full">Data Science and Big Data Technology</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_043_zh">数据科学与大数据技术专业</div>
+</div>
+<div class="abbr-card" data-search-id="161">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_161">DUM</span>
+<span class="abbr-full" data-i18n="abbr_161_full">Dummy Subject</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_161_zh">占位科目（学分免修占位）</div>
 </div>
 <div class="abbr-card" data-search-id="44">
 <div class="abbr-header">
@@ -6210,6 +6326,20 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_050_zh">电子信息工程专业</div>
 </div>
+<div class="abbr-card" data-search-id="162">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_162">ENB</span>
+<span class="abbr-full" data-i18n="abbr_162_full">English Studies</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_162_zh">英语研究</div>
+</div>
+<div class="abbr-card" data-search-id="163">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_163">ENE</span>
+<span class="abbr-full" data-i18n="abbr_163_full">Energy Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_163_zh">能源工程</div>
+</div>
 <div class="abbr-card" data-search-id="51">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_051">ENG</span>
@@ -6223,6 +6353,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_052_full">English for Language Students</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_052_zh">英语专业的英语课</div>
+</div>
+<div class="abbr-card" data-search-id="164">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_164">EPB</span>
+<span class="abbr-full" data-i18n="abbr_164_full">Epidemiology and Biostatistics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_164_zh">流行病学与生物统计学</div>
 </div>
 <div class="abbr-card" data-search-id="53">
 <div class="abbr-header">
@@ -6238,12 +6375,103 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_054_zh">理工学院的介绍类课程</div>
 </div>
+<div class="abbr-card" data-search-id="165">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_165">EXFE</span>
+<span class="abbr-full" data-i18n="abbr_165_full">Exemption for free electives</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_165_zh">自由选修课免修</div>
+</div>
+<div class="abbr-card" data-search-id="166">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_166">EXGA</span>
+<span class="abbr-full" data-i18n="abbr_166_full">Exemption for GEA area</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_166_zh">通识A板块学分免修</div>
+</div>
+<div class="abbr-card" data-search-id="167">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_167">EXGB</span>
+<span class="abbr-full" data-i18n="abbr_167_full">Exemption for GEB area</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_167_zh">通识B板块学分免修</div>
+</div>
+<div class="abbr-card" data-search-id="168">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_168">EXGBE</span>
+<span class="abbr-full" data-i18n="abbr_168_full">Exemption for Requirement_GBE</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_168_zh">GBE要求学分免修</div>
+</div>
+<div class="abbr-card" data-search-id="169">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_169">EXGBI</span>
+<span class="abbr-full" data-i18n="abbr_169_full">Exemption for Requirement_GBI</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_169_zh">GBI要求学分免修</div>
+</div>
+<div class="abbr-card" data-search-id="170">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_170">EXGC</span>
+<span class="abbr-full" data-i18n="abbr_170_full">Exemption for GEC area</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_170_zh">通识C板块学分免修</div>
+</div>
+<div class="abbr-card" data-search-id="171">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_171">EXGD</span>
+<span class="abbr-full" data-i18n="abbr_171_full">Exemption for GED area</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_171_zh">通识D板块学分免修</div>
+</div>
+<div class="abbr-card" data-search-id="172">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_172">EXGSCLM</span>
+<span class="abbr-full" data-i18n="abbr_172_full">Exempt for Requirement_GSCLM</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_172_zh">GSCLM培养要求免修</div>
+</div>
+<div class="abbr-card" data-search-id="173">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_173">EXME</span>
+<span class="abbr-full" data-i18n="abbr_173_full">Exemption for major electives</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_173_zh">专业选修课免修</div>
+</div>
+<div class="abbr-card" data-search-id="174">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_174">EXNE</span>
+<span class="abbr-full" data-i18n="abbr_174_full">Exemption for minor electives</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_174_zh">辅修选修课免修</div>
+</div>
+<div class="abbr-card" data-search-id="175">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_175">EXSE</span>
+<span class="abbr-full" data-i18n="abbr_175_full">Exemption for second major</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_175_zh">第二专业学分免修</div>
+</div>
 <div class="abbr-card" data-search-id="55">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_055">FE</span>
 <span class="abbr-full" data-i18n="abbr_055_full">Financial Engineering</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_055_zh">金融工程专业</div>
+</div>
+<div class="abbr-card" data-search-id="176">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_176">FEMBA</span>
+<span class="abbr-full" data-i18n="abbr_176_full">Business Admin in FIN</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_176_zh">金融方向工商管理硕士</div>
+</div>
+<div class="abbr-card" data-search-id="177">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_177">FEX</span>
+<span class="abbr-full" data-i18n="abbr_177_full">Business Admin in FIN</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_177_zh">金融工商管理专项</div>
 </div>
 <div class="abbr-card" data-search-id="56">
 <div class="abbr-header">
@@ -6274,6 +6502,13 @@ body {
 <div class="abbr-zh" data-i18n="abbr_059_zh">自由选修</div>
 <div class="abbr-note" data-i18n="abbr_059_note">大学课程120学分的组成部分</div>
 </div>
+<div class="abbr-card" data-search-id="178">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_178">FREN</span>
+<span class="abbr-full" data-i18n="abbr_178_full">FREN</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_178_zh">法语专项课程</div>
+</div>
 <div class="abbr-card" data-search-id="60">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_060">FRN</span>
@@ -6303,6 +6538,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_063_zh">国际商务经济学</div>
 <div class="abbr-note" data-i18n="abbr_063_note">合作项目</div>
+</div>
+<div class="abbr-card" data-search-id="179">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_179">GBI</span>
+<span class="abbr-full" data-i18n="abbr_179_full">GBI</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_179_zh">通识基础B板块专项</div>
 </div>
 <div class="abbr-card" data-search-id="64">
 <div class="abbr-header">
@@ -6346,6 +6588,20 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_069_zh">德语课</div>
 </div>
+<div class="abbr-card" data-search-id="180">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_180">GERM</span>
+<span class="abbr-full" data-i18n="abbr_180_full">GERM</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_180_zh">德语专项课程</div>
+</div>
+<div class="abbr-card" data-search-id="181">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_181">GEW</span>
+<span class="abbr-full" data-i18n="abbr_181_full">GE Areas: Wide Area</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_181_zh">通识综合拓展板块</div>
+</div>
 <div class="abbr-card" data-search-id="70">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_070">GFH</span>
@@ -6362,6 +6618,20 @@ body {
 <div class="abbr-zh" data-i18n="abbr_071_zh">与自然对话</div>
 <div class="abbr-note" data-i18n="abbr_071_note">通识基础课</div>
 </div>
+<div class="abbr-card" data-search-id="182">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_182">GGE</span>
+<span class="abbr-full" data-i18n="abbr_182_full">Academic Writing & Presentation</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_182_zh">学术写作与演讲</div>
+</div>
+<div class="abbr-card" data-search-id="183">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_183">GLB</span>
+<span class="abbr-full" data-i18n="abbr_183_full">Global Studies</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_183_zh">全球研究</div>
+</div>
 <div class="abbr-card" data-search-id="72">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_072">GMAT</span>
@@ -6369,6 +6639,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_072_zh">经企管理研究生入学考试</div>
 <div class="abbr-note" data-i18n="abbr_072_note">商业、经济、管理方向的升学标化考试</div>
+</div>
+<div class="abbr-card" data-search-id="184">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_184">GNB</span>
+<span class="abbr-full" data-i18n="abbr_184_full">Genomics and Bioinformatics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_184_zh">基因组学与生物信息学</div>
 </div>
 <div class="abbr-card" data-search-id="73">
 <div class="abbr-header">
@@ -6400,6 +6677,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_076_zh">祥波书院</div>
 </div>
+<div class="abbr-card" data-search-id="185">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_185">HKSL</span>
+<span class="abbr-full" data-i18n="abbr_185_full">HKSL</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_185_zh">香港手语</div>
+</div>
 <div class="abbr-card" data-search-id="77">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_077">HSS</span>
@@ -6407,12 +6691,96 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_077_zh">人文社科学院</div>
 </div>
+<div class="abbr-card" data-search-id="186">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_186">HST</span>
+<span class="abbr-full" data-i18n="abbr_186_full">History</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_186_zh">历史学</div>
+</div>
+<div class="abbr-card" data-search-id="187">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_187">IBA</span>
+<span class="abbr-full" data-i18n="abbr_187_full">Information Management and Business</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_187_zh">信息管理与商务</div>
+</div>
+<div class="abbr-card" data-search-id="188">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_188">ICS</span>
+<span class="abbr-full" data-i18n="abbr_188_full">Integrated Circuits and System</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_188_zh">集成电路与系统</div>
+</div>
+<div class="abbr-card" data-search-id="189">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_189">IDE</span>
+<span class="abbr-full" data-i18n="abbr_189_full">Innovation Design & Entrepreneur</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_189_zh">创新设计与创业</div>
+</div>
+<div class="abbr-card" data-search-id="190">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_190">IEG</span>
+<span class="abbr-full" data-i18n="abbr_190_full">Information Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_190_zh">信息工程</div>
+</div>
+<div class="abbr-card" data-search-id="191">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_191">IER</span>
+<span class="abbr-full" data-i18n="abbr_191_full">Information Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_191_zh">信息工程</div>
+</div>
+<div class="abbr-card" data-search-id="192">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_192">ITE</span>
+<span class="abbr-full" data-i18n="abbr_192_full">Information Technology</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_192_zh">信息技术</div>
+</div>
 <div class="abbr-card" data-search-id="78">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_078">ITSO</span>
 <span class="abbr-full" data-i18n="abbr_078_full">Information Technology Services Office</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_078_zh">资讯科技服务处</div>
+</div>
+<div class="abbr-card" data-search-id="193">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_193">JAP</span>
+<span class="abbr-full" data-i18n="abbr_193_full">Japanese</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_193_zh">日语</div>
+</div>
+<div class="abbr-card" data-search-id="194">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_194">JPN</span>
+<span class="abbr-full" data-i18n="abbr_194_full">Japanese</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_194_zh">日语专项课程</div>
+</div>
+<div class="abbr-card" data-search-id="195">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_195">KOR</span>
+<span class="abbr-full" data-i18n="abbr_195_full">Korean</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_195_zh">韩语</div>
+</div>
+<div class="abbr-card" data-search-id="196">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_196">KORE</span>
+<span class="abbr-full" data-i18n="abbr_196_full">KORE</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_196_zh">韩语专项课程</div>
+</div>
+<div class="abbr-card" data-search-id="197">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_197">LAW</span>
+<span class="abbr-full" data-i18n="abbr_197_full">Law</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_197_zh">法学</div>
 </div>
 <div class="abbr-card" data-search-id="79">
 <div class="abbr-header">
@@ -6436,12 +6804,33 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_081_zh">生命健康科学学院</div>
 </div>
+<div class="abbr-card" data-search-id="198">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_198">LIN</span>
+<span class="abbr-full" data-i18n="abbr_198_full">Linguistics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_198_zh">语言学</div>
+</div>
 <div class="abbr-card" data-search-id="82">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_082">LING</span>
 <span class="abbr-full" data-i18n="abbr_082_full">Ling College</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_082_zh">道扬书院</div>
+</div>
+<div class="abbr-card" data-search-id="199">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_199">LIT</span>
+<span class="abbr-full" data-i18n="abbr_199_full">Literature</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_199_zh">文学</div>
+</div>
+<div class="abbr-card" data-search-id="200">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_200">LSC</span>
+<span class="abbr-full" data-i18n="abbr_200_full">Supply Chain and Logistics Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_200_zh">供应链与物流管理</div>
 </div>
 <div class="abbr-card" data-search-id="83">
 <div class="abbr-header">
@@ -6450,6 +6839,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_083_zh">乐天楼</div>
 </div>
+<div class="abbr-card" data-search-id="201">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_201">MAN</span>
+<span class="abbr-full" data-i18n="abbr_201_full">Mandarin</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_201_zh">普通话</div>
+</div>
 <div class="abbr-card" data-search-id="84">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_084">MAT</span>
@@ -6457,12 +6853,61 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_084_zh">数学</div>
 </div>
+<div class="abbr-card" data-search-id="202">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_202">MBI</span>
+<span class="abbr-full" data-i18n="abbr_202_full">Bioinformatics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_202_zh">生物信息学</div>
+</div>
+<div class="abbr-card" data-search-id="203">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_203">MBM</span>
+<span class="abbr-full" data-i18n="abbr_203_full">Business Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_203_zh">工商管理</div>
+</div>
+<div class="abbr-card" data-search-id="204">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_204">MCE</span>
+<span class="abbr-full" data-i18n="abbr_204_full">Communications Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_204_zh">通信工程</div>
+</div>
+<div class="abbr-card" data-search-id="205">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_205">MDS</span>
+<span class="abbr-full" data-i18n="abbr_205_full">Data Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_205_zh">数据科学</div>
+</div>
 <div class="abbr-card" data-search-id="85">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_085">MED</span>
 <span class="abbr-full" data-i18n="abbr_085_full">School of Medicine</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_085_zh">医学院</div>
+</div>
+<div class="abbr-card" data-search-id="206">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_206">MES</span>
+<span class="abbr-full" data-i18n="abbr_206_full">Clinical Medicine</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_206_zh">临床医学</div>
+</div>
+<div class="abbr-card" data-search-id="207">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_207">MFE</span>
+<span class="abbr-full" data-i18n="abbr_207_full">Financial Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_207_zh">金融工程</div>
+</div>
+<div class="abbr-card" data-search-id="208">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_208">MFM</span>
+<span class="abbr-full" data-i18n="abbr_208_full">Financial Mathematics</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_208_zh">金融数学</div>
 </div>
 <div class="abbr-card" data-search-id="86">
 <div class="abbr-header">
@@ -6492,6 +6937,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_089_zh">厚含书院</div>
 </div>
+<div class="abbr-card" data-search-id="209">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_209">MIS</span>
+<span class="abbr-full" data-i18n="abbr_209_full">Management Information System</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_209_zh">管理信息系统</div>
+</div>
 <div class="abbr-card" data-search-id="90">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_090">MKT</span>
@@ -6512,6 +6964,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_092_full">Microsoft</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_092_zh">办公软件</div>
+</div>
+<div class="abbr-card" data-search-id="210">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_210">MSE</span>
+<span class="abbr-full" data-i18n="abbr_210_full">Materials Science & Engineering</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_210_zh">材料科学与工程</div>
 </div>
 <div class="abbr-card" data-search-id="93">
 <div class="abbr-header">
@@ -6605,6 +7064,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_105_zh">哲学课程</div>
 </div>
+<div class="abbr-card" data-search-id="211">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_211">PHM</span>
+<span class="abbr-full" data-i18n="abbr_211_full">Pharmaceutical Science</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_211_zh">药学</div>
+</div>
 <div class="abbr-card" data-search-id="106">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_106">PHY</span>
@@ -6640,6 +7106,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_110_full">Psycology</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_110_zh">心理学专业</div>
+</div>
+<div class="abbr-card" data-search-id="212">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_212">PUB</span>
+<span class="abbr-full" data-i18n="abbr_212_full">Public Policy</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_212_zh">公共政策</div>
 </div>
 <div class="abbr-card" data-search-id="111">
 <div class="abbr-header">
@@ -6705,6 +7178,13 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_119_zh">数据科学学院</div>
 </div>
+<div class="abbr-card" data-search-id="213">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_213">SFL</span>
+<span class="abbr-full" data-i18n="abbr_213_full">Second Foreign Languages</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_213_zh">第二外语</div>
+</div>
 <div class="abbr-card" data-search-id="120">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_120">SHAW</span>
@@ -6740,6 +7220,20 @@ body {
 <span class="abbr-full" data-i18n="abbr_124_full">School of Management and Economics</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_124_zh">经管学院</div>
+</div>
+<div class="abbr-card" data-search-id="214">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_214">SPAN</span>
+<span class="abbr-full" data-i18n="abbr_214_full">SPAN</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_214_zh">西班牙语专项课程</div>
+</div>
+<div class="abbr-card" data-search-id="215">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_215">SPN</span>
+<span class="abbr-full" data-i18n="abbr_215_full">Spanish</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_215_zh">西班牙语</div>
 </div>
 <div class="abbr-card" data-search-id="125">
 <div class="abbr-header">
@@ -6782,6 +7276,13 @@ body {
 <span class="abbr-full" data-i18n="abbr_130_full">Student Union</span>
 </div>
 <div class="abbr-zh" data-i18n="abbr_130_zh">学生会</div>
+</div>
+<div class="abbr-card" data-search-id="216">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_216">SUD</span>
+<span class="abbr-full" data-i18n="abbr_216_full">Sustainable Development</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_216_zh">可持续发展</div>
 </div>
 <div class="abbr-card" data-search-id="131">
 <div class="abbr-header">
@@ -6863,6 +7364,20 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_141_zh">大学图书馆</div>
 </div>
+<div class="abbr-card" data-search-id="217">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_217">URB</span>
+<span class="abbr-full" data-i18n="abbr_217_full">Urban Studies</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_217_zh">城市研究</div>
+</div>
+<div class="abbr-card" data-search-id="218">
+<div class="abbr-header">
+<span class="abbr-key" data-i18n="abbr_218">URM</span>
+<span class="abbr-full" data-i18n="abbr_218_full">Urban Management</span>
+</div>
+<div class="abbr-zh" data-i18n="abbr_218_zh">城市管理</div>
+</div>
 <div class="abbr-card" data-search-id="142">
 <div class="abbr-header">
 <span class="abbr-key" data-i18n="abbr_142">USTF</span>
@@ -6891,7 +7406,9 @@ body {
 </div>
 <div class="abbr-zh" data-i18n="abbr_145_zh">知新楼</div>
 </div>
+
 </div>
+
 <div class="section-title" data-i18n="abbr_section_phrases">💬 常用单词和短语</div>
 <div class="abbr-grid">
 <div class="phrase-card" data-search-id="146">
@@ -7328,7 +7845,7 @@ body {
            'card_faq':             { zh: '常见问题', en: 'FAQs' },
            'card_faq_desc':        { zh: '学校、学习、生活、娱乐四大类新生常见问题解答', en: 'FAQs for new students across 4 categories: school, study, life & entertainment' },
            'card_abbreviations':   { zh: '常用缩写', en: 'Abbreviations' },
-           'card_abbreviations_desc': { zh: '145条校园英文缩写 + 46条常用短语，支持中英双语搜索', en: '145 campus abbreviations + 46 common phrases, bilingual search supported' },
+           'card_abbreviations_desc': { zh: '218条校园英文缩写 + 46条常用短语，支持中英双语搜索', en: '218 campus abbreviations + 46 common phrases, bilingual search supported' },
            'title_abbreviations': { zh: '常用缩写 - 校园新生指南', en: 'Abbreviations - Campus Guide' },
            'abbr_title':           { zh: '📚 常用缩写', en: '📚 Abbreviations' },
            'abbr_subtitle':         { zh: '校园常用英文缩写、单词和短语速查', en: 'Campus Abbreviations, Terms & Phrases Quick Reference' },
@@ -8587,6 +9104,225 @@ body {
            'matag_running': { zh: '校园跑', en: 'Campus Run' },
            'matag_shuttle': { zh: '校巴', en: 'Shuttle Bus' },
            'matag_tour': { zh: '参观', en: 'Campus Tour' },
+           'abbr_146': { zh: 'ACM', en: 'ACM' },
+           'abbr_146_full': { zh: 'Academic and Career Management', en: 'Academic and Career Management' },
+           'abbr_146_zh': { zh: '学术与职业规划', en: '学术与职业规划' },
+           'abbr_147': { zh: 'AIE', en: 'AIE' },
+           'abbr_147_full': { zh: 'Artificial Intelligence', en: 'Artificial Intelligence' },
+           'abbr_147_zh': { zh: '人工智能', en: '人工智能' },
+           'abbr_148': { zh: 'AIR', en: 'AIR' },
+           'abbr_148_full': { zh: 'Artificial Intelligence and Robot', en: 'Artificial Intelligence and Robot' },
+           'abbr_148_zh': { zh: '人工智能与机器人', en: '人工智能与机器人' },
+           'abbr_149': { zh: 'AIS', en: 'AIS' },
+           'abbr_149_full': { zh: 'Artificial Intelligence for Science', en: 'Artificial Intelligence for Science' },
+           'abbr_149_zh': { zh: '人工智能科学应用', en: '人工智能科学应用' },
+           'abbr_150': { zh: 'AIT', en: 'AIT' },
+           'abbr_150_full': { zh: 'Information Technology and AI', en: 'Information Technology and AI' },
+           'abbr_150_zh': { zh: '信息技术与人工智能', en: '信息技术与人工智能' },
+           'abbr_151': { zh: 'ART', en: 'ART' },
+           'abbr_151_full': { zh: 'Art', en: 'Art' },
+           'abbr_151_zh': { zh: '艺术', en: '艺术' },
+           'abbr_152': { zh: 'BGE', en: 'BGE' },
+           'abbr_152_full': { zh: 'Business General Education', en: 'Business General Education' },
+           'abbr_152_zh': { zh: '商科通识教育', en: '商科通识教育' },
+           'abbr_153': { zh: 'BMA', en: 'BMA' },
+           'abbr_153_full': { zh: 'Big Data Management and Application', en: 'Big Data Management and Application' },
+           'abbr_153_zh': { zh: '大数据管理与应用', en: '大数据管理与应用' },
+           'abbr_154': { zh: 'BSC', en: 'BSC' },
+           'abbr_154_full': { zh: 'Biological Sciences', en: 'Biological Sciences' },
+           'abbr_154_zh': { zh: '生物科学', en: '生物科学' },
+           'abbr_155': { zh: 'CBH', en: 'CBH' },
+           'abbr_155_full': { zh: 'Computational Biology and Health', en: 'Computational Biology and Health' },
+           'abbr_155_zh': { zh: '计算生物学与健康', en: '计算生物学与健康' },
+           'abbr_156': { zh: 'CIE', en: 'CIE' },
+           'abbr_156_full': { zh: 'Computer and Information Engineering', en: 'Computer and Information Engineering' },
+           'abbr_156_zh': { zh: '计算机与信息工程', en: '计算机与信息工程' },
+           'abbr_157': { zh: 'CLCC', en: 'CLCC' },
+           'abbr_157_full': { zh: 'CLCC', en: 'CLCC' },
+           'abbr_157_zh': { zh: '中国语言文化专项课程', en: '中国语言文化专项课程' },
+           'abbr_158': { zh: 'CSS', en: 'CSS' },
+           'abbr_158_full': { zh: 'Computational Social Science', en: 'Computational Social Science' },
+           'abbr_158_zh': { zh: '计算社会科学', en: '计算社会科学' },
+           'abbr_159': { zh: 'DAI', en: 'DAI' },
+           'abbr_159_full': { zh: 'Digital and AI Literacy', en: 'Digital and AI Literacy' },
+           'abbr_159_zh': { zh: '数字与人工智能素养', en: '数字与人工智能素养' },
+           'abbr_160': { zh: 'DME', en: 'DME' },
+           'abbr_160_full': { zh: 'Design and Manufacturing', en: 'Design and Manufacturing' },
+           'abbr_160_zh': { zh: '设计与制造', en: '设计与制造' },
+           'abbr_161': { zh: 'DUM', en: 'DUM' },
+           'abbr_161_full': { zh: 'Dummy Subject', en: 'Dummy Subject' },
+           'abbr_161_zh': { zh: '占位科目（学分免修占位）', en: '占位科目（学分免修占位）' },
+           'abbr_162': { zh: 'ENB', en: 'ENB' },
+           'abbr_162_full': { zh: 'English Studies', en: 'English Studies' },
+           'abbr_162_zh': { zh: '英语研究', en: '英语研究' },
+           'abbr_163': { zh: 'ENE', en: 'ENE' },
+           'abbr_163_full': { zh: 'Energy Engineering', en: 'Energy Engineering' },
+           'abbr_163_zh': { zh: '能源工程', en: '能源工程' },
+           'abbr_164': { zh: 'EPB', en: 'EPB' },
+           'abbr_164_full': { zh: 'Epidemiology and Biostatistics', en: 'Epidemiology and Biostatistics' },
+           'abbr_164_zh': { zh: '流行病学与生物统计学', en: '流行病学与生物统计学' },
+           'abbr_165': { zh: 'EXFE', en: 'EXFE' },
+           'abbr_165_full': { zh: 'Exemption for free electives', en: 'Exemption for free electives' },
+           'abbr_165_zh': { zh: '自由选修课免修', en: '自由选修课免修' },
+           'abbr_166': { zh: 'EXGA', en: 'EXGA' },
+           'abbr_166_full': { zh: 'Exemption for GEA area', en: 'Exemption for GEA area' },
+           'abbr_166_zh': { zh: '通识A板块学分免修', en: '通识A板块学分免修' },
+           'abbr_167': { zh: 'EXGB', en: 'EXGB' },
+           'abbr_167_full': { zh: 'Exemption for GEB area', en: 'Exemption for GEB area' },
+           'abbr_167_zh': { zh: '通识B板块学分免修', en: '通识B板块学分免修' },
+           'abbr_168': { zh: 'EXGBE', en: 'EXGBE' },
+           'abbr_168_full': { zh: 'Exemption for Requirement_GBE', en: 'Exemption for Requirement_GBE' },
+           'abbr_168_zh': { zh: 'GBE要求学分免修', en: 'GBE要求学分免修' },
+           'abbr_169': { zh: 'EXGBI', en: 'EXGBI' },
+           'abbr_169_full': { zh: 'Exemption for Requirement_GBI', en: 'Exemption for Requirement_GBI' },
+           'abbr_169_zh': { zh: 'GBI要求学分免修', en: 'GBI要求学分免修' },
+           'abbr_170': { zh: 'EXGC', en: 'EXGC' },
+           'abbr_170_full': { zh: 'Exemption for GEC area', en: 'Exemption for GEC area' },
+           'abbr_170_zh': { zh: '通识C板块学分免修', en: '通识C板块学分免修' },
+           'abbr_171': { zh: 'EXGD', en: 'EXGD' },
+           'abbr_171_full': { zh: 'Exemption for GED area', en: 'Exemption for GED area' },
+           'abbr_171_zh': { zh: '通识D板块学分免修', en: '通识D板块学分免修' },
+           'abbr_172': { zh: 'EXGSCLM', en: 'EXGSCLM' },
+           'abbr_172_full': { zh: 'Exempt for Requirement_GSCLM', en: 'Exempt for Requirement_GSCLM' },
+           'abbr_172_zh': { zh: 'GSCLM培养要求免修', en: 'GSCLM培养要求免修' },
+           'abbr_173': { zh: 'EXME', en: 'EXME' },
+           'abbr_173_full': { zh: 'Exemption for major electives', en: 'Exemption for major electives' },
+           'abbr_173_zh': { zh: '专业选修课免修', en: '专业选修课免修' },
+           'abbr_174': { zh: 'EXNE', en: 'EXNE' },
+           'abbr_174_full': { zh: 'Exemption for minor electives', en: 'Exemption for minor electives' },
+           'abbr_174_zh': { zh: '辅修选修课免修', en: '辅修选修课免修' },
+           'abbr_175': { zh: 'EXSE', en: 'EXSE' },
+           'abbr_175_full': { zh: 'Exemption for second major', en: 'Exemption for second major' },
+           'abbr_175_zh': { zh: '第二专业学分免修', en: '第二专业学分免修' },
+           'abbr_176': { zh: 'FEMBA', en: 'FEMBA' },
+           'abbr_176_full': { zh: 'Business Admin in FIN', en: 'Business Admin in FIN' },
+           'abbr_176_zh': { zh: '金融方向工商管理硕士', en: '金融方向工商管理硕士' },
+           'abbr_177': { zh: 'FEX', en: 'FEX' },
+           'abbr_177_full': { zh: 'Business Admin in FIN', en: 'Business Admin in FIN' },
+           'abbr_177_zh': { zh: '金融工商管理专项', en: '金融工商管理专项' },
+           'abbr_178': { zh: 'FREN', en: 'FREN' },
+           'abbr_178_full': { zh: 'FREN', en: 'FREN' },
+           'abbr_178_zh': { zh: '法语专项课程', en: '法语专项课程' },
+           'abbr_179': { zh: 'GBI', en: 'GBI' },
+           'abbr_179_full': { zh: 'GBI', en: 'GBI' },
+           'abbr_179_zh': { zh: '通识基础B板块专项', en: '通识基础B板块专项' },
+           'abbr_180': { zh: 'GERM', en: 'GERM' },
+           'abbr_180_full': { zh: 'GERM', en: 'GERM' },
+           'abbr_180_zh': { zh: '德语专项课程', en: '德语专项课程' },
+           'abbr_181': { zh: 'GEW', en: 'GEW' },
+           'abbr_181_full': { zh: 'GE Areas: Wide Area', en: 'GE Areas: Wide Area' },
+           'abbr_181_zh': { zh: '通识综合拓展板块', en: '通识综合拓展板块' },
+           'abbr_182': { zh: 'GGE', en: 'GGE' },
+           'abbr_182_full': { zh: 'Academic Writing & Presentation', en: 'Academic Writing & Presentation' },
+           'abbr_182_zh': { zh: '学术写作与演讲', en: '学术写作与演讲' },
+           'abbr_183': { zh: 'GLB', en: 'GLB' },
+           'abbr_183_full': { zh: 'Global Studies', en: 'Global Studies' },
+           'abbr_183_zh': { zh: '全球研究', en: '全球研究' },
+           'abbr_184': { zh: 'GNB', en: 'GNB' },
+           'abbr_184_full': { zh: 'Genomics and Bioinformatics', en: 'Genomics and Bioinformatics' },
+           'abbr_184_zh': { zh: '基因组学与生物信息学', en: '基因组学与生物信息学' },
+           'abbr_185': { zh: 'HKSL', en: 'HKSL' },
+           'abbr_185_full': { zh: 'HKSL', en: 'HKSL' },
+           'abbr_185_zh': { zh: '香港手语', en: '香港手语' },
+           'abbr_186': { zh: 'HST', en: 'HST' },
+           'abbr_186_full': { zh: 'History', en: 'History' },
+           'abbr_186_zh': { zh: '历史学', en: '历史学' },
+           'abbr_187': { zh: 'IBA', en: 'IBA' },
+           'abbr_187_full': { zh: 'Information Management and Business', en: 'Information Management and Business' },
+           'abbr_187_zh': { zh: '信息管理与商务', en: '信息管理与商务' },
+           'abbr_188': { zh: 'ICS', en: 'ICS' },
+           'abbr_188_full': { zh: 'Integrated Circuits and System', en: 'Integrated Circuits and System' },
+           'abbr_188_zh': { zh: '集成电路与系统', en: '集成电路与系统' },
+           'abbr_189': { zh: 'IDE', en: 'IDE' },
+           'abbr_189_full': { zh: 'Innovation Design & Entrepreneur', en: 'Innovation Design & Entrepreneur' },
+           'abbr_189_zh': { zh: '创新设计与创业', en: '创新设计与创业' },
+           'abbr_190': { zh: 'IEG', en: 'IEG' },
+           'abbr_190_full': { zh: 'Information Engineering', en: 'Information Engineering' },
+           'abbr_190_zh': { zh: '信息工程', en: '信息工程' },
+           'abbr_191': { zh: 'IER', en: 'IER' },
+           'abbr_191_full': { zh: 'Information Engineering', en: 'Information Engineering' },
+           'abbr_191_zh': { zh: '信息工程', en: '信息工程' },
+           'abbr_192': { zh: 'ITE', en: 'ITE' },
+           'abbr_192_full': { zh: 'Information Technology', en: 'Information Technology' },
+           'abbr_192_zh': { zh: '信息技术', en: '信息技术' },
+           'abbr_193': { zh: 'JAP', en: 'JAP' },
+           'abbr_193_full': { zh: 'Japanese', en: 'Japanese' },
+           'abbr_193_zh': { zh: '日语', en: '日语' },
+           'abbr_194': { zh: 'JPN', en: 'JPN' },
+           'abbr_194_full': { zh: 'Japanese', en: 'Japanese' },
+           'abbr_194_zh': { zh: '日语专项课程', en: '日语专项课程' },
+           'abbr_195': { zh: 'KOR', en: 'KOR' },
+           'abbr_195_full': { zh: 'Korean', en: 'Korean' },
+           'abbr_195_zh': { zh: '韩语', en: '韩语' },
+           'abbr_196': { zh: 'KORE', en: 'KORE' },
+           'abbr_196_full': { zh: 'KORE', en: 'KORE' },
+           'abbr_196_zh': { zh: '韩语专项课程', en: '韩语专项课程' },
+           'abbr_197': { zh: 'LAW', en: 'LAW' },
+           'abbr_197_full': { zh: 'Law', en: 'Law' },
+           'abbr_197_zh': { zh: '法学', en: '法学' },
+           'abbr_198': { zh: 'LIN', en: 'LIN' },
+           'abbr_198_full': { zh: 'Linguistics', en: 'Linguistics' },
+           'abbr_198_zh': { zh: '语言学', en: '语言学' },
+           'abbr_199': { zh: 'LIT', en: 'LIT' },
+           'abbr_199_full': { zh: 'Literature', en: 'Literature' },
+           'abbr_199_zh': { zh: '文学', en: '文学' },
+           'abbr_200': { zh: 'LSC', en: 'LSC' },
+           'abbr_200_full': { zh: 'Supply Chain and Logistics Management', en: 'Supply Chain and Logistics Management' },
+           'abbr_200_zh': { zh: '供应链与物流管理', en: '供应链与物流管理' },
+           'abbr_201': { zh: 'MAN', en: 'MAN' },
+           'abbr_201_full': { zh: 'Mandarin', en: 'Mandarin' },
+           'abbr_201_zh': { zh: '普通话', en: '普通话' },
+           'abbr_202': { zh: 'MBI', en: 'MBI' },
+           'abbr_202_full': { zh: 'Bioinformatics', en: 'Bioinformatics' },
+           'abbr_202_zh': { zh: '生物信息学', en: '生物信息学' },
+           'abbr_203': { zh: 'MBM', en: 'MBM' },
+           'abbr_203_full': { zh: 'Business Management', en: 'Business Management' },
+           'abbr_203_zh': { zh: '工商管理', en: '工商管理' },
+           'abbr_204': { zh: 'MCE', en: 'MCE' },
+           'abbr_204_full': { zh: 'Communications Engineering', en: 'Communications Engineering' },
+           'abbr_204_zh': { zh: '通信工程', en: '通信工程' },
+           'abbr_205': { zh: 'MDS', en: 'MDS' },
+           'abbr_205_full': { zh: 'Data Science', en: 'Data Science' },
+           'abbr_205_zh': { zh: '数据科学', en: '数据科学' },
+           'abbr_206': { zh: 'MES', en: 'MES' },
+           'abbr_206_full': { zh: 'Clinical Medicine', en: 'Clinical Medicine' },
+           'abbr_206_zh': { zh: '临床医学', en: '临床医学' },
+           'abbr_207': { zh: 'MFE', en: 'MFE' },
+           'abbr_207_full': { zh: 'Financial Engineering', en: 'Financial Engineering' },
+           'abbr_207_zh': { zh: '金融工程', en: '金融工程' },
+           'abbr_208': { zh: 'MFM', en: 'MFM' },
+           'abbr_208_full': { zh: 'Financial Mathematics', en: 'Financial Mathematics' },
+           'abbr_208_zh': { zh: '金融数学', en: '金融数学' },
+           'abbr_209': { zh: 'MIS', en: 'MIS' },
+           'abbr_209_full': { zh: 'Management Information System', en: 'Management Information System' },
+           'abbr_209_zh': { zh: '管理信息系统', en: '管理信息系统' },
+           'abbr_210': { zh: 'MSE', en: 'MSE' },
+           'abbr_210_full': { zh: 'Materials Science & Engineering', en: 'Materials Science & Engineering' },
+           'abbr_210_zh': { zh: '材料科学与工程', en: '材料科学与工程' },
+           'abbr_211': { zh: 'PHM', en: 'PHM' },
+           'abbr_211_full': { zh: 'Pharmaceutical Science', en: 'Pharmaceutical Science' },
+           'abbr_211_zh': { zh: '药学', en: '药学' },
+           'abbr_212': { zh: 'PUB', en: 'PUB' },
+           'abbr_212_full': { zh: 'Public Policy', en: 'Public Policy' },
+           'abbr_212_zh': { zh: '公共政策', en: '公共政策' },
+           'abbr_213': { zh: 'SFL', en: 'SFL' },
+           'abbr_213_full': { zh: 'Second Foreign Languages', en: 'Second Foreign Languages' },
+           'abbr_213_zh': { zh: '第二外语', en: '第二外语' },
+           'abbr_214': { zh: 'SPAN', en: 'SPAN' },
+           'abbr_214_full': { zh: 'SPAN', en: 'SPAN' },
+           'abbr_214_zh': { zh: '西班牙语专项课程', en: '西班牙语专项课程' },
+           'abbr_215': { zh: 'SPN', en: 'SPN' },
+           'abbr_215_full': { zh: 'Spanish', en: 'Spanish' },
+           'abbr_215_zh': { zh: '西班牙语', en: '西班牙语' },
+           'abbr_216': { zh: 'SUD', en: 'SUD' },
+           'abbr_216_full': { zh: 'Sustainable Development', en: 'Sustainable Development' },
+           'abbr_216_zh': { zh: '可持续发展', en: '可持续发展' },
+           'abbr_217': { zh: 'URB', en: 'URB' },
+           'abbr_217_full': { zh: 'Urban Studies', en: 'Urban Studies' },
+           'abbr_217_zh': { zh: '城市研究', en: '城市研究' },
+           'abbr_218': { zh: 'URM', en: 'URM' },
+           'abbr_218_full': { zh: 'Urban Management', en: 'Urban Management' },
+           'abbr_218_zh': { zh: '城市管理', en: '城市管理' },
            'phrase_001': { zh: 'Add', en: 'Add' },
            'phrase_001_zh': { zh: '加课', en: '加课' },
            'phrase_002': { zh: 'Argue', en: 'Argue' },
@@ -8759,7 +9495,7 @@ body {
            'guide_abbr_subtitle': { zh: '校园英文缩写 · 单词 · 短语速查', en: 'Campus Abbreviations · Terms · Phrases Quick Lookup' },
            'guide_abbr_p1': { zh: '校园生活中经常会遇到各种英文缩写和专有名词，本板块帮助你快速查阅和理解。', en: 'You\'ll frequently encounter various English abbreviations and proper terms in campus life. This section helps you quickly look them up and understand them.' },
            'guide_abbr_content': { zh: '内容说明：', en: 'Content Description:' },
-           'guide_abbr_cont1': { zh: '145条校园英文缩写：如CSCI（计算机科学）、MATH（数学）等课程代码前缀', en: '145 campus abbreviations: Course code prefixes like CSCI (Computer Science), MATH (Mathematics), etc.' },
+           'guide_abbr_cont1': { zh: '218条校园英文缩写：如ACM（学术与职业规划）、AIE（人工智能）等课程代码前缀', en: '218 campus abbreviations: Course code prefixes like ACM (Academic and Career Management), AIE (Artificial Intelligence), etc.' },
            'guide_abbr_cont2': { zh: '46条常用短语：如"Add/Drop"（加退课）、"Dean\'s List"（院长荣誉名单）等', en: '46 common phrases: Like "Add/Drop" (course add/drop), "Dean\'s List" (academic honor list), etc.' },
            'guide_abbr_how': { zh: '使用方法：', en: 'How to Use:' },
            'guide_abbr_how1': { zh: '在搜索框中输入缩写、全称或中文释义进行查找', en: 'Enter abbreviations, full names, or Chinese meanings in the search box to look up' },
