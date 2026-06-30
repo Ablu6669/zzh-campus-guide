@@ -2725,6 +2725,17 @@ body {
             font-weight: bold;
         }
         .fs-modal-close:hover { background: #dc2626; transform: scale(1.08); }
+        /* 全屏第一行隐藏标记按钮 */
+        .fs-toggle-markers-btn {
+            width:32px; height:32px;
+            font-size:14px !important; padding:0 !important;
+            border:none !important; border-radius:50% !important;
+            background:transparent !important; color:#ccc !important;
+            cursor:pointer !important; display:flex;align-items:center;justify-content:center;
+            transition: all .15s !important; flex-shrink: 0;
+        }
+        .fs-toggle-markers-btn:hover { background:rgba(255,255,255,0.2) !important; color:#fff !important; }
+        .fs-toggle-markers-btn.hidden-state { opacity: 0.35 !important; }
         /* 全屏筛选栏 */
         .fs-modal-header { flex-wrap: wrap; gap: 6px; }
         .fs-filter-bar {
@@ -2745,14 +2756,7 @@ body {
         }
         .fs-filter-bar .filter-btn:hover { border-color: var(--color-primary); color: #fff; background: rgba(117,15,109,0.25); }
         .fs-filter-bar .filter-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
-        .fs-filter-bar .toggle-markers-btn {
-            font-size: 12px; padding: 4px 10px; white-space: nowrap;
-            background: transparent; color: #ccc;
-            border: 1px solid rgba(255,255,255,0.25); border-radius: 16px;
-            cursor: pointer; transition: all .15s; flex-shrink: 0;
-        }
-        .fs-filter-bar .toggle-markers-btn:hover { border-color: #fff; color: #fff; }
-        .fs-filter-bar .toggle-markers-btn.hidden-state { opacity: 0.5; }
+        /* 全屏筛选栏 - 横向滚动 */
         .fs-modal-viewport {
             flex: 1;
             overflow: hidden;
@@ -4471,6 +4475,7 @@ body {
   <div class="fs-modal-header">
     <span class="fs-modal-title" data-i18n="map_title">🗺️ 校园地图</span>
     <div class="fs-modal-actions">
+      <button class="zoom-btn fs-toggle-markers-btn" id="fsToggleMarkers" onclick="toggleMarkers()" title="隐藏/显示标记" style="font-size:14px;">📍</button>
       <div class="fs-zoom-group" id="fsModalToolbar">
         <button class="zoom-btn" id="fsZoomOut" title="缩小">−</button>
         <span class="zoom-level" id="fsZoomLevel">100%</span>
@@ -4491,7 +4496,6 @@ body {
       <button class="filter-btn" data-i18n="map_filter_canteen" onclick="setFilter('canteen',this)">食堂</button>
       <button class="filter-btn" data-i18n="map_filter_restaurant" onclick="setFilter('restaurant',this)">餐厅</button>
       <button class="filter-btn" data-i18n="map_filter_other" onclick="setFilter('other',this)">其他</button>
-      <button class="toggle-markers-btn" id="fsToggleMarkers" onclick="toggleMarkers()">📍 隐藏标记</button>
     </div>
   </div>
   <div class="fs-modal-viewport" id="fsModalViewport"></div>
