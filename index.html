@@ -3237,6 +3237,8 @@ body {
         .sec-service .facility-section-header { background: linear-gradient(135deg, #3498db, #2980b9); }
         /* 社康 */
         .sec-clinic .facility-section-header { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        /* 体育设施 */
+        .sec-sports .facility-section-header { background: linear-gradient(135deg, #e67e22, #f39c12); color: #333; }
         /* 美容美发 */
         .sec-beauty .facility-section-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
 
@@ -5050,6 +5052,18 @@ body {
 </div>
 <a class="btn-visit" data-i18n="web_10_btn" href="https://e-docs.cuhk.edu.cn" target="_blank">进入系统</a>
 </div>
+<!-- 自助缴费平台 -->
+<div class="site-card" data-cat="intranet">
+<div class="site-card-icon">💳</div>
+<h4 data-i18n="web_11_title">自助缴费平台</h4>
+<div class="site-url">https://pay.cuhk.edu.cn:3306</div>
+<p data-i18n="web_11_desc">支持<strong>支付宝、微信、银联</strong>三种支付方式缴纳学费、住宿费等。需<strong>连接校园内网或VPN</strong>，5个工作日内完成扣款确认。</p>
+<div class="site-tags">
+<span class="site-tag" data-i18n="tag_payment">缴费</span>
+<span class="site-tag" data-i18n="tag_need_vpn">需VPN/内网</span>
+</div>
+<a class="btn-visit" data-i18n="web_11_btn" href="https://pay.cuhk.edu.cn:3306" target="_blank">进入缴费平台</a>
+</div>
 </div>
 <!-- 小程序提示 -->
 <div class="miniapp-note" data-i18n="websites_miniapp_note">
@@ -5157,6 +5171,12 @@ body {
 <span class="email-label" data-i18n="email_label_login">登录方式</span>
 <span data-i18n="email_login_content">通过学校信息门户登录邮箱，输入<strong>学号</strong>和<strong>密码</strong>。<br/>
                     初始密码需通过<a href="http://password.cuhk.edu.cn" target="_blank">密码自助服务平台</a>修改并绑定密保手机或邮箱以激活账号，激活后可使用邮箱及相关 IT 资源。</span>
+</div>
+<div class="email-row">
+<span class="email-label" data-i18n="email_label_web_access">网页端入口</span>
+<span data-i18n="email_web_content">① <a href="https://mail.cuhk.edu.cn" target="_blank" style="color:#667eea;">mail.cuhk.edu.cn</a>（学校邮箱门户）<br/>
+                    ② <a href="https://outlook.office365.com" target="_blank" style="color:#667eea;">outlook.office365.com</a>（Office 365 全球入口）<br/>
+                    ③ 企业微信 → 工作台 → 邮箱（移动端快捷入口）</span>
 </div>
 <div class="email-row">
 <span class="email-label" data-i18n="email_label_settings">邮箱设置</span>
@@ -5557,6 +5577,39 @@ body {
 </div>
 </div>
 </div>
+<!-- 16a. 大学体育中心 -->
+<div class="facility-section sec-sports" data-cat="service">
+<div class="facility-section-header" data-i18n="fac_sec_sports">⚽ 大学体育中心</div>
+<div class="facility-section-body">
+<div class="service-block" style="border-left-color:#e67e22;">
+<h5 data-i18n="fac_h5_sports_01">📍 位置</h5>
+<p data-i18n="fac_svc_sports_01">大学体育馆（下园）+ 综合体育馆（下园）</p>
+</div>
+<div class="service-block" style="border-left-color:#e67e22;">
+<h5 data-i18n="fac_h5_sports_02">🏟️ 场地设施</h5>
+<p data-i18n="fac_svc_sports_02">大学体育馆设有以下场地：</p>
+<ul class="clinic-service-list">
+<li data-i18n="fac_sports_li_01">健身室（一楼）— 刷学生卡进入，无需预约</li>
+<li data-i18n="fac_sports_li_02">韵律室 — 团操课程、瑜伽等</li>
+<li data-i18n="fac_sports_li_03">多用途室 — 篮球/排球/羽毛球/网球</li>
+<li data-i18n="fac_sports_li_04">乒乓球室</li>
+<li data-i18n="fac_sports_li_05">舞蹈室</li>
+<li data-i18n="fac_sports_li_06">室内游泳池 — 刷学生卡进入，无需预约</li>
+</ul>
+<p data-i18n="fac_svc_sports_03" style="margin-top:8px;">综合体育馆设有：</p>
+<ul class="clinic-service-list">
+<li data-i18n="fac_sports_li_07">羽毛球场（需在企业微信-工作台-场地预约中预约）</li>
+<li data-i18n="fac_sports_li_08">匹克球场</li>
+<li data-i18n="fac_sports_li_09">乒乓球场</li>
+</ul>
+</div>
+<div class="service-block" style="border-left-color:#e67e22;">
+<h5 data-i18n="fac_h5_sports_03">🕐 开放时间</h5>
+<p data-i18n="fac_svc_sports_04"><strong>学期内：</strong>7:00–24:00（部分场地需预约）</p>
+<p data-i18n="fac_svc_sports_05"><strong>假期：</strong>以物业公告为准</p>
+</div>
+</div>
+</div>
 <!-- 16. 社康中心 -->
 <div class="facility-section sec-clinic" data-cat="clinic">
 <div class="facility-section-header" data-i18n="fac_sec_clinic">🏥 社康中心</div>
@@ -5597,6 +5650,7 @@ body {
 <p>🕐 <strong data-i18n="clinic_semester">学期间：</strong><span data-i18n="clinic_24h_note">24小时（22:00后仅急危重症）</span></p>
 <p>🕐 <strong data-i18n="clinic_holiday">假期：</strong>08:30–21:00</p>
 <p>📞 84273033</p>
+<p data-i18n="clinic_emergency_phone">🌙 <span data-i18n="clinic_emergency_label">夜间值班电话</span>：<strong>15013887317</strong></p>
 </div>
 <div class="clinic-card">
 <span class="clinic-tag" data-i18n="clinic_lower">下园站</span>
@@ -5605,6 +5659,7 @@ body {
 <p>🕐 <strong data-i18n="clinic_semester">学期间：</strong>08:30–21:00</p>
 <p>🕐 <strong data-i18n="clinic_holiday">假期：</strong>08:30–17:30</p>
 <p>📞 84273120</p>
+<p data-i18n="clinic_emergency_phone">🌙 <span data-i18n="clinic_emergency_label">夜间值班电话</span>：<strong>15013887317</strong></p>
 </div>
 </div>
 </div>
@@ -5658,8 +5713,14 @@ body {
 <details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
 <summary data-i18n="faq_school_02_q" style="font-weight:bold;color:#333;cursor:pointer;">如何从高铁站、机场、火车站等交通枢纽往返学校？</summary>
 <p data-i18n="faq_school_02_a" style="color:#666;margin-top:10px;line-height:1.8;">
-<strong>高铁站：</strong>深圳北站可选择公交E7路直达信息学院，或地铁5-14-16号线到达大运中心；深圳坪山站可乘地铁16号线直达；深圳站可乘地铁1-3号线抵达大运站；福田站可乘地铁11-14-16号线抵达大运中心，或公交E5路抵达信息学院。<br><br>
-<strong>机场：</strong>深圳宝安国际机场有A4路机场快线直达（票价35元，约45-60分钟），地铁11-14-16号线约2小时（票价10元左右），打车约150-180元。
+<strong>高铁站：</strong><br>
+深圳北站 → 公交E7路/E27路直达「信息学院」站，或地铁5号线→14号线→16号线至大运中心站；<br>
+深圳坪山站 → 地铁16号线直达大运中心站；<br>
+深圳站（罗湖）→ 地铁1号线→3号线至大运站；<br>
+福田站 → 地铁11号线→14号线→16号线至大运中心站，或公交E5路至「信息学院」站。<br><br>
+<strong>机场：</strong><br>
+深圳宝安国际机场 → A4路机场快线直达（票价35元，约45-60分钟），或地铁11号线→14号线→16号线约2小时（票价10元左右），打车约150-180元。<br><br>
+<strong>迎新接站：</strong>报到期间（8月24-26日 9:00-20:00），学校在深圳火车站（罗湖）、深圳北站、深圳宝安国际机场设有接站点，请于8月15日前到迎新系统填写接站信息。
 </p>
 </details>
 
@@ -5702,6 +5763,33 @@ body {
 <summary data-i18n="faq_school_08_q" style="font-weight:bold;color:#333;cursor:pointer;">书院是什么样的存在？有什么用？和学院有什么区别？</summary>
 <p data-i18n="faq_school_08_a" style="color:#666;margin-top:10px;line-height:1.8;">
 书院主要负责同学们的生活，学院则负责同学们的学习。
+</p>
+</details>
+
+<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
+<summary data-i18n="faq_school_09_q" style="font-weight:bold;color:#333;cursor:pointer;">报到期间学校有接站服务吗？</summary>
+<p data-i18n="faq_school_09_a" style="color:#666;margin-top:10px;line-height:1.8;">
+报到期间（8月24-26日 9:00-20:00），学校在<strong>深圳火车站（罗湖）、深圳北站、深圳宝安国际机场</strong>设有新生接站点。请于8月15日前登录迎新系统填写接站信息登记。
+</p>
+</details>
+
+<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
+<summary data-i18n="faq_school_10_q" style="font-weight:bold;color:#333;cursor:pointer;">现场注册报到需要带哪些材料？</summary>
+<p data-i18n="faq_school_10_a" style="color:#666;margin-top:10px;line-height:1.8;">
+<strong>内地学生：</strong>录取通知书原件及复印件、身份证原件及彩色复印件2份。<br>
+<strong>港澳台学生：</strong>录取通知书原件及复印件、港澳通行证/台湾通行证原件及复印件。<br>
+<strong>国际学生：</strong>录取通知书原件及复印件、护照原件及复印件。<br>
+具体要求以录取通知书附带的入学手册为准，建议提前准备好所有材料。
+</p>
+</details>
+
+<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
+<summary data-i18n="faq_school_11_q" style="font-weight:bold;color:#333;cursor:pointer;">户口迁入学校怎么办理？</summary>
+<p data-i18n="faq_school_11_a" style="color:#666;margin-top:10px;line-height:1.8;">
+<strong>可以迁入：</strong>广东省内户口迁至龙岗区派出所；省外户口迁至深圳市公安局龙岗分局。<br>
+<strong>迁入方式：</strong>入学报到时将户口迁移证交至学校，统一办理。<br>
+<strong>不需迁入：</strong>深圳户籍学生无需迁入；香港、澳门、台湾学生无需迁入。<br>
+<strong>注意事项：</strong>户口迁移证有效期通常为30天，请务必在有效期内办理；迁入后如需迁出，需另行申请。具体流程以入学手册为准。
 </p>
 </details>
 
@@ -5857,7 +5945,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 <details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
 <summary data-i18n="faq_life_05_q" style="font-weight:bold;color:#333;cursor:pointer;">学校里有打印店吗（最好可以彩印的）？</summary>
 <p data-i18n="faq_life_05_a" style="color:#666;margin-top:10px;line-height:1.8;">
-学校里随处可见自助打印机（具体使用方法可以咨询学长学姐或ITSO），可以黑白也可以彩色打印，黑白0.1元/页，彩色0.85元/页。同时学校下园也有打印店可以打印或制作海报等。
+学校里随处可见自助打印机，可以黑白也可以彩色打印，黑白0.1元/页，彩色0.85元/页。可将文件上传至云打印平台，然后在打印机处微信扫码登录打印（具体使用方法可以咨询学长学姐或ITSO）。同时学校下园也有打印店可以打印或制作海报等，下沉广场也有通条文印提供打印服务。详见【常用设施及服务】。
 </p>
 </details>
 
@@ -5913,13 +6001,6 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 </details>
 
 <details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
-<summary data-i18n="faq_life_13_q" style="font-weight:bold;color:#333;cursor:pointer;">学校有哪些食堂？哪比较好吃？价格怎么样？</summary>
-<p data-i18n="faq_life_13_a" style="color:#666;margin-top:10px;line-height:1.8;">
-学校食堂种类丰富，价格正常，具体可见【常用设施及服务】。
-</p>
-</details>
-
-<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
 <summary data-i18n="faq_life_14_q" style="font-weight:bold;color:#333;cursor:pointer;">校内可以骑电动车或自行车吗？有没有共享电动车？需不需要上牌？</summary>
 <p data-i18n="faq_life_14_a" style="color:#666;margin-top:10px;line-height:1.8;">
 为了师生安全，学校采取较严格的交通管制措施。自2025年起不再颁发电瓶车牌，可以骑自行车；校内没有共享自行车，但会有免费校巴供师生代步。
@@ -5955,13 +6036,6 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 </details>
 
 <details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
-<summary data-i18n="faq_life_19_q" style="font-weight:bold;color:#333;cursor:pointer;">学校有打印店吗？怎么打印？</summary>
-<p data-i18n="faq_life_19_a" style="color:#666;margin-top:10px;line-height:1.8;">
-书院宿舍楼下或教学楼下设有自助打印机，可将文件上传至云打印平台（详见【常用网站及小程序】），然后在打印机处微信扫码登录打印。下沉广场也有通条文印提供打印服务，详见【常用设施及服务】。
-</p>
-</details>
-
-<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
 <summary data-i18n="faq_life_20_q" style="font-weight:bold;color:#333;cursor:pointer;">学校有校巴吗？有哪些线路？</summary>
 <p data-i18n="faq_life_20_a" style="color:#666;margin-top:10px;line-height:1.8;">
 学校共有一号线、二号线、三号线（高峰线）、四号线和音乐学院线等校内巴士，以及若干校外穿梭巴士。具体线路和运营时间可见【常用网站及小程序 - 智行港中深】。
@@ -5986,6 +6060,24 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 <summary data-i18n="faq_life_23_q" style="font-weight:bold;color:#333;cursor:pointer;">书院自习室是24小时的吗？图书馆考试周开放到几点？</summary>
 <p data-i18n="faq_life_23_a" style="color:#666;margin-top:10px;line-height:1.8;">
 各书院的自习室为24小时开放；考试周期间图书馆开放至深夜12点。图书馆内设有公共电脑区域，配有显示屏供使用。
+</p>
+</details>
+
+<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
+<summary data-i18n="faq_life_24_q" style="font-weight:bold;color:#333;cursor:pointer;">社康中心能看哪些病？能不能开病假条？</summary>
+<p data-i18n="faq_life_24_a" style="color:#666;margin-top:10px;line-height:1.8;">
+社康中心有全科医师坐诊，可以开具医疗证明；但大病或严重症状建议直接前往附近大医院就诊。
+</p>
+</details>
+
+<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
+<summary data-i18n="faq_life_25_q" style="font-weight:bold;color:#333;cursor:pointer;">个人档案（学生档案）怎么转递到学校？</summary>
+<p data-i18n="faq_life_25_a" style="color:#666;margin-top:10px;line-height:1.8;">
+<strong>内地学生：</strong>档案可通过以下方式转递：<br>
+① 自带：凭录取通知书到原档案存放单位领取，入学报到时交至学校；<br>
+② EMS邮寄：由档案存放单位通过EMS直接邮寄至学校（邮寄地址：广东省深圳市龙岗区龙翔大道2001号香港中文大学（深圳）学生事务处，电话0755-84273118）。<br>
+<strong>港澳台及国际学生：</strong>无需转递内地个人档案。<br>
+⚠️ 档案不可拆封！拆封后档案将失效。
 </p>
 </details>
 
@@ -6023,13 +6115,6 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 <summary data-i18n="faq_fun_04_q" style="font-weight:bold;color:#333;cursor:pointer;">新生舞会是必须参加吗？</summary>
 <p data-i18n="faq_fun_04_a" style="color:#666;margin-top:10px;line-height:1.8;">
 不是，完全自愿！新生舞会是学校传统的迎新活动之一，可以认识新朋友、体验社交舞，有兴趣的同学可以参加。
-</p>
-</details>
-
-<details style="padding:15px;border:1px solid #e0e0e0;border-radius:10px;cursor:pointer;">
-<summary data-i18n="faq_life_24_q" style="font-weight:bold;color:#333;cursor:pointer;">社康中心能看哪些病？能不能开病假条？</summary>
-<p data-i18n="faq_life_24_a" style="color:#666;margin-top:10px;line-height:1.8;">
-社康中心有全科医师坐诊，可以开具医疗证明；但大病或严重症状建议直接前往附近大医院就诊。
 </p>
 </details>
 
@@ -8399,6 +8484,8 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'clinic_semester': { zh: '学期间', en: 'During Semester' },
            'clinic_holiday': { zh: '假期', en: 'Holidays' },
            'clinic_24h_note': { zh: '24小时（22:00后仅急危重症）', en: '24 hours (after 22:00, emergencies only)' },
+           'clinic_emergency_phone': { zh: '🌙 夜间值班电话：15013887317', en: '🌙 Night Shift Contact: 15013887317', html: true },
+           'clinic_emergency_label': { zh: '夜间值班电话', en: 'Night Shift Contact' },
            'clinic_upper_loc': { zh: '📍 厚含书院负二层（时代广场内）', en: '📍 Minerva College B2 (inside Times Square)' },
            'clinic_lower_loc': { zh: '📍 TD下首层（全家便利店旁）', en: '📍 TD Lower Ground Floor (next to FamilyMart)' },
            'search_placeholder_contacts': { zh: '搜索部门、职能、电话、邮箱...', en: 'Search departments, functions, phone, email...', attr: 'placeholder' },
@@ -8469,7 +8556,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'faq_school_01_q': { zh: '学校地址是什么？（快递、外卖地址如何填写？）', en: 'What is the school address? (How to fill delivery/takeout address?)' },
            'faq_school_01_a': { zh: '广东省深圳市龙岗区龙城街道龙翔大道2001号香港中文大学（深圳）xx门/xx书院。外卖只能送到各个门的外卖柜，快递可以送到每个书院快递柜（大件会放到上/下园快递中心）。', en: 'No. 2001 Longxiang Avenue, Longcheng Street, Longgang District, Shenzhen, Guangdong, China Hong Kong University of Shenzhen (XX Gate/XX College). Takeout can only be delivered to takeout cabinets at each gate. Express delivery can be sent to each college\'s express locker (large items will be placed at the Upper/Lower Campus express center).' },
            'faq_school_02_q': { zh: '如何从高铁站、机场、火车站等交通枢纽往返学校？', en: 'How to get to/from the school from rail stations, airports, and train stations?' },
-           'faq_school_02_a': { zh: '高铁站：深圳北站可选公交E7路直达信息学院，或地铁5-14-16号线到达大运中心；深圳坪山站可乘地铁16号线直达；深圳站可乘地铁1-3号线抵达大运站；福田站可乘地铁11-14-16号线抵达大运中心，或公交E5路抵达信息学院。机场：深圳宝安国际机场有A4路机场快线直达（票价35元，约45-60分钟），地铁11-14-16号线约2小时（票价10元左右），打车约150-180元。', en: 'High-speed rail: From Shenzhen North Station, take Bus E7 to Info Institute, or Metro Line 5-14-16 to Dayun Center. From Pingshan Station, take Metro Line 16 directly. From Shenzhen Station, take Metro Line 1-3 to Dayun Station. From Futian Station, take Metro Line 11-14-16 to Dayun Center, or Bus E5 to Info Institute. Airport: Airport Express A4 goes directly (35 RMB, ~45-60 min). Metro Line 11-14-16 takes ~2 hours (~10 RMB). Taxi ~150-180 RMB.' },
+           'faq_school_02_a': { zh: '高铁站：深圳北站 → 公交E7/E27路直达「信息学院」站，或地铁5号线→14号线→16号线至大运中心站；深圳坪山站 → 地铁16号线直达大运中心站；深圳站（罗湖）→ 地铁1号线→3号线至大运站；福田站 → 地铁11号线→14号线→16号线至大运中心站，或公交E5路至「信息学院」站。机场：深圳宝安国际机场 → A4路机场快线直达（票价35元，约45-60分钟），或地铁11号线→14号线→16号线约2小时（票价10元左右），打车约150-180元。迎新接站：报到期间（8月24-26日 9:00-20:00），学校在深圳火车站（罗湖）、深圳北站、深圳宝安国际机场设有接站点，请于8月15日前到迎新系统填写接站信息。', en: 'High-speed rail: Shenzhen North Station → Bus E7/E27 to "Info Institute" stop, or Metro Line 5→14→16 to Dayun Center Station. Pingshan Station → Metro Line 16 directly to Dayun Center. Shenzhen Station (Luohu) → Metro Line 1→3 to Dayun Station. Futian Station → Metro Line 11→14→16 to Dayun Center, or Bus E5 to "Info Institute". Airport: Shenzhen Bao\'an Airport → Airport Express A4 direct (35 RMB, ~45-60 min), or Metro Line 11→14→16 (~2 hours, ~10 RMB), taxi ~150-180 RMB. Orientation pickup: During registration period (Aug 24-26, 9:00-20:00), the school provides pickup at Shenzhen Station (Luohu), Shenzhen North Station, and Shenzhen Bao\'an Airport. Please fill in pickup info on the Orientation System before Aug 15.' },
            'faq_school_03_q': { zh: '学校周边交通情况如何？', en: 'What is the transportation situation around the school?' },
            'faq_school_03_a': { zh: '学校大门分为：上园门（直通高速入口，无公交，主要打车出行）、下园老南门（出门有"信息学院"公交站）、下园新南门（步行约10分钟到达大运中心地铁站16号线）、下园东门（"港中大深圳校区"公交站）。校内还有"高峰专线407"路公交车可直达大运地铁站。', en: 'School gates: Upper Campus Gate (direct highway access, no bus, mainly taxi). Lower Campus Old South Gate (has "Info Institute" bus stop). Lower Campus New South Gate (~10 min walk to Dayun Center Metro Station Line 16). Lower Campus East Gate ("CUHK-Shenzhen Campus" bus stop). There is also Peak Route 407 bus within the school that goes directly to Dayun Metro Station.' },
            'faq_school_04_q': { zh: '学校构造如何？', en: 'What is the layout of the school campus?' },
@@ -8482,6 +8569,12 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'faq_school_07_a': { zh: '跟随录取通知书会有一本新生手册，里面会有详细内容。团关系转入香港中文大学（深圳）**书院团支部。', en: 'The freshman handbook that comes with the admission letter contains detailed information. The League relationship is transferred to the College Youth League Branch of CUHK-Shenzhen.' },
            'faq_school_08_q': { zh: '书院是什么样的存在？有什么用？和学院有什么区别？', en: 'What is a college? What is it for? How is it different from a school/faculty?' },
            'faq_school_08_a': { zh: '书院主要负责同学们的生活，学院则负责同学们的学习。', en: 'Colleges are mainly responsible for students\' daily life, while schools/faculties are responsible for students\' academic learning.' },
+           'faq_school_09_q': { zh: '报到期间学校有接站服务吗？', en: 'Does the school provide pickup service during registration?' },
+           'faq_school_09_a': { zh: '报到期间（8月24-26日 9:00-20:00），学校在深圳火车站（罗湖）、深圳北站、深圳宝安国际机场设有新生接站点。请于8月15日前登录迎新系统填写接站信息登记。', en: 'During registration (Aug 24-26, 9:00-20:00), the school provides pickup at Shenzhen Station (Luohu), Shenzhen North Station, and Shenzhen Bao\'an Airport. Please fill in pickup info on the Orientation System before Aug 15.' },
+           'faq_school_10_q': { zh: '现场注册报到需要带哪些材料？', en: 'What documents do I need for on-site registration?' },
+           'faq_school_10_a': { zh: '内地学生：录取通知书原件及复印件、身份证原件及彩色复印件2份。港澳台学生：录取通知书原件及复印件、港澳通行证/台湾通行证原件及复印件。国际学生：录取通知书原件及复印件、护照原件及复印件。具体要求以录取通知书附带的入学手册为准，建议提前准备好所有材料。', en: 'Mainland students: Original + copy of admission letter, original + 2 colour copies of ID card. HK/Macao/Taiwan students: Original + copy of admission letter, original + copy of HK/Macao/Taiwan travel permit. International students: Original + copy of admission letter, original + copy of passport. Specific requirements are in the enrollment handbook enclosed with the admission letter – prepare all documents in advance.' },
+           'faq_school_11_q': { zh: '户口迁入学校怎么办理？', en: 'How do I transfer my household registration (hukou) to the school?' },
+           'faq_school_11_a': { zh: '可以迁入：广东省内户口迁至龙岗区派出所；省外户口迁至深圳市公安局龙岗分局。迁入方式：入学报到时将户口迁移证交至学校，统一办理。不需迁入：深圳户籍学生无需迁入；香港、澳门、台湾学生无需迁入。注意事项：户口迁移证有效期通常为30天，请务必在有效期内办理；迁入后如需迁出，需另行申请。具体流程以入学手册为准。', en: 'Transferable: Guangdong residents transfer to Longgang Police Station; out-of-province residents transfer to Longgang Branch of Shenzhen PSB. Method: Submit the hukou transfer certificate during registration; the school will process it collectively. No transfer needed: Shenzhen residents; HK, Macao & Taiwan students. Note: The hukou transfer certificate is valid for 30 days – process it within the validity period. To transfer out later, you must apply separately. Follow the enrollment handbook for details.' },
            'faq_study_01_q': { zh: '体育课有哪些？是自由选择的吗？', en: 'What PE courses are available? Are they free to choose?' },
            'faq_study_01_a': { zh: '体育课可选种类非常丰富，除了常见的篮球、足球、羽毛球、乒乓球外，还有瑜伽、散打、高尔夫、攀岩、地壶、飞盘等项目。体育课可自由选择，但热门课程需要抢课。', en: 'PE courses are very diverse, including basketball, football, badminton, table tennis, as well as yoga, sanda, golf, rock climbing, floor curling, frisbee, etc. You can freely choose, but popular courses require course selection (snatching).' },
            'faq_study_02_q': { zh: '全英文教学我能适应吗？', en: 'Can I adapt to all-English teaching?' },
@@ -8521,7 +8614,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'faq_life_04_q': { zh: '宿舍和舍友是自己选的吗？', en: 'Do I choose my own dorm and roommates?' },
            'faq_life_04_a': { zh: '宿舍是随机分配的。但开学前会让大家填写作息规律和空调敏感度等问卷，按照大家相似的生活习惯进行分配。', en: 'Dorms are randomly assigned. But before the start of the semester, everyone will fill out questionnaires about daily routines and air conditioning sensitivity, and assignments are made according to similar living habits.' },
            'faq_life_05_q': { zh: '学校里有打印店吗（最好可以彩印的）？', en: 'Are there printing shops in the school (preferably with color printing)?' },
-           'faq_life_05_a': { zh: '学校里随处可见自助打印机（具体使用方法可以咨询学长学姐或ITSO），可以黑白也可以彩色打印，黑白0.1元/页，彩色0.85元/页。同时学校下园也有打印店可以打印或制作海报等。', en: 'Self-service printers can be found everywhere in the school (consult seniors or ITSO for specific usage). Black-and-white printing is 0.1 RMB/page, color printing is 0.85 RMB/page. There are also printing shops in the Lower Campus for printing or poster making.' },
+           'faq_life_05_a': { zh: '学校里随处可见自助打印机，可以黑白也可以彩色打印，黑白0.1元/页，彩色0.85元/页。可将文件上传至云打印平台，然后在打印机处微信扫码登录打印（具体使用方法可以咨询学长学姐或ITSO）。同时学校下园也有打印店可以打印或制作海报等，下沉广场也有通条文印提供打印服务。详见【常用设施及服务】。', en: 'Self-service printers can be found everywhere in the school, supporting both black-and-white (0.1 RMB/page) and color printing (0.85 RMB/page). You can upload files to the cloud printing platform and scan the WeChat QR code at the printer to log in and print (consult seniors or ITSO for specific usage). There are also printing shops in the Lower Campus for printing or poster making, and Tongtiao Wenyin in the sunken plaza also provides printing services. See [Common Facilities and Services] for details.' },
            'faq_life_06_q': { zh: '学校外卖、快递相关问题？', en: 'Questions about takeout and delivery at school?' },
            'faq_life_06_a': { zh: '外卖：学校周围外卖种类繁多，可以送到下园老南门/新南门，上园北门/祥波门，有智能外卖柜，扫码输入手机号后四位取餐。也可以加入各种外卖凑单群，午餐晚餐时间会有一些店家统一为学校配送。快递：学校上园和下园均有大量丰巢快递柜以及收发室（顺丰速运负责运营）。小件快递会被放入丰巢，大件会被送到收发室保管。学校的丰巢无论存柜多久均无任何存柜费，免费使用。同时丰巢和收发室也有寄件功能，顺丰快递还可以上门取件。', en: 'Takeout: Various types of takeout are available around the school, which can be delivered to Lower Campus Old South Gate/New South Gate, Upper Campus North Gate/Xiangbo Gate. There are smart takeout cabinets where you scan the code and enter the last 4 digits of your phone number to pick up. You can also join various takeout group orders. Delivery: Both Upper and Lower Campus have many SF Express lockers and delivery rooms (operated by SF Express). Small packages will be placed in SF lockers, large packages will be sent to the delivery room for safekeeping. The school\'s SF lockers have no storage fees regardless of duration, free to use. SF lockers and delivery rooms also have sending functions, and SF Express can also pick up packages from your door.' },
            'faq_life_07_q': { zh: '宿舍可以养（进）猫猫吗？有军训吗？有体测吗？', en: 'Can I keep (or bring) cats in the dorm? Is there military training? Is there a physical fitness test?' },
@@ -8536,8 +8629,6 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'faq_life_11_a': { zh: '校园卡可用于场地预约与验证（如图书馆研讨室开门）、校门进出（如忘带需在企微上出示电子校园卡给安保人员协助开门）、重要考试时验证身份（如未携带需签字，后续需前往相关部门重新验证）、食堂支付（但一般都直接用微信或支付宝，所以不建议向校园卡内充值）；丢失后可前往下沉广场中信银行网点内的校园卡中心补办【详见校园地图】。', en: 'The campus card can be used for venue reservation and verification (e.g. opening library group study rooms), campus entry/exit (if forgotten, you need to show the e-campus card on WeCom to security staff for assistance), identity verification during important exams (if not carried, you need to sign and later go to the relevant department for re-verification), and cafeteria payment (but most people directly use WeChat or Alipay, so top-up is not recommended). If lost, you can go to the campus card center inside the CITIC Bank branch at the Sunken Plaza to get a replacement [see campus map for details].' },
            'faq_life_12_q': { zh: '学校的WiFi怎么连？网速快吗？', en: 'How to connect to the school WiFi? Is the speed fast?' },
            'faq_life_12_a': { zh: '学校有免费WiFi，输入CUHK(SZ)账密后可免费连接；网速在正常情况下可以满足日常使用；宿舍内也提供有线网络接口。', en: 'The school has free WiFi. You can connect for free after entering your CUHK(SZ) account and password. The speed is generally sufficient for daily use under normal circumstances. Dorm rooms also provide wired network ports.' },
-           'faq_life_13_q': { zh: '学校有哪些食堂？哪比较好吃？价格怎么样？', en: 'What canteens are there at school? Which is better? How about the price?' },
-           'faq_life_13_a': { zh: '学校食堂种类丰富，价格正常，具体可见【常用设施及服务】。', en: 'The school has a wide variety of canteens with normal prices. For details, please see [Common Facilities and Services].' },
            'faq_life_14_q': { zh: '校内可以骑电动车或自行车吗？有没有共享电动车？需不需要上牌？', en: 'Can I ride an electric bike or bicycle on campus? Are there shared e-bikes? Do I need a license plate?' },
            'faq_life_14_a': { zh: '为了师生安全，学校采取较严格的交通管制措施。自2025年起不再颁发电瓶车牌，可以骑自行车；校内没有共享自行车，但会有免费校巴供师生代步。', en: 'For the safety of teachers and students, the school adopts strict traffic control measures. Since 2025, electric bike licenses are no longer issued, but bicycles are allowed. There are no shared bicycles on campus, but free campus shuttles are available for commuting.' },
            'faq_life_15_q': { zh: '学校有哪些奖学金或助学金可以申请？家庭经济困难有什么支持吗？', en: 'What scholarships or financial aid are available at school? What support is there for students with financial difficulties?' },
@@ -8548,8 +8639,6 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'faq_life_17_a': { zh: '学校设有学生健康辅导中心（SHCC），联系方式见【常用联系方式 - 行政部门 - SHCC】。', en: 'The school has a Student Health and Counseling Center (SHCC). Contact information can be found in [Common Contact Information - Administrative Departments - SHCC].' },
            'faq_life_18_q': { zh: '图书馆怎么样？怎么预约研讨室？怎么借书？', en: 'What is the library like? How to reserve a group study room? How to borrow books?' },
            'faq_life_18_a': { zh: '图书馆提供多样化的自习和讨论环境，以及丰富的线上线下资源；研讨室需在企业微信 - 工作台 - 场地预约中预约；借书可在图书馆网站中查阅并申请借阅，详见【常用网站及小程序】。', en: 'The library provides diverse self-study and discussion environments, as well as rich online and offline resources. Group study rooms need to be reserved via WeCom - Workbench - Venue Reservation. Books can be searched and borrowed via the library website, see [Common Websites and Mini-programs] for details.' },
-           'faq_life_19_q': { zh: '学校有打印店吗？怎么打印？', en: 'Are there printing services on campus? How to print?' },
-           'faq_life_19_a': { zh: '书院宿舍楼下或教学楼下设有自助打印机，可将文件上传至云打印平台（详见【常用网站及小程序】），然后在打印机处微信扫码登录打印。下沉广场也有通条文印提供打印服务，详见【常用设施及服务】。', en: 'Self-service printers are available downstairs in college dorms or teaching buildings. You can upload files to the cloud printing platform (see [Common Websites and Mini-programs] for details), then scan the QR code with WeChat at the printer to log in and print. There is also a Tongtiao printing shop at the Sunken Plaza, see [Common Facilities and Services] for details.' },
            'faq_life_20_q': { zh: '学校有校巴吗？有哪些线路？', en: 'Does the school have campus shuttles? What routes are available?' },
            'faq_life_20_a': { zh: '学校共有一号线、二号线、三号线（高峰线）、四号线和音乐学院线等校内巴士，以及若干校外穿梭巴士。具体线路和运营时间可见【常用网站及小程序 - 智行港中深】。', en: 'The school has Route 1, Route 2, Route 3 (peak-hour only), Route 4, and the Music School Route, as well as several off-campus shuttle buses. For specific routes and operating hours, see [Common Websites and Mini-programs - Smart CUHK-SZ].' },
            'faq_life_21_q': { zh: '入学需要带哪些行李物品？学校可以买生活用品吗？', en: 'What luggage should I bring for enrollment? Can I buy daily necessities on campus?' },
@@ -8560,6 +8649,8 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'faq_life_23_a': { zh: '各书院的自习室为24小时开放；期末周期间图书馆也24小时开放。图书馆内设有公共电脑区域，配有显示屏供使用。', en: 'Study rooms in each college are open 24 hours. During final exam weeks, the library is also open 24 hours. The library has public computer areas equipped with monitors for use.' },
            'faq_life_24_q': { zh: '社康中心能看哪些病？能不能开病假条？', en: 'What ilnesses can the Shekang Center treat? Can it issue medical leave certificates?' },
            'faq_life_24_a': { zh: '社康中心有全科医师坐诊，可以开具医疗证明；但大病或严重症状建议直接前往附近大医院就诊。', en: 'The Shekang Center has general practitioners on duty and can issue medical certificates. However, for serious ilnesses or severe symptoms, it is recommended to go directly to a nearby hospital.' },
+           'faq_life_25_q': { zh: '个人档案（学生档案）怎么转递到学校？', en: 'How do I transfer my personal student archive to the school?' },
+           'faq_life_25_a': { zh: '内地学生：档案可通过以下方式转递：①自带：凭录取通知书到原档案存放单位领取，入学报到时交至学校；②EMS邮寄：由档案存放单位通过EMS直接邮寄至学校（邮寄地址：广东省深圳市龙岗区龙翔大道2001号香港中文大学（深圳）学生事务处，电话0755-84273118）。港澳台及国际学生：无需转递内地个人档案。⚠️档案不可拆封！拆封后档案将失效。', en: 'Mainland students: Archives can be transferred via: ① Self-carry: Collect from the original archive unit with your admission letter, submit during registration; ② EMS mailing: The archive unit mails via EMS directly to the school (Address: CUHK-Shenzhen Student Affairs Office, 2001 Longxiang Ave, Longgang, Shenzhen, Guangdong; Tel: 0755-84273118). HK/Macao/Taiwan & international students: No mainland personal archive transfer needed. ⚠️ Do NOT open the archive seal! Opened archives become invalid.' },
            'faq_fun_01_q': { zh: '学校附近有什么商场或休闲娱乐场所？', en: 'What shopping malls or entertainment venues are near the school?' },
            'faq_fun_01_a': { zh: '离学校最近的商场是大运天地，稍远一点还有龙岗星河COCO Park，COCO Park里有海底捞等各类饭店，有电影院，还有山姆会员超市。同时学校周围还有万科广场、万科里等，基本可满足日常逛街、外出吃饭、看电影等需求。学校附近还有大运自然公园等休闲娱乐场所。', en: 'The nearest shopping mall to the school is Dayun Tiandi. A bit further away is Longgang COCO Park, which has various restaurants including Haidilao, a cinema, and Sam\'s Club. There are also Vanke Plaza and Vanke Li around the school, which basically meet daily needs for shopping, dining out, and watching movies. There are also recreational venues like Dayun Nature Park near the school.' },
            'faq_fun_02_q': { zh: '校乐团非音乐学院学生可以参加吗？要怎样考核呢？', en: 'Can non-Music School students join the school orchestra? How is the audition?' },
@@ -8603,6 +8694,11 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'web_10_title': { zh: '电子文件申请系统', en: 'E-Document Application System'},
            'web_10_desc': { zh: '无需 VPN 但需 CUHK(SZ) 账密登录。可下载各种电子文件及证书。', en: 'No VPN required but CUHK(SZ) account login needed. Download various electronic documents and certificates.'},
            'web_10_btn': { zh: '进入系统', en: 'Open System' },
+           'web_11_title': { zh: '自助缴费平台', en: 'Self-Service Payment Platform'},
+           'web_11_desc': { zh: '支持支付宝、微信、银联三种支付方式缴纳学费、住宿费等。需连接校园内网或VPN，5个工作日内完成扣款确认。', en: 'Pay tuition, accommodation fees etc. via Alipay, WeChat Pay or UnionPay. Campus intranet or VPN required; deduction confirmed within 5 working days.', html: true },
+           'web_11_btn': { zh: '进入缴费平台', en: 'Open Payment Platform' },
+           'tag_payment': { zh: '缴费', en: 'Payment' },
+           'tag_need_vpn': { zh: '需VPN/内网', en: 'VPN/Intranet' },
            'tag_e_docs': { zh: '电子文件', en: 'E-Documents' },
            'miniapp_01_title': { zh: '智行港中深', en: 'Smart Transit CUHK-SZ'},
            'miniapp_01_desc': { zh: '查询校巴线路与校巴实时位置，方便规划出行。', en: 'Check shuttle bus routes and real-time locations for trip planning.'},
@@ -8659,6 +8755,24 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'fac_sec_laundry': { zh: '👔 美家洁干洗店', en: '👔 Meijiajie Dry Cleaners'},
            'fac_sec_store4': { zh: '🛒 天猫校园超市', en: '🛒 Tmall Campus Supermarket'},
    'fac_sec_clinic': { zh: '🏥 社康中心', en: '🏥 Community Health Centre'},
+   'fac_sec_sports': { zh: '⚽ 大学体育中心', en: '⚽ University Sports Centre'},
+   'fac_h5_sports_01': { zh: '📍 位置', en: '📍 Location'},
+   'fac_svc_sports_01': { zh: '大学体育馆（下园）+ 综合体育馆（下园）', en: 'University Gymnasium (Lower Campus) + Comprehensive Sports Hall (Lower Campus)'},
+   'fac_h5_sports_02': { zh: '🏟️ 场地设施', en: '🏟️ Facilities'},
+   'fac_svc_sports_02': { zh: '大学体育馆设有以下场地：', en: 'The University Gymnasium has the following facilities:'},
+   'fac_sports_li_01': { zh: '健身室（一楼）— 刷学生卡进入，无需预约', en: 'Fitness Room (1st floor) — swipe student card, no reservation needed'},
+   'fac_sports_li_02': { zh: '韵律室 — 团操课程、瑜伽等', en: 'Rhythm Room — group fitness, yoga etc.'},
+   'fac_sports_li_03': { zh: '多用途室 — 篮球/排球/羽毛球/网球', en: 'Multi-purpose Room — basketball/volleyball/badminton/tennis'},
+   'fac_sports_li_04': { zh: '乒乓球室', en: 'Table Tennis Room'},
+   'fac_sports_li_05': { zh: '舞蹈室', en: 'Dance Room'},
+   'fac_sports_li_06': { zh: '室内游泳池 — 刷学生卡进入，无需预约', en: 'Indoor Swimming Pool — swipe student card, no reservation needed'},
+   'fac_svc_sports_03': { zh: '综合体育馆设有：', en: 'The Comprehensive Sports Hall has:'},
+   'fac_sports_li_07': { zh: '羽毛球场（需在企业微信-工作台-场地预约中预约）', en: 'Badminton courts (reservation via Enterprise WeChat → Workbench → Venue Booking)'},
+   'fac_sports_li_08': { zh: '匹克球场', en: 'Pickleball courts'},
+   'fac_sports_li_09': { zh: '乒乓球场', en: 'Table tennis courts'},
+   'fac_h5_sports_03': { zh: '🕐 开放时间', en: '🕐 Opening Hours'},
+   'fac_svc_sports_04': { zh: '学期内：7:00–24:00（部分场地需预约）', en: 'During semester: 7:00–24:00 (some courts require reservation)', html: true },
+   'fac_svc_sports_05': { zh: '假期：以物业公告为准', en: 'Holidays: subject to property management notice'},
            'fac_sec_taiching': { zh: '🍮 太清凉茶糖水铺', en: '🍮 Taiqing Herbal Tea & Dessert'},
            'fac_h5_001': { zh: '悠然居食堂（学生中心一楼）', en: 'Youranju Canteen (Student Centre L1)'},
            'fac_h5_002': { zh: '尚荷轩食堂（学生中心二楼）', en: 'Shanghexuan Canteen (Student Centre L2)'},
@@ -9341,6 +9455,8 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'email_addr_content': { zh: '学号邮箱：学号@link.cuhk.edu.cn 邮箱别称："拼音名+拼音姓"@link.cuhk.edu.cn （如遇重名，系统会在别称后加数字区分）', en: 'Student email: studentID@link.cuhk.edu.cn; Alias: "pinyinname"@link.cuhk.edu.cn' },
            'email_label_address': { zh: '邮箱地址', en: 'Email Address' },
            'email_label_login': { zh: '登录方式', en: 'Login Method' },
+           'email_label_web_access': { zh: '网页端入口', en: 'Web Access' },
+           'email_web_content': { zh: '① mail.cuhk.edu.cn（学校邮箱门户）② outlook.office365.com（Office 365 全球入口）③ 企业微信 → 工作台 → 邮箱（移动端快捷入口）', en: '① mail.cuhk.edu.cn (University email portal) ② outlook.office365.com (Office 365 global portal) ③ Enterprise WeChat → Workbench → Email (mobile quick access)', html: true },
            'email_label_settings': { zh: '邮箱设置', en: 'Email Settings' },
            'email_label_validity': { zh: '邮箱有效期', en: 'Validity Period' },
            'email_login_content': { zh: '通过学校信息门户登录邮箱，输入学号和密码。 初始密码需通过密码自助服务平台修改并绑定密保手机或邮箱以激活账号，激活后可使用邮箱及相关 IT 资源。', en: 'Log in via the university portal using your student ID and password. You must change your initial password through the self-service platform and bind a security phone/email to activate your account.' },
