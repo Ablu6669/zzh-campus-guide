@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>校园新生指南 - 香港中文大学（深圳）</title>
+<!-- 阻止 FOUC：在任何渲染前同步设置主题 -->
+<script>
+(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark')})();
+</script>
 <style>
 
 
@@ -260,6 +264,34 @@ body {
     position: fixed;
     top: 16px; right: 16px;
     z-index: 9999;
+}
+.theme-fixed {
+    position: fixed;
+    top: 16px; right: 115px;
+    z-index: 10001;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: var(--color-bg);
+    cursor: pointer;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--ease-fast);
+}
+.theme-fixed:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+[data-theme="dark"] .theme-fixed {
+    background: var(--color-bg);
+    border-color: var(--color-border);
+}
+[data-theme="dark"] .theme-fixed:hover {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary);
 }
 .btn-lang:hover {
     background: var(--color-primary-dark);
@@ -2276,6 +2308,508 @@ body {
         }
     
 
+/* ===================================
+   深色模式 | Dark Mode
+   =================================== */
+[data-theme="dark"] {
+    /* 主色调整 - 深色背景下需要更亮的紫色 */
+    --color-primary: #9B4F96;
+    --color-primary-dark: #7A3D75;
+    --color-primary-light: #2D1F40;
+    --color-primary-hover: #3D2A50;
+
+    /* 辅助金调整 */
+    --color-gold: #FFB800;
+    --color-gold-light: #2A2000;
+    --color-gold-deep: #FFC800;
+
+    /* 文字色 - 浅紫色系 */
+    --color-heading: #e8d5ff;
+    --color-body: #c8b0e8;
+    --color-muted: #8a70b0;
+    --color-light: #6a5090;
+    --color-faint: #6a5090;
+
+    /* 背景色 - 深紫黑 */
+    --color-bg: #0f0a1a;
+    --color-bg-subtle: #1a1230;
+    --color-bg-hover: #251a40;
+
+    /* 边框色 */
+    --color-border: #2D1F40;
+    --color-border-light: #1F1530;
+    --color-border-hover: #3D2A50;
+
+    /* 阴影 - 更深更柔和 */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.4);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+/* 深色模式下的特殊元素调整 */
+[data-theme="dark"] .header {
+    background: linear-gradient(135deg, #2D1F40 0%, #1A1230 100%);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .site-card,
+[data-theme="dark"] .clinic-card,
+[data-theme="dark"] .sports-card,
+[data-theme="dark"] .loc-card,
+[data-theme="dark"] .canteen-card,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .restaurant-card,
+[data-theme="dark"] .miniapp-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+
+/* 地图卡片深色模式 */
+[data-theme="dark"] .loc-card {
+    background: #1a1230;
+}
+[data-theme="dark"] .loc-card:hover {
+    background: #231a3d;
+}
+[data-theme="dark"] .loc-card.locating {
+    background: #2d2510 !important;
+}
+[data-theme="dark"] .loc-card h5 {
+    color: var(--color-heading);
+}
+[data-theme="dark"] .loc-card p {
+    color: var(--color-muted);
+}
+
+/* 食堂/餐厅卡片深色模式 */
+[data-theme="dark"] .canteen-card:hover,
+[data-theme="dark"] .restaurant-card:hover {
+    background: #231a3d;
+}
+[data-theme="dark"] .canteen-card .canteen-hours {
+    background: #0f0a1a;
+    color: var(--color-body);
+}
+[data-theme="dark"] .canteen-card .canteen-hours strong {
+    color: var(--color-heading);
+}
+
+/* 联系方式卡片深色模式 */
+[data-theme="dark"] .contact-card:hover {
+    background: #231a3d;
+}
+
+/* 邮箱区域深色模式 */
+[data-theme="dark"] .email-detail .email-row {
+    color: var(--color-body);
+}
+[data-theme="dark"] .email-detail .warn-box {
+    background: #3d3010;
+    border-left-color: #c79a00;
+    color: #e8d085;
+}
+
+/* 缩写卡片深色模式（使用变量已自动适配，此处补充细节）*/
+[data-theme="dark"] .abbr-card {
+    border-color: var(--color-border);
+}
+
+/* ====== 通用卡片/按钮/提示框 深色模式 ====== */
+
+/* 筛选按钮（地图页 + 联系方式/设施页）*/
+[data-theme="dark"] .filter-btn {
+    background: #1a1230;
+    color: var(--color-body);
+    border-color: var(--color-border);
+}
+[data-theme="dark"] .filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* 商店/便利店卡片 */
+[data-theme="dark"] .store-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+[data-theme="dark"] .store-card:hover {
+    background: #231a3d;
+}
+
+/* 提示框/警告框 */
+[data-theme="dark"] .vpn-note {
+    background: #3d2a10;
+    border-left-color: #e68a00;
+    color: #e8c87a;
+}
+[data-theme="dark"] .miniapp-note {
+    background: #102030;
+    border-left-color: #448aff;
+    color: #90c8ff;
+}
+[data-theme="dark"] .service-block .highlight-box {
+    background: #2d2510;
+}
+[data-theme="dark"] .email-detail .warn-box {
+    background: #3d3010;
+    border-left-color: #c79a00;
+    color: #e8d085;
+}
+
+/* 搜索下拉框 */
+[data-theme="dark"] .search-dropdown {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+[data-theme="dark"] .search-item {
+    border-bottom-color: var(--color-border-light);
+}
+[data-theme="dark"] .search-item:hover,
+[data-theme="dark"] .search-item.active {
+    background: #231a3d;
+}
+[data-theme="dark"] .faq-match {
+    background: #2d2510 !important;
+}
+
+/* 社康卡片（原绿色调背景） */
+[data-theme="dark"] .clinic-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+
+/* 体育卡片 */
+[data-theme="dark"] .sports-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+
+/* 地图页搜索框 */
+[data-theme="dark"] .map-wrapper {
+    background: #1a1230;
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .site-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] details {
+    background: #1a1230;
+    border-color: var(--color-border) !important;
+}
+
+[data-theme="dark"] summary {
+    color: var(--color-heading) !important;
+}
+
+[data-theme="dark"] .guide-tip {
+    background: #1a1530;
+    border-left-color: var(--color-primary);
+}
+
+[data-theme="dark"] .guide-tag {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* ====== 使用说明页 (guide.html) 深色模式 ====== */
+
+[data-theme="dark"] .guide-header {
+    background: #1a1230;
+}
+[data-theme="dark"] .guide-back {
+    border-color: var(--color-border);
+    color: var(--color-body);
+}
+[data-theme="dark"] .guide-back:hover {
+    background: var(--color-primary-light);
+}
+
+[data-theme="dark"] .guide-intro {
+    background: linear-gradient(135deg, #4a3a1a, #3d2e12);
+    color: #f0d890;
+}
+[data-theme="dark"] .guide-intro p {
+    color: #f0d890;
+}
+
+[data-theme="dark"] .guide-disclaimer {
+    background: linear-gradient(135deg, #2d2510, #1f1a0a) !important;
+    border-color: #c79a00 !important;
+    color: var(--color-muted);
+}
+[data-theme="dark"] .guide-disclaimer-title {
+    color: #ffc107;
+}
+[data-theme="dark"] .guide-disclaimer p {
+    color: var(--color-muted);
+}
+[data-theme="dark"] .guide-disclaimer .highlight {
+    color: #ffb84d;
+}
+
+[data-theme="dark"] .guide-section {
+    background: #1a1230;
+}
+[data-theme="dark"] .guide-section-icon {
+    background: var(--color-primary-light);
+}
+[data-theme="dark"] .guide-section-body {
+    color: var(--color-body);
+}
+[data-theme="dark"] .guide-section-body li {
+    color: var(--color-muted);
+}
+[data-theme="dark"] .guide-section-body strong {
+    color: var(--color-heading);
+}
+
+[data-theme="dark"] .theme-fixed {
+    background: #1a1230;
+    border-color: var(--color-border);
+    color: var(--color-heading);
+}
+
+[data-theme="dark"] img {
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] img:hover {
+    opacity: 1;
+}
+
+/* 地图容器在深色模式下的样式 */
+[data-theme="dark"] .map-wrapper,
+[data-theme="dark"] .map-container {
+    background: #1a1230;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+/* 地图视口深色模式 */
+[data-theme="dark"] .map-viewport {
+    background: #12101a !important;
+}
+[data-theme="dark"] .fs-modal-viewport {
+    background: #0a0812 !important;
+}
+[data-theme="dark"] .map-wrapper {
+    background: #1a1230 !important;
+}
+
+/* 登录页在深色模式 */
+[data-theme="dark"] .login-box {
+    background: #1a1230;
+    border: 1px solid var(--color-border);
+}
+
+/* 搜索框在深色模式 */
+[data-theme="dark"] .search-input {
+    background: #1a1230 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%238a70b0" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16 6.5 6.5 0 0014.23 15.5l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1114 9.5 4.5 4.5 0 019.5 14z"/></svg>') 14px center no-repeat !important;
+    border-color: var(--color-border);
+    color: var(--color-body);
+}
+
+[data-theme="dark"] .search-input:focus {
+    background-color: #1a1230 !important;
+    border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .search-dropdown {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+
+[data-theme="dark"] .search-item:hover {
+    background: var(--color-bg-hover);
+}
+
+/* ====== 设施页专用 深色模式 ====== */
+
+/* service-block — 物业服务/咖啡店/文印店/眼镜店/干洗店/体育中心 等卡片 */
+[data-theme="dark"] .service-block {
+    background: #1a1230;
+}
+[data-theme="dark"] .service-block:hover {
+    background: #231a3d;
+}
+
+/* restaurant-card 餐厅卡片补充 */
+[data-theme="dark"] .restaurant-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+[data-theme="dark"] .restaurant-card:hover {
+    background: #231a3d;
+}
+
+/* payment-note 支付方式提示 */
+[data-theme="dark"] .payment-note {
+    background: linear-gradient(135deg, #1a2e18, #1f3018);
+    border-color: #2d5a27;
+    color: #a8d490;
+}
+[data-theme="dark"] .payment-note strong {
+    color: #8fcc6f;
+}
+
+/* clinic-card 标题颜色 */
+[data-theme="dark"] .clinic-card h5 {
+    color: #5ecc7b;
+}
+
+/* clinic-tag 标签 */
+[data-theme="dark"] .clinic-card .clinic-tag {
+    background: #2d6b3f;
+    color: #a8e6bf;
+}
+
+/* facility-section-header 文字色覆盖（部分header写死 color:#333）*/
+[data-theme="dark"] .sec-property .facility-section-header,
+[data-theme="dark"] .sec-sports .facility-section-header {
+    color: #e8d5ff;
+}
+
+/* canteen-card / restaurant-card / store-card 内文字 */
+[data-theme="dark"] .canteen-card h5,
+[data-theme="dark"] .restaurant-card h5,
+[data-theme="dark"] .store-card h5,
+[data-theme="dark"] .service-block h5 {
+    color: var(--color-heading);
+}
+[data-theme="dark"] .canteen-card .canteen-desc,
+[data-theme="dark"] .restaurant-card .rest-desc,
+[data-theme="dark"] .store-card .store-desc,
+[data-theme="dark"] .store-card .store-hours,
+[data-theme="dark"] .restaurant-card .rest-hours,
+[data-theme="dark"] .service-block p {
+    color: var(--color-muted);
+}
+[data-theme="dark"] .canteen-card .canteen-hours strong {
+    color: var(--color-heading);
+}
+
+/* clinic-service-list 列表项符号 */
+[data-theme="dark"] .clinic-service-list li::before {
+    color: #5ecc7b;
+}
+
+/* facility-section 容器本身确保深色 */
+[data-theme="dark"] .facility-section {
+    background: var(--color-bg-subtle);
+    border-color: var(--color-border);
+}
+
+/* facility-section 容器本身确保深色 */
+[data-theme="dark"] .facility-section {
+    background: var(--color-bg-subtle);
+    border-color: var(--color-border);
+}
+
+/* 缩写卡片 .abbr-note 备注框深色模式 */
+[data-theme="dark"] .abbr-note {
+    background: #1a1230 !important;
+    color: var(--color-muted) !important;
+}
+[data-theme="dark"] .abbr-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+[data-theme="dark"] .abbr-card:hover {
+    background: #231a3d;
+}
+[data-theme="dark"] .phrase-card {
+    background: #1a1230;
+    border-color: var(--color-border);
+}
+
+/* 设施页内联文字颜色覆盖 */
+[data-theme="dark"] .facility-section-body p[style*="color:#666"],
+[data-theme="dark"] .facility-section-body p[style*="color:#888"] {
+    color: var(--color-muted) !important;
+}
+
+/* FAQ 页面提示框深色模式 */
+[data-theme="dark"] .faq-hint-box {
+    background: #2d2510 !important;
+    border-color: #c79a00 !important;
+}
+[data-theme="dark"] .faq-hint-box p {
+    color: var(--color-muted) !important;
+}
+
+/* FAQ 页面内联颜色覆盖（summary 问题 + p 答案）*/
+[data-theme="dark"] .faq-group summary[style*="color:#333"] {
+    color: var(--color-heading) !important;
+}
+[data-theme="dark"] .faq-group p[style*="color:#666"] {
+    color: var(--color-muted) !important;
+}
+[data-theme="dark"] h3[style*="color:#333"] {
+    color: var(--color-heading) !important;
+}
+
+/* websites 页面内联颜色 */
+[data-theme="dark"] span[style*="color:#888"] {
+    color: var(--color-muted) !important;
+}
+
+/* facilities 页面内联颜色 */
+[data-theme="dark"] p[style*="color:#888"][data-i18n*="fac_svc_29"] {
+    color: var(--color-muted) !important;
+}
+
+/* 打印时强制使用浅色模式 */
+@media print {
+    :root {
+        --color-bg: #ffffff !important;
+        --color-bg-subtle: #E5DAFF !important;
+        --color-heading: #1a1030 !important;
+        --color-body: #3d2c5a !important;
+    }
+    
+    [data-theme="dark"] {
+        --color-bg: #ffffff !important;
+        --color-bg-subtle: #E5DAFF !important;
+        --color-heading: #1a1030 !important;
+        --color-body: #3d2c5a !important;
+    }
+    
+    .theme-fixed {
+        display: none !important;
+    }
+}
+
+/* 移动端样式 */
+@media (max-width: 768px) {
+    .theme-fixed {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* 颜色过渡效果 - 平滑切换 */
+body,
+.header,
+.card,
+.site-card,
+.clinic-card,
+.sports-card,
+details,
+.btn-lang,
+.btn-guide,
+.btn-contact,
+.btn-secondary {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
 
 
         .contact-modal-overlay {
@@ -3836,6 +4370,8 @@ body {
 </style>
 </head>
 <body>
+<!-- 主题切换按钮（常驻 shell，不随页面切换重建） -->
+<button id="theme-toggle" class="theme-fixed" style="position:fixed;top:16px;right:115px;z-index:10001;" data-i18n-attr-aria-label="theme_toggle" data-i18n-attr-title="theme_toggle"><span class="theme-icon">🌙</span></button>
 <div id="app-root"></div>
 
 <!-- ═══ Page Templates ═══ -->
@@ -3889,6 +4425,7 @@ body {
                 <button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide">使用说明</button>
                 <button class="btn-contact" onclick="document.getElementById('contactModal').classList.add('show')" data-i18n="btn_contact_us">联系我们</button>
                 <button class="btn-secondary" onclick="logout()" data-i18n="btn_switch_school">切换学校</button>
+                
             </div>
         </div>
 
@@ -4879,6 +5416,7 @@ body {
 
 
 <button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+
 </template>
 
 <template id="tpl-websites">
@@ -5199,6 +5737,7 @@ body {
 
 
 <button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+
 </template>
 
 <template id="tpl-facilities">
@@ -5669,6 +6208,7 @@ body {
 </div>
 
 <button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+
 </template>
 
 <template id="tpl-faq">
@@ -6121,7 +6661,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 </div>
 </div>
 <!-- 提示信息 -->
-<div style="margin-top:30px;padding:20px;background:#fff9e6;border-radius:10px;border:2px dashed #ffc107;">
+<div class="faq-hint-box" style="margin-top:30px;padding:20px;background:#fff9e6;border-radius:10px;border:2px dashed #ffc107;">
 <p data-i18n="faq_hint" style="color:#666;text-align:center;">📝 如果你有更多问题，欢迎联系开发者补充！</p>
 </div>
 </div>
@@ -6129,6 +6669,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 
 
 <button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+
 </template>
 
 <template id="tpl-abbreviations">
@@ -7883,6 +8424,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 </div>
 </div>
 <button class="btn-lang lang-fixed" id="langSwitchBtn"></button>
+
 </template>
 
 <template id="tpl-guide">
@@ -8092,6 +8634,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
             </div>
         </div>
     </div>
+
 </template>
 
 
@@ -9886,6 +10429,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'guide_disclaimer_p1': { zh: '本系统纯为开发者个人为方便新生入学和快速适应校园而开发，不涉及任何商业目的和盈利需求。', en: 'This system was developed purely by the developer as a personal project to help new students settle into campus life, with no commercial purpose or profit motive.' },
            'guide_disclaimer_p2': { zh: '所有内容均为开发者手动收集、整理、回忆和标注，力求准确但不保证完全无误。如有任何出入、遗漏或改进建议，欢迎联系开发者进行更正。', en: 'All content is manually collected, organized, recalled, and annotated by the developer. We strive for accuracy but cannot guarantee completeness. If you find any discrepancies, omissions, or have suggestions, please contact the developer for corrections.' },
            'guide_disclaimer_p3': { zh: '联系方式：abluzz@outlook.com', en: 'Contact: abluzz@outlook.com' },
+           'theme_toggle': { zh: '切换主题', en: 'Toggle Theme' },
            'btn_guide': { zh: '使用说明', en: 'User Guide' },
     };
 
@@ -9902,6 +10446,22 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
                     el.innerHTML = val;
                 } else {
                     el.textContent = val;
+                }
+            }
+        }
+        // Process data-i18n-attr-* attributes for multi-attribute translation
+        els = document.querySelectorAll('[data-i18n-attr-aria-label], [data-i18n-attr-title], [data-i18n-attr-alt]');
+        for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            var attrs = el.attributes;
+            for (var j = 0; j < attrs.length; j++) {
+                var attrName = attrs[j].name;
+                if (attrName.indexOf('data-i18n-attr-') === 0) {
+                    var targetAttr = attrName.substring('data-i18n-attr-'.length);
+                    var key = attrs[j].value;
+                    if (dict[key] && dict[key][lang]) {
+                        el.setAttribute(targetAttr, dict[key][lang]);
+                    }
                 }
             }
         }
@@ -9956,6 +10516,84 @@ function initI18n() {
     };
 
 })();
+
+/* ===================================
+   主题切换 | Theme Toggle
+   =================================== */
+
+// 初始化主题（在 head 同步脚本中调用，也在 DOMContentLoaded 中备用）
+function initTheme() {
+    // 优先使用用户保存的选择
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        return;
+    }
+    
+    // 否则跟随系统
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        updateThemeIcon('dark');
+    }
+}
+
+// 切换主题
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+// 更新切换按钮图标
+function updateThemeIcon(theme) {
+    const icons = document.querySelectorAll('.theme-icon');
+    icons.forEach(icon => { icon.textContent = theme === 'dark' ? '☀️' : '🌙'; });
+}
+
+// 绑定主题按钮点击（只调用一次）
+function bindThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle && !themeToggle._themeBound) {
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggle._themeBound = true;
+    }
+}
+
+// 监听系统主题变化
+if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        // 只有用户没手动选择时才跟随系统
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+    });
+}
+
+// 页面加载时初始化（绑定点击 + 初始化主题）
+document.addEventListener('DOMContentLoaded', () => {
+    bindThemeToggle();
+    // 如果 head 同步脚本没跑（降级），在这里补跑
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (!currentTheme) {
+        initTheme();
+    } else {
+        updateThemeIcon(currentTheme);
+    }
+});
+
+
+// 绑定主题按钮（DOM 已解析，直接调用）
+if (window.bindThemeToggle) bindThemeToggle();
+// 降级：若 head 同步脚本未执行，在此补初始化
+if (!document.documentElement.getAttribute('data-theme')) {
+    if (window.initTheme) initTheme();
+}
 
 
 // ═══ SPA Router ═══════════════════════════════════════
