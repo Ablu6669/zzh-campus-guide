@@ -2362,8 +2362,9 @@ body {
 [data-theme="dark"] .contact-card,
 [data-theme="dark"] .restaurant-card,
 [data-theme="dark"] .miniapp-card {
-    background: #1a1230;
-    border-color: var(--color-border);
+    background: #251a40;
+    border-color: rgba(138, 100, 200, 0.18);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 /* 地图卡片深色模式 */
@@ -2493,7 +2494,9 @@ body {
 
 [data-theme="dark"] .card:hover,
 [data-theme="dark"] .site-card:hover {
-    box-shadow: var(--shadow-md);
+    background: #2e214a;
+    border-color: rgba(138, 100, 200, 0.3);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
 [data-theme="dark"] details {
@@ -2612,11 +2615,16 @@ body {
     background: #1a1230 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="%238a70b0" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16 6.5 6.5 0 0014.23 15.5l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1114 9.5 4.5 4.5 0 019.5 14z"/></svg>') 14px center no-repeat !important;
     border-color: var(--color-border);
     color: var(--color-body);
+    padding-left: 42px !important;
 }
 
 [data-theme="dark"] .search-input:focus {
     background-color: #1a1230 !important;
     border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .search-input::placeholder {
+    color: var(--color-muted);
 }
 
 [data-theme="dark"] .search-dropdown {
@@ -2784,12 +2792,273 @@ body {
     }
 }
 
+/* ===================================
+   移动端底部导航栏 | Mobile Bottom Nav
+   =================================== */
+.mobile-bottom-nav {
+    display: none; /* 桌面端隐藏 */
+}
+
 /* 移动端样式 */
 @media (max-width: 768px) {
+    /* 移动端保留顶部导航栏，调整布局 */
+    .main-header {
+        flex-direction: column !important;
+        gap: 10px !important;
+        padding: 14px 16px !important;
+        margin-bottom: 14px !important;
+        text-align: center !important;
+    }
+    .header-left {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+    .header-right {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    /* 显示底部导航栏 */
+    .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 64px;
+        background: var(--color-bg);
+        border-top: 1px solid var(--color-border);
+        box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+        z-index: 10000;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 8px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        /* 确保内容不被遮挡 */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    /* 深色模式底部导航 */
+    [data-theme="dark"] .mobile-bottom-nav {
+        background: #1a1230;
+        border-top-color: var(--color-border);
+        box-shadow: 0 -2px 12px rgba(0,0,0,0.3);
+    }
+
+    /* 导航项 - 6个选项卡适配 */
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        padding: 4px 6px;
+        min-width: 44px;
+        min-height: 44px;
+        border: none;
+        background: none;
+        color: var(--color-muted);
+        font-size: 9px;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: var(--radius-md);
+        transition: all var(--ease-base);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        position: relative;
+        flex: 1;
+    }
+
+    .nav-item:active {
+        background: var(--color-bg-hover);
+        transform: scale(0.95);
+    }
+
+    .nav-item.active {
+        color: var(--color-primary);
+    }
+
+    .nav-item.active .nav-icon {
+        transform: scale(1.15);
+    }
+
+    .nav-icon {
+        font-size: 18px;
+        line-height: 1;
+        transition: transform var(--ease-base);
+    }
+
+    .nav-label {
+        font-size: 9px;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    /* 为底部导航留出空间 */
+    #app-root {
+        padding-bottom: 80px !important;
+    }
+
+    /* 登录页不需要底部导航 */
+    .login-container {
+        padding-bottom: 24px !important;
+    }
+    .mobile-bottom-nav.nav-hidden {
+        display: none !important;
+    }
+
+    /* 主题切换按钮调整到不遮挡底部导航 */
     .theme-fixed {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
+        top: auto !important;
+        bottom: 130px !important;
+        right: 16px !important;
+    }
+
+    /* 返回顶部按钮也调整 */
+    .back-to-top {
+        bottom: 84px !important;
+    }
+
+    /* 触摸优化：确保所有可点击元素有足够大小 */
+    button, .btn, .card, .site-card, .loc-card, .canteen-card, .contact-card, .store-card, .filter-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* 卡片点击反馈 */
+    .card:active, .site-card:active, .loc-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+
+    /* 移动端保留页面顶部导航栏，调整样式 */
+    .page-header, .faq-header, .contacts-header, .websites-header, .abbreviations-header {
+        padding: 14px 16px !important;
+        margin-bottom: 12px !important;
+        border-radius: var(--radius-md) !important;
+    }
+    .page-header h2, .faq-header h2, .contacts-header h2, .websites-header h2, .abbreviations-header h2 {
+        font-size: 17px !important;
+    }
+    .page-header p, .faq-header p, .contacts-header p, .websites-header p, .abbreviations-header p {
+        font-size: 12px !important;
+        margin-top: 4px !important;
+    }
+}
+
+/* 打印时隐藏底部导航 */
+
+/* ===================================
+   子菜单弹出层（信息/更多）| Sub Menu Overlay
+   =================================== */
+.sub-menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 10002;
+    align-items: flex-end;
+    justify-content: center;
+}
+.sub-menu-overlay.show {
+    display: flex;
+}
+.sub-menu-panel {
+    background: var(--color-bg);
+    border-radius: 18px 18px 0 0;
+    padding: 16px 0 24px;
+    width: 100%;
+    max-width: 420px;
+    animation: subMenuIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+}
+@keyframes subMenuIn {
+    from { transform: translateY(100%); opacity: 0.7; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.sub-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 24px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-heading);
+}
+.sub-menu-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--color-muted);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: background var(--ease-fast);
+}
+.sub-menu-close:hover { background: var(--color-bg-hover); }
+.sub-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 24px;
+    border: none;
+    background: none;
+    color: var(--color-body);
+    font-size: 15px;
+    cursor: pointer;
+    transition: background var(--ease-fast);
+    -webkit-tap-highlight-color: transparent;
+}
+.sub-menu-item:active { background: var(--color-bg-hover); }
+.sub-menu-icon { font-size: 22px; width: 32px; text-align: center; }
+.sub-menu-label { font-weight: 500; }
+
+/* 深色模式子菜单 */
+[data-theme="dark"] .sub-menu-panel {
+    background: #1a1230;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+}
+[data-theme="dark"] .sub-menu-item:active { background: #231a3d; }
+
+/* 移动端返回首页按钮 */
+.mobile-back-home {
+    display: none;
+}
+@media (max-width: 768px) {
+    .mobile-back-home {
+        display: flex !important;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        padding: 12px 16px;
+        border: none;
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-card);
+        color: var(--color-primary);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 0;
+        transition: background var(--ease-fast);
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+    }
+    .mobile-back-home:active { background: var(--color-bg-hover); }
+    .mobile-back-home .back-arrow { font-size: 18px; margin-right: 2px; }
+}
+
+
+@media print {
+    .mobile-bottom-nav {
+        display: none !important;
     }
 }
 
@@ -2810,6 +3079,8 @@ details,
                 border-color 0.3s ease,
                 box-shadow 0.3s ease;
 }
+
+/* ===================================
 
 
         .contact-modal-overlay {
@@ -4372,6 +4643,75 @@ details,
 <body>
 <!-- 主题切换按钮（常驻 shell，不随页面切换重建） -->
 <button id="theme-toggle" class="theme-fixed" style="position:fixed;top:16px;right:115px;z-index:10001;" data-i18n-attr-aria-label="theme_toggle" data-i18n-attr-title="theme_toggle"><span class="theme-icon">🌙</span></button>
+
+<!-- 移动端底部导航栏（常驻 shell） -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button class="nav-item active" data-page="main" onclick="showPage('main')">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label" data-i18n="nav_home">首页</span>
+    </button>
+    <button class="nav-item" data-page="campus-map" onclick="showPage('campus-map')">
+        <span class="nav-icon">🗺️</span>
+        <span class="nav-label" data-i18n="nav_map">地图</span>
+    </button>
+    <button class="nav-item" data-page="abbreviations" onclick="showPage('abbreviations')">
+        <span class="nav-icon">📚</span>
+        <span class="nav-label" data-i18n="nav_abbreviations">缩写</span>
+    </button>
+    <button class="nav-item" id="navInfoBtn" onclick="toggleInfoMenu()">
+        <span class="nav-icon">ℹ️</span>
+        <span class="nav-label" data-i18n="nav_info">信息</span>
+    </button>
+    <button class="nav-item" id="navMoreBtn" onclick="toggleMoreMenu()">
+        <span class="nav-icon">⋯</span>
+        <span class="nav-label" data-i18n="nav_more">更多</span>
+    </button>
+</nav>
+
+<!-- 信息菜单弹出层 -->
+<div class="sub-menu-overlay" id="infoMenuOverlay" onclick="closeInfoMenu()">
+    <div class="sub-menu-panel" onclick="event.stopPropagation()">
+        <div class="sub-menu-header">
+            <span data-i18n="nav_info_title">信息</span>
+            <button class="sub-menu-close" onclick="closeInfoMenu()">✕</button>
+        </div>
+        <button class="sub-menu-item" onclick="showPage('facilities'); closeInfoMenu();">
+            <span class="sub-menu-icon">🏢</span>
+            <span class="sub-menu-label" data-i18n="nav_facilities">设施</span>
+        </button>
+        <button class="sub-menu-item" onclick="showPage('websites'); closeInfoMenu();">
+            <span class="sub-menu-icon">🌐</span>
+            <span class="sub-menu-label" data-i18n="nav_websites">网站</span>
+        </button>
+        <button class="sub-menu-item" onclick="showPage('contacts'); closeInfoMenu();">
+            <span class="sub-menu-icon">📞</span>
+            <span class="sub-menu-label" data-i18n="nav_contacts">联系</span>
+        </button>
+    </div>
+</div>
+
+<!-- 更多菜单弹出层 -->
+<div class="sub-menu-overlay" id="moreMenuOverlay" onclick="closeMoreMenu()">
+    <div class="sub-menu-panel" onclick="event.stopPropagation()">
+        <div class="sub-menu-header">
+            <span data-i18n="nav_more_title">更多</span>
+            <button class="sub-menu-close" onclick="closeMoreMenu()">✕</button>
+        </div>
+        <button class="sub-menu-item" onclick="showPage('faq'); closeMoreMenu();">
+            <span class="sub-menu-icon">❓</span>
+            <span class="sub-menu-label" data-i18n="nav_faq">问答</span>
+        </button>
+        <button class="sub-menu-item" onclick="showPage('guide'); closeMoreMenu();">
+            <span class="sub-menu-icon">📖</span>
+            <span class="sub-menu-label" data-i18n="btn_guide">使用说明</span>
+        </button>
+        <button class="sub-menu-item" onclick="closeMoreMenu(); var cm=document.getElementById('contactModal'); if(!cm){showPage('main'); setTimeout(function(){document.getElementById('contactModal').classList.add('show')},200);} else { cm.classList.add('show'); }">
+            <span class="sub-menu-icon">✉️</span>
+            <span class="sub-menu-label" data-i18n="nav_feedback">反馈</span>
+        </button>
+    </div>
+</div>
+
 <div id="app-root"></div>
 
 <!-- ═══ Page Templates ═══ -->
@@ -4499,7 +4839,6 @@ details,
 <button class="back-btn" data-i18n="map_back_btn" onclick="goBack()">← 返回首页</button>
 <h2 data-i18n="map_title">🗺️ 校园地图</h2>
 <p data-i18n="map_subtitle">香港中文大学（深圳）校园导览图 · 2026年5月版 · 点击卡片定位到地图</p>
-<button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide" style="margin-top:10px;">使用说明</button>
 </div>
 <div class="jump-indicator" id="jumpIndicator" data-i18n="map_jump_indicator">📍 正在定位...</div>
 <div class="page-content">
@@ -5048,7 +5387,6 @@ details,
 <button class="back-btn" data-i18n="back_home" onclick="goBack()">← 返回首页</button>
 <h2 data-i18n="contacts_title">📞 常用联系方式</h2>
 <p data-i18n="contacts_subtitle">香港中文大学（深圳）各部门职能及联系方式</p>
-<button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide" style="margin-top:10px;">使用说明</button>
 </div>
 <div class="page-content">
 <!-- 搜索栏 -->
@@ -5425,7 +5763,6 @@ details,
 <button class="back-btn" data-i18n="back_home" onclick="goBack()">← 返回首页</button>
 <h2 data-i18n="websites_title">🌐 常用网站及小程序</h2>
 <p data-i18n="websites_subtitle">学校各类在线平台和信息系统</p>
-<button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide" style="margin-top:10px;">使用说明</button>
 </div>
 <div class="page-content">
 <!-- 搜索栏 -->
@@ -5746,7 +6083,6 @@ details,
 <button class="back-btn" data-i18n="back_home" onclick="goBack()">← 返回首页</button>
 <h2 data-i18n="facilities_title">🏢 常用设施及服务</h2>
 <p data-i18n="facilities_subtitle">食堂 · 餐厅 · 物业服务 · 咖啡茶饮 · 便利店 · 美容美发 · 社康中心</p>
-<button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide" style="margin-top:10px;">使用说明</button>
 </div>
 <div class="page-content">
 <!-- 搜索栏 -->
@@ -6217,7 +6553,6 @@ details,
 <button class="back-btn" data-i18n="back_home" onclick="goBack()">← 返回首页</button>
 <h2 data-i18n="faq_title">❓ 常见问题</h2>
 <p data-i18n="faq_subtitle">新生入学常见问题解答</p>
-<button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide" style="margin-top:10px;">使用说明</button>
 </div>
 <!-- 搜索栏 + 内容区 -->
 <div class="page-content">
@@ -6678,7 +7013,6 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
 <button class="back-btn" data-i18n="back_home" onclick="goBack()">&larr; 返回首页</button>
 <h2 data-i18n="abbr_title">📚 常用缩写</h2>
 <p data-i18n="abbr_subtitle">校园常用英文缩写、单词和短语速查</p>
-<button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide" style="margin-top:10px;">使用说明</button>
 </div>
 <div class="page-content">
 <div style="padding: 0 24px 16px;">
@@ -8626,7 +8960,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
                     <li data-i18n="guide_other_lang2">英文模式下点 <strong>中</strong> 按钮可切回中文</li>
                     <li data-i18n="guide_other_lang3">所有板块内容均支持中英文切换</li>
                 </ul>
-                <p style="margin-top: 16px;"><strong data-i18n="guide_other_contact">💬 联系我们：</strong></p>
+                <p style="margin-top: 16px;" class="guide-contact"><strong data-i18n="guide_other_contact">💬 联系我们：</strong></p>
                 <ul>
                     <li data-i18n="guide_other_contact1">点击顶部导航栏的"联系我们"按钮，可查看本系统的开发说明</li>
                     <li data-i18n="guide_other_contact2">如有内容错误、遗漏或改进建议，欢迎发邮件至 abluzz@outlook.com</li>
@@ -10429,6 +10763,19 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'guide_disclaimer_p1': { zh: '本系统纯为开发者个人为方便新生入学和快速适应校园而开发，不涉及任何商业目的和盈利需求。', en: 'This system was developed purely by the developer as a personal project to help new students settle into campus life, with no commercial purpose or profit motive.' },
            'guide_disclaimer_p2': { zh: '所有内容均为开发者手动收集、整理、回忆和标注，力求准确但不保证完全无误。如有任何出入、遗漏或改进建议，欢迎联系开发者进行更正。', en: 'All content is manually collected, organized, recalled, and annotated by the developer. We strive for accuracy but cannot guarantee completeness. If you find any discrepancies, omissions, or have suggestions, please contact the developer for corrections.' },
            'guide_disclaimer_p3': { zh: '联系方式：abluzz@outlook.com', en: 'Contact: abluzz@outlook.com' },
+           'nav_abbreviations': { zh: '缩写', en: 'Abbr' },
+           'nav_contacts': { zh: '联系', en: 'Contact' },
+           'nav_facilities': { zh: '设施', en: 'Facilities' },
+           'nav_faq': { zh: '问答', en: 'FAQ' },
+           'nav_home': { zh: '首页', en: 'Home' },
+           'nav_info': { zh: '信息', en: 'Info' },
+           'nav_info_title': { zh: '信息', en: 'Information' },
+           'nav_map': { zh: '地图', en: 'Map' },
+           'nav_more': { zh: '更多', en: 'More' },
+           'nav_more_title': { zh: '更多', en: 'More' },
+           'nav_feedback': { zh: '反馈', en: 'Feedback' },
+           'nav_websites': { zh: '网站', en: 'Websites' },
+           'back_to_home': { zh: '返回首页', en: 'Back' },
            'theme_toggle': { zh: '切换主题', en: 'Toggle Theme' },
            'btn_guide': { zh: '使用说明', en: 'User Guide' },
     };
@@ -10595,6 +10942,100 @@ if (!document.documentElement.getAttribute('data-theme')) {
     if (window.initTheme) initTheme();
 }
 
+// ═══ 信息菜单 & 更多菜单 ═══
+function toggleInfoMenu() {
+    var overlay = document.getElementById('infoMenuOverlay');
+    var moreOverlay = document.getElementById('moreMenuOverlay');
+    if (moreOverlay) moreOverlay.classList.remove('show');
+    if (overlay) { overlay.classList.add('show'); document.body.style.overflow = 'hidden'; }
+}
+function closeInfoMenu() {
+    var overlay = document.getElementById('infoMenuOverlay');
+    if (overlay) { overlay.classList.remove('show'); document.body.style.overflow = ''; }
+}
+function toggleMoreMenu() {
+    var overlay = document.getElementById('moreMenuOverlay');
+    var infoOverlay = document.getElementById('infoMenuOverlay');
+    if (infoOverlay) infoOverlay.classList.remove('show');
+    if (overlay) { overlay.classList.add('show'); document.body.style.overflow = 'hidden'; }
+}
+function closeMoreMenu() {
+    var overlay = document.getElementById('moreMenuOverlay');
+    if (overlay) { overlay.classList.remove('show'); document.body.style.overflow = ''; }
+}
+
+// ═══ 移动端底部导航高亮 ═══
+var __infoPages = ['facilities', 'websites', 'contacts'];
+var __morePages = ['faq', 'guide'];
+function updateMobileNav(pageName) {
+    var nav = document.getElementById('mobileBottomNav');
+    if (!nav) return;
+    var items = nav.querySelectorAll('.nav-item');
+    items.forEach(function(item) {
+        if (item.dataset.page === pageName) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+    // 「信息」选项卡高亮
+    var infoBtn = document.getElementById('navInfoBtn');
+    if (infoBtn && __infoPages.indexOf(pageName) !== -1) infoBtn.classList.add('active');
+    // 「更多」选项卡高亮
+    var moreBtn = document.getElementById('navMoreBtn');
+    if (moreBtn && __morePages.indexOf(pageName) !== -1) moreBtn.classList.add('active');
+}
+
+// ═══ 手势支持：右滑返回 ═══
+(function initSwipeGesture() {
+    var startX = 0;
+    var startY = 0;
+    var isSwiping = false;
+    var SWIPE_THRESHOLD = 80; // 最小滑动距离
+    var EDGE_THRESHOLD = 30; // 从屏幕边缘开始滑动的距离
+
+    document.addEventListener('touchstart', function(e) {
+        var touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        // 只从屏幕左边缘开始识别
+        if (startX < EDGE_THRESHOLD) {
+            isSwiping = true;
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function(e) {
+        if (!isSwiping) return;
+        // passive 监听器，不做阻止
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+        if (!isSwiping) return;
+        isSwiping = false;
+
+        var touch = e.changedTouches[0];
+        var deltaX = touch.clientX - startX;
+        var deltaY = Math.abs(touch.clientY - startY);
+
+        // 右滑：deltaX > 阈值，且纵向移动不大
+        if (deltaX > SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD / 2) {
+            // 不在登录页才能返回
+            if (__currentPage && __currentPage !== 'login') {
+                // 模拟返回首页
+                if (window.goBack) goBack();
+            }
+        }
+    }, { passive: true });
+})();
+
+// ═══ 触摸优化：为所有按钮添加 active 反馈 ═══
+(function initTouchFeedback() {
+    // 为移动端添加 :active 伪类的替代（部分浏览器不支持）
+    if ('ontouchstart' in window) {
+        document.addEventListener('touchstart', function() {}, { passive: true });
+    }
+})();
+
 
 // ═══ SPA Router ═══════════════════════════════════════
 var __currentPage = '';
@@ -10610,6 +11051,19 @@ function showPage(name) {
 
     root.innerHTML = '';
     root.appendChild(tpl.content.cloneNode(true));
+
+    // 登录页隐藏底部导航，其他页面显示
+    var bottomNav = document.querySelector('.mobile-bottom-nav');
+    if (bottomNav) {
+        if (name === 'login') {
+            bottomNav.classList.add('nav-hidden');
+        } else {
+            bottomNav.classList.remove('nav-hidden');
+        }
+    }
+
+    // 更新移动端底部导航高亮
+    updateMobileNav(name);
 
     // Shim: make DOMContentLoaded fire immediately (DOM is already loaded in SPA)
     var origAddEventListener = document.addEventListener;
