@@ -1317,6 +1317,15 @@ body {
             font-size: 15px;
             font-weight: 600;
             letter-spacing: 0.3px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        /* 移动端全屏模式：宽度不足时隐藏标题，腾出空间给缩放控件 */
+        @media (max-width: 444px) {
+            .fs-modal-title { display: none; }
+            .fs-modal-header { padding: 10px 12px; }
+            .fs-modal-actions { gap: 6px; }
+        }
         }
         .fs-modal-actions {
             display: flex;
@@ -3538,11 +3547,21 @@ details,
             font-size: 15px;
             font-weight: 600;
             letter-spacing: 0.3px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        /* 移动端全屏模式：宽度不足时隐藏标题，腾出空间给缩放控件 */
+        /* 标题约 100px，actions 约 320px，加 padding 24px → 容器需 444px 才放得下 */
+        @media (max-width: 444px) {
+            .fs-modal-title { display: none; }
+            .fs-modal-header { padding: 10px 12px; }
+            .fs-modal-actions { gap: 6px; }
         }
         .fs-modal-actions {
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-shrink: 0;
         }
         /* 缩放控件组 */
         .fs-zoom-group {
