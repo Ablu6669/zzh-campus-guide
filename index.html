@@ -263,11 +263,20 @@ body {
 .lang-fixed {
     position: fixed;
     top: 16px; right: 16px;
-    z-index: 9999;
+    z-index: 10001;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--ease-fast);
 }
 .theme-fixed {
     position: fixed;
-    top: 16px; right: 115px;
+    top: 56px; right: 16px;
     z-index: 10001;
     width: 38px;
     height: 38px;
@@ -397,6 +406,28 @@ body {
 .btn-contact:hover {
     background: var(--color-primary);
     color: #fff;
+}
+
+/* 首页顶部导航栏内的主题按钮 */
+.btn-theme {
+    background: none;
+    border: 1.5px solid var(--color-border);
+    color: var(--color-body);
+    border-radius: var(--radius-full);
+    padding: 6px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--ease-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-theme:hover {
+    background: var(--color-bg-hover);
+    border-color: var(--color-primary);
+}
+@media (max-width: 768px) {
+    .btn-theme { display: none !important; }
 }
 
 /* ===================================
@@ -4642,7 +4673,7 @@ details,
 </head>
 <body>
 <!-- 主题切换按钮（常驻 shell，不随页面切换重建） -->
-<button id="theme-toggle" class="theme-fixed" style="position:fixed;top:16px;right:115px;z-index:10001;" data-i18n-attr-aria-label="theme_toggle" data-i18n-attr-title="theme_toggle"><span class="theme-icon">🌙</span></button>
+<button id="theme-toggle" class="theme-fixed" style="position:fixed;top:56px;right:16px;z-index:10001;" data-i18n-attr-aria-label="theme_toggle" data-i18n-attr-title="theme_toggle"><span class="theme-icon">🌙</span></button>
 
 <!-- 移动端底部导航栏（常驻 shell） -->
 <nav class="mobile-bottom-nav" id="mobileBottomNav">
@@ -4761,11 +4792,13 @@ details,
                 <span class="school-badge" data-i18n="main_school_badge">香港中文大学（深圳）</span>
             </div>
             <div class="header-right">
+                <button id="theme-toggle-header" class="btn-theme" data-i18n-attr-aria-label="theme_toggle" data-i18n-attr-title="theme_toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
                 <button class="btn-lang" id="langSwitchBtn"></button>
                 <button class="btn-guide" onclick="navigateTo('guide.html')" data-i18n="btn_guide">使用说明</button>
                 <button class="btn-contact" onclick="document.getElementById('contactModal').classList.add('show')" data-i18n="btn_contact_us">联系我们</button>
                 <button class="btn-secondary" onclick="logout()" data-i18n="btn_switch_school">切换学校</button>
-                
             </div>
         </div>
 
@@ -10903,11 +10936,14 @@ function updateThemeIcon(theme) {
 
 // 绑定主题按钮点击（只调用一次）
 function bindThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle && !themeToggle._themeBound) {
-        themeToggle.addEventListener('click', toggleTheme);
-        themeToggle._themeBound = true;
-    }
+    const ids = ['theme-toggle', 'theme-toggle-header'];
+    ids.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn && !btn._themeBound) {
+            btn.addEventListener('click', toggleTheme);
+            btn._themeBound = true;
+        }
+    });
 }
 
 // 监听系统主题变化
@@ -11060,6 +11096,29 @@ function showPage(name) {
         } else {
             bottomNav.classList.remove('nav-hidden');
         }
+    }
+
+    // 首页用顶部导航栏内的主题按钮，其他页面用悬浮按钮（仅桌面端）
+    var isDesktop = window.innerWidth > 768;
+    var shellTheme = document.getElementById('theme-toggle');
+
+    if (shellTheme) {
+        if (name === 'main' && isDesktop) {
+            // 首页桌面端：主题按钮在导航栏内，隐藏悬浮按钮
+            shellTheme.style.display = 'none';
+        } else {
+            // 其他板块桌面端：悬浮按钮显示在翻译按钮正下方
+            shellTheme.style.display = 'flex';
+            shellTheme.style.position = 'fixed';
+            shellTheme.style.top = '56px';
+            shellTheme.style.right = '16px';
+            shellTheme.style.zIndex = '10001';
+        }
+    }
+
+    // 绑定首页顶部导航栏内的主题按钮（每次切到首页都需要重新绑定）
+    if (name === 'main' && window.bindThemeToggle) {
+        window.bindThemeToggle();
     }
 
     // 更新移动端底部导航高亮
