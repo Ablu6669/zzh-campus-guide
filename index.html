@@ -2945,16 +2945,18 @@ body {
         display: none !important;
     }
 
-    /* 主题切换按钮调整到不遮挡底部导航 */
+    /* 主题切换按钮：移动端左下角（底部导航栏上方） */
     .theme-fixed {
         top: auto !important;
-        bottom: 130px !important;
-        right: 16px !important;
+        bottom: 70px !important;
+        left: 16px !important;
+        right: auto !important;
     }
 
     /* 返回顶部按钮也调整 */
     .back-to-top {
-        bottom: 84px !important;
+        bottom: 16px !important;
+        right: 16px !important;
     }
 
     /* 触摸优化：确保所有可点击元素有足够大小 */
@@ -3502,15 +3504,16 @@ details,
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
-            background: linear-gradient(135deg, #667eea20, #764ba220);
+            background: linear-gradient(135deg, var(--color-bg-subtle) 0%, var(--color-bg-hover) 100%);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid var(--color-border);
             flex-shrink: 0;
             z-index: 10;
+            transition: background .25s ease, border-color .25s ease;
         }
         .fs-modal-title {
-            color: #e8eaed;
+            color: var(--color-heading);
             font-size: 15px;
             font-weight: 600;
             letter-spacing: 0.3px;
@@ -3525,7 +3528,7 @@ details,
             display: flex;
             align-items: center;
             gap: 2px;
-            background: rgba(255,255,255,0.12);
+            background: var(--color-bg);
             border-radius: 20px;
             padding: 3px 6px;
         }
@@ -3533,17 +3536,17 @@ details,
             width:32px; height:32px;
             font-size:17px;
             background:transparent;
-            color:#ccc;
+            color:var(--color-body);
             border-radius:50%;
             border:none;
             cursor:pointer;
             display:flex;align-items:center;justify-content:center;
             transition: all .15s;
         }
-        .fs-zoom-group .zoom-btn:hover { background:rgba(255,255,255,0.2); color:#fff; }
+        .fs-zoom-group .zoom-btn:hover { background:var(--color-bg-hover); color:var(--color-primary); }
         .fs-zoom-group .zoom-level {
             font-size:12px; min-width:40px; text-align:center;
-            color:#aaa; font-weight:500;
+            color:var(--color-muted); font-weight:500;
         }
         /* 关闭按钮 - 醒目独立 */
         .fs-modal-close {
@@ -3566,15 +3569,15 @@ details,
             padding: 5px 14px;
             font-size: 13px;
             font-weight: 500;
-            color: #ccc;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--color-body);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
             border-radius: 16px;
             cursor: pointer;
             transition: all .15s;
             white-space: nowrap;
         }
-        .fs-filter-toggle:hover { background: rgba(255,255,255,0.18); color: #fff; }
+        .fs-filter-toggle:hover { background: var(--color-bg-hover); color: var(--color-primary); border-color: var(--color-primary); }
         .fs-filter-toggle.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
         /* 全屏筛选栏 - 可折叠 */
         .fs-filter-bar {
@@ -3583,27 +3586,27 @@ details,
             gap: 6px;
             overflow-x: auto;
             padding: 0 20px;
-            background: rgba(0,0,0,0.25);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: var(--color-bg-subtle);
+            border-bottom: 1px solid var(--color-border);
             flex-shrink: 0;
             scrollbar-width: none;
             max-height: 0;
             overflow: hidden;
-            transition: max-height .25s ease, padding .25s ease;
+            transition: max-height .25s ease, padding .25s ease, background .25s ease, border-color .25s ease;
         }
         .fs-filter-bar.show {
-            max-height: 44px;
+            max-height: 50px;
             padding-top: 8px;
-            padding-bottom: 8px;
+            padding-bottom: 14px;
         }
         .fs-filter-bar::-webkit-scrollbar { display: none; }
         .fs-filter-bar .filter-btn {
             font-size: 12px; padding: 4px 10px; white-space: nowrap;
-            background: rgba(255,255,255,0.1); color: #ccc;
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 16px;
+            background: var(--color-bg); color: var(--color-body);
+            border: 1px solid var(--color-border); border-radius: 16px;
             cursor: pointer; transition: all .15s; flex-shrink: 0;
         }
-        .fs-filter-bar .filter-btn:hover { border-color: var(--color-primary); color: #fff; background: rgba(117,75,169,0.25); }
+        .fs-filter-bar .filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
         .fs-filter-bar .filter-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
         /* 全屏筛选栏 - 横向滚动 */
         .fs-modal-viewport {
@@ -8997,15 +9000,27 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
                 <div class="guide-section-icon">⚙️</div>
                 <div>
                     <div class="guide-section-title" data-i18n="guide_other_title">其他功能</div>
-                    <div class="guide-section-subtitle" data-i18n="guide_other_subtitle">语言切换 · 联系我们</div>
+                    <div class="guide-section-subtitle" data-i18n="guide_other_subtitle">深色模式 · 语言切换 · 移动端导航 · 联系我们</div>
                 </div>
             </div>
             <div class="guide-section-body">
-                <p><strong data-i18n="guide_other_lang">🌐 语言切换（EN/中）：</strong></p>
+                <p><strong data-i18n="guide_other_theme">🌓 深色模式：</strong></p>
+                <ul>
+                    <li data-i18n="guide_other_theme1">点击页面右上角（网页端首页）或左下角（移动端/其他板块）的 <strong>🌙/☀️ 按钮</strong> 可切换深色/浅色模式</li>
+                    <li data-i18n="guide_other_theme2">深色模式适合夜间使用，减少眼睛疲劳</li>
+                    <li data-i18n="guide_other_theme3">系统会记住你的主题偏好，下次打开自动应用</li>
+                </ul>
+                <p style="margin-top: 16px;"><strong data-i18n="guide_other_lang">🌐 语言切换（EN/中）：</strong></p>
                 <ul>
                     <li data-i18n="guide_other_lang1">点击页面右上角或左下角的 <strong>EN</strong> 按钮可切换为英文界面</li>
                     <li data-i18n="guide_other_lang2">英文模式下点 <strong>中</strong> 按钮可切回中文</li>
                     <li data-i18n="guide_other_lang3">所有板块内容均支持中英文切换</li>
+                </ul>
+                <p style="margin-top: 16px;"><strong data-i18n="guide_other_mobile">📱 移动端适配：</strong></p>
+                <ul>
+                    <li data-i18n="guide_other_mobile1">本系统完美适配手机端，首页底部有导航栏可快速切换各板块</li>
+                    <li data-i18n="guide_other_mobile2">校园地图支持全屏模式，移动端可展开筛选栏快速过滤地点</li>
+                    <li data-i18n="guide_other_mobile3">所有页面均针对触控操作优化，按钮和卡片大小适合手指点击</li>
                 </ul>
                 <p style="margin-top: 16px;" class="guide-contact"><strong data-i18n="guide_other_contact">💬 联系我们：</strong></p>
                 <ul>
@@ -10799,11 +10814,19 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'guide_abbr_how3': { zh: '点击对应分类标签（缩写/短语）快速切换', en: 'Click the corresponding category tags (Abbreviations/Phrases) to quickly switch' },
            'guide_abbr_tip': { zh: '建议在选课前浏览本板块，了解各课程代码前缀含义，有助于更高效地选课！', en: 'It is recommended to browse this section before course selection to understand the meaning of each course code prefix, which will help you select courses more efficiently!' },
            'guide_other_title': { zh: '其他功能', en: 'Other Features' },
-           'guide_other_subtitle': { zh: '语言切换 · 联系我们', en: 'Language Switch · Contact Us' },
+           'guide_other_subtitle': { zh: '深色模式 · 语言切换 · 移动端导航 · 联系我们', en: 'Dark Mode · Language Switch · Mobile Nav · Contact Us' },
+           'guide_other_theme': { zh: '🌓 深色模式：', en: '🌓 Dark Mode:' },
+           'guide_other_theme1': { zh: '点击页面右上角（网页端首页）或左下角（移动端/其他板块）的 🌙/☀️ 按钮可切换深色/浅色模式', en: 'Click the 🌙/☀️ button at the top right (desktop homepage) or bottom left (mobile/other sections) to switch between dark/light mode' },
+           'guide_other_theme2': { zh: '深色模式适合夜间使用，减少眼睛疲劳', en: 'Dark mode is suitable for nighttime use, reducing eye strain' },
+           'guide_other_theme3': { zh: '系统会记住你的主题偏好，下次打开自动应用', en: 'The system remembers your theme preference and automatically applies it next time you open it' },
            'guide_other_lang': { zh: '🌐 语言切换（EN/中）：', en: '🌐 Language Switch (EN/中):' },
            'guide_other_lang1': { zh: '点击页面右上角或左下角的 EN 按钮可切换为英文界面', en: 'Click the EN button at the top right or bottom left of the page to switch to the English interface' },
            'guide_other_lang2': { zh: '英文模式下点 中 按钮可切回中文', en: 'In English mode, click the 中 button to switch back to Chinese' },
            'guide_other_lang3': { zh: '所有板块内容均支持中英文切换', en: 'All section content supports Chinese/English switching' },
+           'guide_other_mobile': { zh: '📱 移动端适配：', en: '📱 Mobile Adaptation:' },
+           'guide_other_mobile1': { zh: '本系统完美适配手机端，首页底部有导航栏可快速切换各板块', en: 'This system is perfectly adapted for mobile phones, with a bottom navigation bar on the homepage for quick switching between sections' },
+           'guide_other_mobile2': { zh: '校园地图支持全屏模式，移动端可展开筛选栏快速过滤地点', en: 'Campus map supports fullscreen mode, mobile users can expand the filter bar to quickly filter locations' },
+           'guide_other_mobile3': { zh: '所有页面均针对触控操作优化，按钮和卡片大小适合手指点击', en: 'All pages are optimized for touch operation, with button and card sizes suitable for finger tapping' },
            'guide_other_contact': { zh: '💬 联系我们：', en: '💬 Contact Us:' },
            'guide_other_contact1': { zh: '点击顶部导航栏的"联系我们"按钮，可查看本系统的开发说明', en: 'Click the "Contact Us" button in the top navigation bar to view the development notes of this system' },
            'guide_other_contact2': { zh: '如有内容错误、遗漏或改进建议，欢迎发邮件至 abluzz@outlook.com', en: 'If you find any errors, omissions, or have suggestions for improvement, please email abluzz@outlook.com' },
