@@ -1631,6 +1631,65 @@ body {
             padding: 2px 9px;
             border-radius: var(--radius-full);
         }
+        /* 标题行：h4 + 迁移徽章 */
+        .miniapp-card .ma-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+        .miniapp-card .ma-title-row h4 {
+            margin-bottom: 0;
+        }
+        /* 即将迁移徽章（标题旁）*/
+        .miniapp-card .ma-migrate-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 10.5px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            line-height: 1.4;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 6px rgba(247, 147, 30, 0.35);
+            animation: maBadgePulse 2.4s ease-in-out infinite;
+        }
+        @keyframes maBadgePulse {
+            0%, 100% { box-shadow: 0 2px 6px rgba(247, 147, 30, 0.35); }
+            50%      { box-shadow: 0 2px 12px rgba(247, 147, 30, 0.65); }
+        }
+        /* 迁移提示文字（描述下方）*/
+        .miniapp-card .ma-migrate-note {
+            font-size: 12.5px;
+            color: #c2410c;
+            background: linear-gradient(135deg, #fff4e6, #ffe8d1);
+            border-left: 3px solid #ff6b35;
+            padding: 8px 12px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .miniapp-card .ma-migrate-note strong {
+            color: #9a3412;
+        }
+        /* 警告色 tag */
+        .miniapp-card .ma-tag--warn {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: #fff;
+            font-weight: 600;
+        }
+        /* 整个迁移卡片的强调边框 */
+        .miniapp-card--migrating {
+            border-color: rgba(247, 147, 30, 0.55) !important;
+            box-shadow: 0 0 0 2px rgba(247, 147, 30, 0.12);
+        }
+        .miniapp-card--migrating:hover {
+            border-color: #ff6b35 !important;
+            box-shadow: var(--shadow-primary-lg), 0 0 0 2px rgba(247, 147, 30, 0.25);
+        }
         .miniapp-card .btn-miniapp {
             display: inline-block;
             padding: 7px 16px;
@@ -2405,6 +2464,23 @@ body {
     background: #251a40;
     border-color: rgba(138, 100, 200, 0.18);
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+/* 社康通迁移提示：暗色模式适配 */
+[data-theme="dark"] .miniapp-card .ma-migrate-note {
+    background: linear-gradient(135deg, #3a2010, #4a2818);
+    color: #ffb47a;
+    border-left-color: #ff8c42;
+}
+[data-theme="dark"] .miniapp-card .ma-migrate-note strong {
+    color: #ffd4a3;
+}
+[data-theme="dark"] .miniapp-card--migrating {
+    border-color: rgba(255, 140, 66, 0.55) !important;
+    box-shadow: 0 0 0 2px rgba(255, 140, 66, 0.15), 0 2px 8px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .miniapp-card--migrating:hover {
+    border-color: #ff8c42 !important;
+    box-shadow: 0 4px 16px rgba(255, 140, 66, 0.25), 0 0 0 2px rgba(255, 140, 66, 0.3);
 }
 
 /* 地图卡片深色模式 */
@@ -6032,14 +6108,19 @@ details,
 <a class="btn-miniapp" data-i18n="miniapp_01_btn" href="javascript:;" onclick="openMiniApp('智行港中深')">复制名称</a>
 </div>
 <!-- 社康通 -->
-<div class="miniapp-card">
+<div class="miniapp-card miniapp-card--migrating">
 <div class="ma-icon">🏥</div>
+<div class="ma-title-row">
 <h4 data-i18n="miniapp_02_title">社康通</h4>
+<span class="ma-migrate-badge" data-i18n="miniapp_02_badge">⚠️ 即将迁移</span>
+</div>
 <div class="ma-link">#小程序://社康通/zJUfHb1GWdX6ERw</div>
 <p data-i18n="miniapp_02_desc"><strong>社康服务预约</strong>，可预约就诊、查询服务时间等。</p>
+<p class="ma-migrate-note" data-i18n="miniapp_02_note">⚠️ <strong>从今年起将逐步迁移至「蚂蚁阿福」App</strong>，建议尽快迁移，避免影响后续预约。</p>
 <div class="ma-tags">
 <span class="ma-tag" data-i18n="matag_health">社康</span>
 <span class="ma-tag" data-i18n="matag_appointment">预约</span>
+<span class="ma-tag ma-tag--warn" data-i18n="matag_migrate">即将迁移</span>
 </div>
 <a class="btn-miniapp" data-i18n="miniapp_02_btn" href="javascript:;" onclick="openMiniApp('社康通')">复制名称</a>
 </div>
@@ -9669,6 +9750,8 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'miniapp_02_title': { zh: '社康通', en: 'Shekangtong'},
            'miniapp_02_desc': { zh: '社康服务预约，可预约就诊、查询服务时间等。', en: 'Community health service booking — schedule visits, check service hours.'},
            'miniapp_02_btn': { zh: '复制名称', en: 'Copy Name' },
+           'miniapp_02_badge': { zh: '⚠️ 即将迁移', en: '⚠️ Migrating' },
+           'miniapp_02_note': { zh: '⚠️ <strong>从今年起将逐步迁移至「蚂蚁阿福」App</strong>，建议尽快迁移，避免影响后续预约。', en: '⚠️ <strong>Will gradually migrate to the Ant Afu App starting this year</strong>. Please migrate soon to avoid disruption to future bookings.', html: true },
            'miniapp_03_title': { zh: '国情教育智慧平台', en: 'National Education Smart Platform'},
            'miniapp_03_desc': { zh: 'CEC 系列课程签到与CEC1010/1020 学时查询。', en: 'CEC course check-in and CEC1010/1020 credit tracking.'},
            'miniapp_03_btn': { zh: '复制名称', en: 'Copy Name' },
@@ -10431,6 +10514,7 @@ OAL（教务处）在暑期开始前会发送相关邮件，里面收录了本�
            'matag_cec': { zh: 'CEC', en: 'CEC' },
            'matag_checkin': { zh: '签到', en: 'Check-in' },
            'matag_health': { zh: '社康', en: 'Health Centre' },
+           'matag_migrate': { zh: '即将迁移', en: 'Migrating' },
            'matag_national_edu': { zh: '国情教育', en: 'National Education' },
            'matag_pe_checkin': { zh: '体育打卡', en: 'PE Check-in' },
            'matag_property': { zh: '物业', en: 'Property Services' },
