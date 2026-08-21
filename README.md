@@ -1,184 +1,116 @@
-<div align="center">
+# 🎓 校园新生指南 | Campus New Student Guide
 
-# 📚 zzhscheduler — 自动排课系统
-
-**Auto Course Scheduler · 云端账号系统 · Serverless · 开箱即用**
-
-[![GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-4f6ef7?style=for-the-badge&logo=github)](https://ablu6669.github.io/zzhscheduler/)
-[![Version](https://img.shields.io/badge/Version-4.1.2-f59e0b?style=for-the-badge)]()
-[![License](https://img.shields.io/badge/License-Apache%202.0-4f6ef7?style=for-the-badge&logo=apache)](LICENSE)
-[![CloudBase](https://img.shields.io/badge/Backend-Tencent%20CloudBase-4f6ef7?style=for-the-badge&logo=tencentqq)]()
-
-[🚀 立即体验 / Live Demo](https://ablu6669.github.io/zzhscheduler/) · [📮 反馈 / Feedback](#反馈--feedback)
-
----
-
-</div>
-
-## 🌟 这是什么？/ What is this?
-
-**自动排课系统**帮助大学生在选课时，从**成百上千甚至数万种**可能的组合中快速筛选出最优课表方案。
-
-**Auto Course Scheduler** helps university students quickly find the optimal timetable from all possible course combinations.
-
-> 5 门课各 3 个时段 → **243 种组合**；8 门课各 4 个时段 → **65,536 种组合**。几秒内帮你找到最优方案。
-> 5 courses × 3 slots each = 243 combinations; 8 × 4 = 65,536 combinations. Finds the best in seconds.
-
-输入每门课的可用时段 → 设置筛选条件 → 一键生成所有可行方案，按你的偏好排序。前端纯 HTML 单文件 + 腾讯云开发后端，轻量但完整。
-
-Enter available time slots → set filters → generate all feasible schedules, sorted by your preferences. Single HTML file frontend + Tencent CloudBase backend — lightweight yet complete.
-
----
-
-## ✨ 核心功能 / Features
-
-| 功能 / Feature | 说明 / Description |
-|------|------|
-| 🗓️ **智能枚举 / Smart Enumeration** | 自动枚举所有课程时段的可行组合，无遗漏 / Automatically enumerate all feasible combinations, no omissions |
-| 🚫 **智能筛选 / Smart Filtering** | 一键排除早八、午一；自定义排除时间段和地点 / One-click exclude early morning / noon classes; custom time & location exclusions |
-| ⚖️ **多维排序 / Multi-dimensional Sorting** | 按时间（支持自定义时段权重）、地点相邻距离（支持自定义地点权重）、自定义权重多维度排序 / Sort by time (custom time weights), location adjacency (custom location weights), or custom weights |
-| 🔗 **子课程支持 / Sub-course Support** | 主课 + 子课（Lec + Tut）联排，排课更合理 / Link Lecture & Tutorial sessions for more reasonable scheduling |
-| 📊 **Excel 一键导出 / One-click Excel Export** | 导出完整课表 Excel，含课程列表和时间表 / Export full schedule with course list and timetable |
-| 🌐 **中英双语 / Bilingual UI** | 界面支持中文 / English 切换 / Switch between Chinese and English interface |
-| 🔐 **云端账号 / Cloud Account** | 基于 Tencent CloudBase，账号系统 + 使用额度管理 / Account system with usage quota management via CloudBase |
-| 📢 **公告推送 / Announcements** | 管理员发布公告，用户端实时查看 / Admin-published announcements with real-time user notifications |
-| 💾 **本地缓存 / Local Cache** | 课程数据存 localStorage，刷新不丢失 / Course data saved in localStorage, survives refresh |
-| ✏️ **时段直接编辑 / Edit Sessions** | 直接编辑已有时段，无需删除重建 / Edit existing sessions directly, no need to delete and re-add |
-| ☑️ **参与排课开关 / Schedule Toggle** | 灵活勾选哪些时段参与计算 / Control which sessions are included in schedule calculation |
-| 🔒 **时间校验 / Time Validation** | 结束时间不得早于开始时间 / End time cannot be earlier than start time |
-| ⚡ **剪枝优化 / Pruning Optimization** | 增量剪枝 + 位运算加速 + 智能枚举顺序 + 分支限界 + 安全截断，枚举全部可行方案后排序选最优 / Incremental pruning + bitmask + smart ordering + branch-and-bound + safe truncation (min 5000 plans) |
-| ⚠️ **组合数预警 / Combo Warning** | 超大数据量时自动提醒用户 / Auto-warn when combinations are too large |
-
----
-
-## 🚀 快速开始 / Quick Start
-
-**方式一：直接在线体验（推荐）/ Option 1: Try Online (Recommended)**
-
-→ 打开 / Open [https://ablu6669.github.io/zzhscheduler/](https://ablu6669.github.io/zzhscheduler/)
-
-> 🎉 **GitHub 体验账号 / Trial Account**：`githubers` / `githubers`（无限额度，欢迎随便玩！/ Unlimited quota, feel free to explore!）
+> 香港中文大学（深圳）校园新生指南 —— 一个帮助学生快速了解校园的一站式信息平台
 >
-> 登录后即可体验完整功能，无需注册。体验后欢迎提 Issue 或邮件反馈！
-> Login to experience all features — no registration needed. Feedback via Issue or email welcome!
+> A one-stop information platform for new students at The Chinese University of Hong Kong, Shenzhen
 
-**方式二：本地部署 / Option 2: Local Deploy**
+🌐 **在线访问 | Live Site**: https://ablu6669.github.io/zzh-campus-guide/
+
+---
+
+## ✨ 功能特性 | Features
+
+| 板块 | 中文描述 | English |
+|------|---------|---------|
+| 🗺️ 校园地图 | 交互式校园地图，快速定位教学楼、图书馆、宿舍等地点 | Interactive campus map to locate buildings, libraries, dorms, etc. |
+| 📞 常用联系方式 | 8大学院 + 8大书院 + 18个行政部门，共34个联系人目录 | 34 contacts across 8 colleges, 8 residential colleges & 18 admin departments |
+| 🌐 常用网站 | 核心官网、学生内网平台、常用小程序及学校邮箱使用指南 | Official websites, intranet platforms, mini-programs & email guides |
+| 🏢 常用设施及服务 | 8家食堂、4家餐厅、咖啡茶饮、便利店、书店文印、社康中心等16类服务 | 16 service categories: canteens, restaurants, cafés, stores, clinic & more |
+| 📚 常用缩写 | 145条校园英文缩写 + 46条常用短语，支持中英双语搜索 | 145 abbreviations + 46 phrases with bilingual search |
+| ❓ 常见问题 | 学习、生活、行政三大类共8个常见问题解答 | 8 FAQs across 3 categories: study, daily life & administration |
+
+---
+
+## 🌍 国际化 | Internationalization
+
+- 完整中英双语支持 | Full Chinese-English bilingual support
+- 1300+ 翻译词条 | 1,300+ translation entries
+- 一键语言切换 | One-click language toggle
+
+---
+
+## 🛠️ 技术栈 | Tech Stack
+
+- **HTML5** — 单文件 SPA 架构 | Single-file SPA architecture
+- **CSS3** — 响应式设计 | Responsive design
+- **Vanilla JavaScript** — 无框架依赖 | No framework dependency
+- **data-i18n** — 自定义国际化方案 | Custom i18n solution
+
+---
+
+## 📁 项目结构 | Project Structure
+
+```
+zzh-campus-guide/
+├── index.html          # 单文件应用（含所有页面、样式、脚本）
+├── README.md           # 项目说明文档
+└── (源码结构)
+    ├── website/
+    │   ├── index.html          # 登录页
+    │   ├── css/style.css       # 样式表
+    │   ├── js/
+    │   │   ├── i18n.js         # 翻译引擎 + 词条
+    │   │   ├── login.js        # 登录逻辑
+    │   │   └── main.js         # 导航逻辑
+    │   ├── images/             # 图片资源
+    │   └── pages/
+    │       ├── main.html           # 首页
+    │       ├── campus-map.html     # 校园地图
+    │       ├── contacts.html       # 常用联系方式
+    │       ├── websites.html       # 常用网站
+    │       ├── facilities.html     # 常用设施及服务
+    │       ├── faq.html            # 常见问题
+    │       └── abbreviations.html  # 常用缩写
+    └── build_single_html.py   # 单文件打包脚本
+```
+
+---
+
+## 🚀 部署 | Deployment
+
+### GitHub Pages（当前方式）
+
+1. 将 `index.html` 推送到 GitHub 仓库 main 分支
+2. 仓库 Settings → Pages → Source 选择 `main` 分支
+3. 访问 `https://<username>.github.io/<repo-name>/`
+
+### 本地运行 | Local Development
 
 ```bash
-git clone https://github.com/ablu6669/zzhscheduler.git
-cd zzhscheduler
-# 直接用浏览器打开 index.html 即可体验前端功能
-# Open index.html in your browser to try the frontend
-open index.html
-```
+# 使用源码开发
+cd website
+python -m http.server 8080
+# 访问 http://localhost:8080
 
-整个项目只有一个 `index.html` 文件。/ The entire project is a single `index.html` file.
-
----
-
-## 📖 使用流程 / How to Use
-
-```
-1. 添加课程   → 输入课程代号（如 MAT1001），添加各时段信息
-2. 配置筛选   → 选择不上早八、不上午一，或自定义排除条件
-3. 选择排序   → 按时间紧凑 / 地点临近 / 自定义权重排序
-4. 计算方案   → 点击「计算排课方案」，查看所有可行排课
-5. 导出课表   → 选择喜欢的方案，一键导出 Excel
-```
-
-```
-1. Add Courses    → Enter course codes (e.g. MAT1001), add session details
-2. Set Filters    → Exclude early morning / noon, or set custom exclusions
-3. Choose Sorting → Sort by time compactness / location proximity / custom weights
-4. Calculate      → Click "Calculate Schedule" to see all feasible options
-5. Export         → Pick your favorite plan, one-click export to Excel
+# 打包单文件
+python build_single_html.py
+# 生成 index.html
 ```
 
 ---
 
-## 🖼️ 界面预览 / Screenshots
+## 🔄 更新内容 | How to Update
 
-> 登录界面 → 课程管理 → 筛选排序 → 排课结果 → 导出 Excel
-> Login → Course Management → Filters & Sorting → Results → Excel Export
+1. 修改 `website/` 目录下的源码
+2. 运行 `python build_single_html.py` 重新打包
+3. 将生成的 `index.html` 推送到 GitHub
 
-（欢迎 star 后截图分享你的课表 👇 / Share your schedule screenshot after starring! 👇）
-
----
-
-## 🔧 技术栈 / Tech Stack
-
-| 技术 / Tech | 说明 / Description |
-|------|------|
-| **前端 / Frontend** | HTML + CSS + Vanilla JavaScript，零框架依赖 / Zero framework dependency |
-| **后端 / Backend** | [腾讯云开发 CloudBase](https://tcb.cloud.tencent.com/)（账号系统、使用额度、公告管理）/ Account, quota & announcement management |
-| **数据持久化 / Persistence** | 课程数据存 `localStorage`，账号与公告走云端 / Course data in localStorage, accounts & announcements in cloud |
-| **Excel 导出 / Excel Export** | [xlsx-js-style](https://github.com/gitbrent/xlsx-js-style)（支持单元格样式）/ With cell styling support |
-| **部署 / Deployment** | GitHub Pages（前端）+ 腾讯云 SCF（后端接口），推送即上线 / Push to deploy |
+```bash
+git add .
+git commit -m "update: 描述你的改动"
+git push
+```
 
 ---
 
-## 🗺️ Roadmap
+## 📄 许可证 | License
 
-### ✅ 已完成 / Done
-
-- [x] 子课程链接（Lec & Tut 联排）/ Sub-course linking (Lec & Tut)
-- [x] 滚轮 + 手动输入时间选择 / Scroll wheel + manual input time picker
-- [x] 使用说明模块 / User guide module
-- [x] 时间 / 地点优先权重个性化 / Custom time & location priority weights
-- [x] ABE 地点支持 / ABE location support
-- [x] 用户分级与使用额度限制 / User tier & usage quota system
-- [x] 消息通知窗口（公告栏）/ Announcement panel
-- [x] 自定义权重排序（如教授偏好）/ Custom weight sorting (e.g. professor preference)
-- [x] 一键导出 Excel 课表 / One-click Excel schedule export
-- [x] 中英双语切换 / Bilingual UI (Chinese / English)
-- [x] 参与排课开关（定向选择）/ Schedule toggle per session
-- [x] 已有时段直接编辑 / Direct session editing
-- [x] 时间选择灵敏度优化 + 箭头步进 / Reduced scroll sensitivity + arrow step buttons
-- [x] 地点排序逻辑优化（只算 2 小时内间隔）/ Location sorting: only sessions within 2h
-- [x] 腾讯云开发（CloudBase）后端 / Tencent CloudBase backend
-- [x] 云端额度同步（跨浏览器）/ Cloud quota sync across browsers
-- [x] 管理员后端直连管理（账号 / 通知）/ Admin direct DB management
-- [x] 管理员公告一键翻译 / Admin one-click announcement translation
-- [x] 时段时间校验（结束 ≥ 开始）/ Time validation (end ≥ start)
-- [x] 多筛选项优先级排序 / Multi-filter priority sorting
-- [x] 剪枝优化（增量剪枝 + 位运算 + 智能枚举 + 分支限界 + 安全截断）/ Pruning optimization (incremental pruning + bitmask + smart ordering + branch-and-bound + safe truncation)
-- [x] 组合数预警提示 / Combination count warning
-- [x] 降本增效优化（合并额度 API 为单次调用 + 公告/版本号 24h 前端缓存）/ Cost reduction (merge quota API to single call + 24h frontend cache for announcements/version)
-
-### 🔲 计划中 / Planned
-
-- [ ] 微信小程序版本 / WeChat Mini Program version
-- [ ] 学分计算 / Credit calculation
-- [ ] 课程数据源对接 / Course data source integration
+Apache License 2.0
 
 ---
 
-## 反馈 / Feedback
+## 👤 作者 | Author
 
-使用中遇到 bug、有功能建议？欢迎：/ Found a bug or have a suggestion? Reach out:
+**Ablu6669**
 
-- 📮 发邮件 / Email：[abluzz@outlook.com](mailto:abluzz@outlook.com)
-- 🐛 提 Issue / Open Issue：[GitHub Issues](https://github.com/ablu6669/zzhscheduler/issues)
-
-内测期间，所有被采纳的反馈将获赠高额度公测账号奖励！/ All adopted feedback earns a premium account reward during beta!
-
----
-
-## 📄 开源协议 / License
-
-本项目采用 **Apache License 2.0** 开源协议。
-
-This project is licensed under the **Apache License 2.0**.
-
-- 查看完整协议：[LICENSE](LICENSE) 文件
-- View full license: [LICENSE](LICENSE) file
-- Apache 2.0 官方文本：https://www.apache.org/licenses/LICENSE-2.0
-
----
-
-<div align="center">
-
-如果这个项目对你有帮助，欢迎点个 ⭐ Star！
-If this project helps you, please consider giving it a ⭐ Star!
-
-</div>
+GitHub: [@Ablu6669](https://github.com/Ablu6669)
