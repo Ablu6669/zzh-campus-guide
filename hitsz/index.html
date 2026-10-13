@@ -734,6 +734,7 @@ body {
             </div>
         </div>
         <div class="header-right">
+            <button class="btn-outline" onclick="switchSchool()">切换学校</button>
             <button class="btn-outline" onclick="showPage('about')">关于</button>
             <button class="btn-theme" onclick="toggleTheme()">☀️</button>
         </div>
@@ -2519,6 +2520,13 @@ function toggleTheme() {
     document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
     const btnTheme = document.querySelector('.btn-theme');
     if(btnTheme) btnTheme.textContent = isDark ? '🌙' : '☀️';
+}
+
+// 切换学校：返回主系统学校选择页
+function switchSchool() {
+    if (confirm('确定要切换学校吗？')) {
+        window.location.href = '../index.html';
+    }
 }
 
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
