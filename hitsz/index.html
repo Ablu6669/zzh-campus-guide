@@ -708,7 +708,7 @@ body {
 <button class="theme-fixed" id="themeToggle" title="切换主题">🌙</button>
 
 <!-- ==================== 登录页 ==================== -->
-<div class="login-container" id="loginPage" onclick="enterCampus()" style="cursor:pointer;">
+<div class="login-container" id="loginPage" style="display:none;">
     <div class="login-box" style="cursor:pointer;">
         <div class="login-header">
             <img src="hitsz-logo.png" alt="哈工深校徽" class="logo">
@@ -2437,8 +2437,8 @@ body {
 
 <script>
 // ========== 页面路由 ==========
-let currentPage = 'login';
-let pageHistory = ['login'];
+let currentPage = 'home';
+let pageHistory = ['home'];
 
 function showPage(name) {
     // 隐藏所有页面
@@ -3003,6 +3003,8 @@ function setFaqFilter(type, btn) {
 
 // ========== 初始化 ==========
 document.addEventListener('DOMContentLoaded', function() {
+    // 跳过开屏页，直接进入首页
+    showPage('home');
     initScrollReveal();
     initRipple();
 });
